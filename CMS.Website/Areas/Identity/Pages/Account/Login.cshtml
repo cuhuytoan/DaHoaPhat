@@ -1,0 +1,119 @@
+﻿@page "/Login"
+@model CMS.Website.Areas.Identity.Pages.Account.LoginModel
+@{
+    ViewData["Title"] = "Đăng nhập";
+    Layout = "/Areas/Identity/Pages/Shared/_LayoutAccount.cshtml";
+}
+<form class="form-horizontal form-material" id="loginform" method="post">
+    <h3 class="box-title m-b-20">Đăng nhập</h3>
+    <div class="form-group ">
+        <div class="col-xs-12">
+            <input type="text" asp-for="Input.Email" class="form-control" placeholder="Nhập email">
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12">
+            <input type="password" asp-for="Input.Password" class="form-control" placeholder="Nhập mật khẩu">
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12">
+            <div class="checkbox checkbox-primary pull-left p-t-0">
+                <label asp-for="Input.RememberMe">
+                    <input type="checkbox" asp-for="Input.RememberMe">
+                    <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                    <span class="text-inverse">Nhớ tài khoản</span>
+                </label>
+            </div>
+            <a href="/ForgotPassword" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> Quên mật khẩu</a>
+        </div>
+    </div>
+    <span class="text-danger"> @Html.ValidationSummary()</span>
+    <div class="form-group text-center m-t-20">
+        <div class="col-xs-12">
+            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Đăng nhập</button>
+        </div>
+    </div>
+</form>
+<form class="form-horizontal" id="recoverform" action="index.html">
+    <div class="form-group ">
+        <div class="col-xs-12">
+            <h3>Recover Password</h3>
+            <p class="text-muted">Enter your Email and instructions will be sent to you! </p>
+        </div>
+    </div>
+    <div class="form-group ">
+        <div class="col-xs-12">
+            <input class="form-control" type="text" required="" placeholder="Email">
+        </div>
+    </div>
+    <div class="form-group text-center m-t-20">
+        <div class="col-xs-12">
+            <button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Reset</button>
+        </div>
+    </div>
+</form>
+
+<!--<form class="md-float-material form-material" id="account" method="post">
+    <div class="auth-box card">
+        <div class="card-block">
+            <div class="row m-b-20">
+                <div class="col-md-12">
+                    <h3 class="text-center">Đăng nhập</h3>
+                </div>
+            </div>
+            <div class="form-group form-primary">
+                <input type="text" asp-for="Input.Email" class="form-control" placeholder="Nhập email">
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                <span class="form-bar"></span>
+            </div>
+            <div class="form-group form-primary">
+                <input type="password" asp-for="Input.Password" class="form-control" placeholder="Nhập mật khẩu">
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                <span class="form-bar"></span>
+            </div>
+            <div class="row m-t-25 text-left">
+                <div class="col-12">
+                    <div class="checkbox-fade fade-in-primary d-">
+                        <label asp-for="Input.RememberMe">
+                            <input type="checkbox" asp-for="Input.RememberMe">
+                            <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                            <span class="text-inverse">Nhớ tài khoản</span>
+                        </label>
+                    </div>
+                    <div class="forgot-phone text-right f-right">
+                        <a href="/ForgotPassword" class="text-right f-w-600"> Quên mật khẩu</a>
+                    </div>
+                </div>
+            </div>
+
+            <span class="text-danger"> @Html.ValidationSummary()</span>
+            <div class="row m-t-30">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Đăng nhập</button>
+                </div>
+            </div>-->
+            @*<div class="row m-t-25 text-left">
+                    <div class="col-12">
+                        <div class="checkbox-fade fade-in-primary d-">
+                            <label>
+                                <span class="text-inverse">Chưa có tài khoản?</span>
+                            </label>
+                        </div>
+                        <div class="forgot-phone text-right f-right">
+                            <a href="#" class="text-right f-w-600"> Đăng ký ngay</a>
+                        </div>
+                    </div>
+                </div>*@
+        <!--</div>
+    </div>
+</form>-->
+<!-- end of form -->
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+

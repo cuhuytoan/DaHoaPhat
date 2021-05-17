@@ -1,0 +1,58 @@
+﻿@page "/Register"
+@model RegisterModel
+@{
+    ViewData["Title"] = "Đăng ký tài khoản";
+    Layout = "/Areas/Identity/Pages/Shared/_LayoutAccount.cshtml";
+}
+
+<form class="md-float-material form-material" method="post">    
+    <div class="auth-box card">
+        <div class="card-block">
+            <div class="row m-b-20">
+                <div class="col-md-12">
+                    <h3 class="text-center txt-primary">Đăng ký</h3>
+                </div>
+            </div>
+            <div class="form-group form-primary">
+                <input type="text" asp-for="Input.Email" class="form-control" placeholder="Nhập email">
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                <span class="form-bar"></span>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group form-primary">
+                        <input type="password" asp-for="Input.Password" class="form-control" placeholder="Nhập mật khẩu">
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        <span class="form-bar"></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group form-primary">
+                        <input type="password" asp-for="Input.ConfirmPassword" class="form-control" placeholder="Nhập lại mật khẩu">
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        <span class="form-bar"></span>
+                    </div>
+                </div>
+            </div>
+            <span class="text-danger"> @Html.ValidationSummary()</span>
+            <div class="row m-t-30">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Đăng ký</button>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-10">
+                    <p class="text-inverse text-left"><a href="/login"><b class="f-w-600">Quay lại đăng nhập</b></a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

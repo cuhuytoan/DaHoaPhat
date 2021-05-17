@@ -1,0 +1,11 @@
+*.json
+CMS.Common/bin/
+CMS.Common/obj/
+CMS.Data/bin/
+CMS.Data/obj/
+CMS.Website/bin/
+CMS.Website/obj/
+CMS.Services/obj/
+CMS.Website/wwwroot/data/
+CMS.Services/bin/
+CMS.RCL/bin/

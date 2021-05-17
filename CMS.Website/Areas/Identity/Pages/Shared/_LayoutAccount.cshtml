@@ -1,0 +1,57 @@
+﻿<html lang="en">
+
+<head>
+    <title>Tạp chí Luật Học - Trường Đại Học Luật Hà Nội </title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Cubic/plugins/images/favicon.png">
+    
+    <!-- ===== Bootstrap CSS ===== -->
+    <link href="~/Cubic/cubic-html/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- ===== Plugin CSS ===== -->
+    <!-- ===== Animation CSS ===== -->
+    <link href="~/Cubic/cubic-html/css/animate.css" rel="stylesheet">
+    <!-- ===== Custom CSS ===== -->
+    <link href="~/Cubic/cubic-html/css/style.css" rel="stylesheet">
+    <!-- ===== Color CSS ===== -->
+    <link href="~/Cubic/cubic-html/css/colors/default.css" id="theme" rel="stylesheet">
+</head>
+
+<body class="mini-sidebar">
+    <!-- Pre-loader start -->
+    <div class="preloader">
+        <div class="cssload-speeding-wheel"></div>
+    </div>
+    <!-- Pre-loader end -->
+    <section id="wrapper" class="login-register">
+        <div class="login-box">
+            <div class="white-box">
+                @RenderBody()
+            </div>
+        </div>
+    </section>
+    
+    <!-- jQuery -->
+    <script src="~/Cubic/plugins/components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Cubic/cubic-html/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Menu Plugin JavaScript -->
+    <script src="~/Cubic/cubic-html/js/sidebarmenu.js"></script>
+    <!--slimscroll JavaScript -->
+    <script src="~/Cubic/cubic-html/js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="~/Cubic/cubic-html/js/waves.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="~/Cubic/cubic-html/js/custom.js"></script>
+    <!--Style Switcher -->
+    <script src="~/Cubic/plugins/components/styleswitcher/jQuery.style.switcher.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>
+
+

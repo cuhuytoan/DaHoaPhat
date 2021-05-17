@@ -1,0 +1,158 @@
+﻿@page "/Admin/Account/EditProfile"
+
+<style>
+    .profile-image {
+        text-align: center;
+    }
+
+        .profile-image .image {
+            position: relative;
+            border: 2px solid #FFC107;
+            border-radius: 50%;
+            width: 110px;
+            height: 110px;
+            display: inline-block;
+        }
+
+    .profile-img {
+        overflow: hidden;
+        border-radius: 50%;
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+        display: flex;
+    }
+
+    input.changepicture {
+        position: absolute;
+        top: 76%;
+        right: 7%;
+        width: 24px;
+        height: 24px;
+        background: url(/assets/images/camera.png) no-repeat 52% 47% #fff;
+        border-radius: 50%;
+        box-shadow: 2px 2px 6px rgb(0 0 0 / 10%);
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <h3 class="box-title m-b-0">Cập nhật hồ sơ</h3>
+            <p class="text-muted m-b-30 font-13"> Cập nhật hồ sơ </p>
+            <EditForm Model="userInfo" OnValidSubmit="@PostUserInfo">
+                <DataAnnotationsValidator />
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="profile-image pr-3">
+                            <div class="image mt-4">
+                                <div class="profile-img">
+                                    @{
+                                        if (!String.IsNullOrEmpty(userInfo.AvatarUrl))
+                                        {
+                                            <img src="/data/user/mainimages/original/@userInfo.AvatarUrl" />
+                                        }
+                                        else
+                                        {
+                                            if (@imageDataUrls.Count == 0)
+                                            {
+                                                <img src="/data/user/mainimages/original/noimages.png" />
+                                            }
+                                            else
+                                            {
+                                                foreach (var img in @imageDataUrls)
+                                                {
+                                                    <img src="@img" />
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                    <img src="/data/user/mainimages/original/@(String.IsNullOrEmpty(userInfo.AvatarUrl) ? "noimages.png" : userInfo.AvatarUrl)" />
+                                </div>
+
+                                <div class="dropArea" style="margin-top:10px;">
+                                    <i class="fa fa-upload">Tải ảnh đại diện</i>
+                                    <InputFile OnChange="@OnInputFileChange" accept="image/png,image/gif,image/jpeg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-9" style="margin-left: auto; margin-right: auto;">
+                        <h4 class="sub-title">Thông tin bắt buộc</h4>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Tên đăng nhập</label>
+                            <div class="col-sm-9">
+                                <b>@user.Identity.Name</b>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-9">
+                                <InputText @bind-Value="userInfo.Email" class="form-control" />
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.Email" /></span>
+                            </div>
+                        </div>
+                        <hr />
+                        <h4 class="sub-title">Thông tin tùy chọn</h4>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Tên đầy đủ</label>
+                            <div class="col-sm-9">
+                                <InputText @bind-Value="userInfo.FullName" class="form-control" />
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.FullName" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Giới tính</label>
+                            <div class="col-sm-9">
+                                <TelerikDropDownList Data="@lstGender" ValueField="Key" TextField="Value" @bind-Value="@userInfo.Gender" class="form-control" />
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.Gender" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Ngày sinh</label>
+                            <div class="col-sm-9">
+                                <TelerikDatePicker Min="@MinDate" Max="@MaxDate" @bind-Value="@userInfo.BirthDate" class="form-control" />
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.BirthDate" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Địa chỉ</label>
+                            <div class="col-sm-9">
+                                <InputText @bind-Value="userInfo.Address" class="form-control" />
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.Address" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Điện thoại</label>
+                            <div class="col-sm-9">
+                                <InputText @bind-Value="userInfo.Phone" class="form-control" />
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.Phone" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Cơ quan công tác</label>
+                            <div class="col-sm-9">
+                                <InputText @bind-Value="userInfo.Company" class="form-control" />
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.Company" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Tài khoản ngân hàng</label>
+                            <div class="col-sm-9">
+                                <InputText @bind-Value="userInfo.BankAcc" class="form-control" />
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.BankAcc" /></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="display:inline-block;text-align:center">
+                        <button type="submit" class="btn btn-mat btn-primary"><i class="fa fa-save"></i>Cập nhật</button>
+                        <a class="btn btn-mat btn-warning" href="/Admin/Account/Index"><i class="fa fa-times-circle"></i>Trở về</a>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>

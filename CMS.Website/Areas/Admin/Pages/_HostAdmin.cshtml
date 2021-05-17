@@ -1,0 +1,59 @@
+﻿@page "/Admin/"
+@namespace CMS.Website.Areas.Admin
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/logo.png">
+    <title>Tạp chí Luật học - HLU</title>
+    <base href="~/" />
+    <!-- ===== Bootstrap CSS ===== -->
+    <link href="/Cubic/cubic-html/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- ===== Plugin CSS ===== -->
+    <link href="/Cubic/plugins/components/chartist-js/dist/chartist.min.css" rel="stylesheet">
+    <link href="/Cubic/plugins/components/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
+    <!-- ===== Animation CSS ===== -->
+    <link href="/Cubic/cubic-html/css/animate.css" rel="stylesheet">
+    <!-- ===== Custom CSS ===== -->
+    <link href="/Cubic/cubic-html/css/style.css" rel="stylesheet">
+    <!-- ===== Color CSS ===== -->
+    <link href="/Cubic/cubic-html/css/colors/default.css" id="theme" rel="stylesheet">
+    <!-- ===== font awe ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- ===== Css custom by ToanCH ===== -->
+    <link href="/assets/css/customcht.css" rel="stylesheet">
+    <!-- Blazor Toast -->
+    <link href="_content/Blazored.Toast/blazored-toast.min.css" rel="stylesheet" />
+    <!-- Blazor Js-->
+    <link rel="stylesheet" href="_content/Telerik.UI.for.Blazor/css/kendo-theme-default/all.css" />
+    <script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js"></script>
+    <!--Cropper.Js-->
+    <link href="/assets/cropperjs/cropper.min.css" rel="stylesheet" />
+
+
+</head>
+
+    <body class="mini-sidebar">
+        <!-- Pre-loader start -->
+    <div class="preloader">
+        <div class="cssload-speeding-wheel"></div>
+    </div>
+    <!-- Pre-loader end -->
+    <app>
+        <component type="typeof(AdminApp)" render-mode="Server" />
+    </app>
+    <script src="/_framework/blazor.server.js"></script>
+
+
+
+
+    </body>
+</html>

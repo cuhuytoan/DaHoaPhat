@@ -1,0 +1,243 @@
+﻿@page "/Admin/Article/Edit"
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+               
+                    
+                        <h3 class="box-title m-b-0">Cập nhật bài viết</h3>
+                        <p class="text-muted m-b-30 font-13"> Cập nhật chi tiết bài viết </p>
+                        <h4 class="sub-title">Nội dung mô tả</h4>
+                        <EditForm Model="article" OnValidSubmit="@PostArticle">
+                            <DataAnnotationsValidator />
+                            <input type="hidden" class="form-control" @bind="article.Id">
+                            <div class="form-group row">
+                                <div class="col-sm-8">
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Tên bài viết</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" @bind="article.Name" placeholder="Nhập tên bài viết">
+                                            <span class="text-danger"><ValidationMessage For="() => article.Name" /></span>
+                                        </div>
+                                    </div>
+                                    @*Chuyên mục*@
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Chuyên mục</label>
+                                        <div class="col-sm-10">
+                                            <TelerikDropDownList @bind-Value="SelectedValue" Data="@lstArticleCategory" DefaultText="Chọn chuyên mục ..."
+                                                                 ValueField="Id" TextField="Name" Id="ArticleCategory" Width="100%">
+                                            </TelerikDropDownList>
+
+                                            <span class="text-danger"><ValidationMessage For="() => article.ArticleCategoryIds" /></span>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Ngày giờ đăng</label>
+                                        <div class="col-sm-4">
+                                            <TelerikDatePicker @bind-Value="article.StartDate"></TelerikDatePicker>
+                                            <span class="text-danger"><ValidationMessage For="() => article.StartDate" /></span>
+                                        </div>
+                                        <label class="col-sm-3 col-form-label" style="text-align: right;">Ngày kết thúc</label>
+                                        <div class="col-sm-3">
+                                            <div style="float: right">
+                                                <TelerikDatePicker @bind-Value="article.EndDate"></TelerikDatePicker>
+                                                <span class="text-danger"><ValidationMessage For="() => article.EndDate" /></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Nội dung tóm tắt</label>
+                                        <div class="col-sm-10">
+                                            <textarea type="text" style="height: 150px;" class="form-control" @bind="article.Description" placeholder="Nhập nội dung tóm tắt"></textarea>
+                                            <span class="text-danger"><ValidationMessage For="() => article.Description" /></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label"></label>
+                                        <div class="col-sm-10">
+                                            <input type="checkbox" name="chkTopArticleCategory" id="chkTopArticleCategory" @bind="chkTopArticleCategory" />
+                                            <label style="margin-right: 30px;">Bài tiêu biểu chuyên mục</label>
+                                            <input type="checkbox" name="chkTopArticleCategoryParent" id="chkTopArticleCategoryParent" @bind="chkTopArticleCategoryParent" />
+                                            <label>Bài tiêu biểu chuyên mục mẹ</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group row">
+                                        <div class="col-md-12" id="uploadImg">
+                                       
+
+                                                @*<InputFile OnChange="@OnInputFileChange" text="Chọn ảnh" accept="image/png,image/gif,image/jpeg" />*@
+                                            <a @onclick="(() => OnCropImage())">
+
+                                                @{
+                                                    if (article.Image != null)
+                                                    {
+                                                        <img class="image-preview-main-db" src="/data/article/mainimages/original/@article.Image" />
+                                                    }
+                                                    else if (@imageDataUrls !=null && imageDataUrls.Count >0)
+                                                    {
+                                                        foreach (var img in @imageDataUrls)
+                                                        {
+                                                            <img class="image-preview-main-db" src="@img" />
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fa fa-upload">Tải ảnh đại diện</i>
+                                                    }
+                                                }
+
+                                            </a>
+                                               
+                                         
+
+                                            @*<div id="image_preview_main">
+                                               
+                                            </div>
+                                            <a @onclick="(() => OnCropImage())">
+                                                <i class="fa fa-trash"></i>
+                                            </a>*@
+                                         
+                                        </div>
+                                    </div>
+                                </div>                                
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <h4 class="sub-title">Nội dung chi tiết bài viết <span style="color:red; font-size:0.7em;">(Tối thiếu 5000 từ tối đa 10000 từ)</span></h4>
+                                            <TelerikEditor @bind-Value="article.Content"
+                                                           Tools="@Tools"
+                                                           Height="880px">
+                                                <EditorCustomTools>
+                                    <EditorCustomTool Name="ImportImage">
+                                        <InputFile  Icon="star" OnChange="@InsertImageEditor" text="Chọn ảnh" accept="image/png,image/gif,image/jpeg" />                                        
+                                    </EditorCustomTool>
+                                </EditorCustomTools>
+                                            </TelerikEditor>
+                                            <span class="text-danger"><ValidationMessage For="() => article.Content" /></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Tác giả</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" @bind="article.Author" placeholder="VD: Nhóm PV">
+                                            <span asp-validation-for="article.Author" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">File đính kèm <span style="color:red">(pdf,docx)</span></label>
+                        <div class="col-sm-10">
+                            <TelerikUpload SaveUrl="@SaveUrl"
+                                           RemoveUrl="@RemoveUrl"
+                                           SaveField="file" RemoveField="fileToRemove"
+                                           AllowedExtensions="@( new List<string>() { ".pdf", ".docx" } )"
+                                           MaxFileSize="2048000"
+                                           OnSuccess="OnSuccess"
+                                           OnRemove="OnRemove">
+                            </TelerikUpload>                            
+                        </div>
+                    </div>
+                                    @if(lstAttachFileBinding != null && lstAttachFileBinding.Count >0)
+                    {
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Danh sách file đính kèm</label>
+                            <div class="col-sm-10">
+                                <div class="col-xs-12 col-sm-12">
+                                    <table id="simpletable" class="table table-styling" role="grid" aria-describedby="simpletable_info">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:50px;">
+                                                </th>
+                                                <th style="width:50px;">
+                                                    Tên file
+                                                </th>
+                                                <th style="width:50px;">
+                                                    Kích thước
+                                                </th>
+                                                <th style="width:50px;">
+                                                    Ngày cập nhật
+                                                </th>
+                                                <th style="width:50px;">
+                                                </th>
+                                                <th style="width:50px;">
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var p in lstAttachFileBinding)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <img src="/assets/images/ext/@(p.FileType.Replace(".",string.Empty) + "32.png")" />
+                                                    </td>
+                                                    <td>
+                                                        <b>@p.AttachFileName</b>
+                                                    </td>
+                                                    <td>
+                                                        @(p.FileSize / 1024 ) Mb
+                                                    </td>
+                                                    <td>
+                                                        @p.CreateDate?.ToString("dd/MM/yyyy HH:mm:ss")
+                                                    </td>
+                                                    <td>
+                                                        <a @onclick="@(() => DeleteAttachFile(p.Id))"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                    <td>
+                                                        <a download="" href="/data/article/upload/@p.AttachFileName"><i class="fa fa-download"></i></a>
+                                                    </td>
+                                                </tr>
+
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                                    <h4 class="sub-title">Nội dung SEO</h4>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Tags</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" @bind="article.Tags" placeholder="VD: kinh doanh, vật liệu xây dựng, sắt thép">
+                                            <span asp-validation-for="article.Tags" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Meta Title</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" @bind="article.MetaTitle" placeholder="Nhập meta title">
+                                            <span asp-validation-for="article.MetaTitle" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Meta Description</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" @bind="article.MetaDescription" placeholder="Nhập meta description">
+                                            <span asp-validation-for="article.MetaDescription" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Meta keyword</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" @bind="article.MetaKeywords" placeholder="Nhập meta keyword">
+                                            <span asp-validation-for="article.MetaKeywords" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row" style="display:flex;justify-content:center">
+                                        @*<button type="submit" @onclick="@(() => postType = 0)" class="btn btn-mat btn-primary m-r-10"><i class="fa fa-save"></i>Lưu</button>*@
+                                        <button type="submit" @onclick="@(() => postType = 1)" class="btn btn-mat btn-success  m-r-10"><i class="fa fa-newspaper-o"></i>Gửi đăng</button>
+                                        <a href="/Admin/Article" class="btn btn-mat btn-warning  m-r-10"><i class="fa fa-times-circle"></i>Hủy bỏ</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </EditForm>
+            </div>
+        </div>
+    </div>
+
+<ImageCropper @ref="imageCropperModal" ConfirmationCropChanged="ConfirmImageCropper"/>

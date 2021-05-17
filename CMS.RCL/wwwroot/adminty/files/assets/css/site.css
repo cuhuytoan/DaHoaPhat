@@ -1,0 +1,38 @@
+#image_preview_main {
+    text-align: center;
+    border-top: 0px;
+    border-right: 1px solid rgba(33, 37, 41, 0.125);
+    border-bottom: 1px solid rgba(33, 37, 41, 0.125);
+    border-left: 1px solid rgba(33, 37, 41, 0.125);
+}
+.image-preview-main-db {
+    max-height: 300px;
+    max-width: 495px;
+    width: auto !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+.btn
+{
+    margin-right: 20px;
+}
+.k-thumb img
+{
+    max-height: 80px !important;
+    max-width: 80px !important;
+}
+
+@media (max-width:768px) {
+    .main-body .page-wrapper {
+        padding: 0;
+    }
+    .card-block {
+        padding: 0;
+    }
+    .btn {
+        width: 100%;
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-bottom: 15px;
+    }
+}

@@ -1,0 +1,121 @@
+﻿@page "/Admin/Settings/Edit"
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <h3 class="box-title m-b-0">Cấu hình hệ thống</h3>
+            <p class="text-muted m-b-30 font-13"> Cập nhật cấu hình hệ thống </p>
+            <EditForm Model="settings" OnValidSubmit="@PostSetings">
+                <DataAnnotationsValidator />
+                <input type="hidden" class="form-control" @bind="settings.Id" />
+                <h4 class="sub-title">Thiết lập chung</h4>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Tên Website<span class="colorRed">&nbsp;*</span></label>
+                    <div class="col-sm-9">
+                        <InputText @bind-Value="settings.WebsiteName" class="form-control" />
+                        <span class="text-danger"><ValidationMessage For="() => settings.WebsiteName" /></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Email quản trị</label>
+                    <div class="col-sm-9">
+                        <InputText @bind-Value="settings.EmailSupport" class="form-control" />
+                        <span class="text-danger"><ValidationMessage For="() => settings.EmailSupport" /></span>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Email nhận Order</label>
+                    <div class="col-sm-9">
+                        <InputText @bind-Value="settings.EmailOrder" class="form-control" />
+                        <span class="text-danger"><ValidationMessage For="() => settings.EmailOrder" /></span>
+                    </div>
+                </div>
+                <h4 class="sub-title">Thiết lập SMTP</h4>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">SMTP Server</label>
+                    <div class="col-sm-9">
+                        <InputText @bind-Value="settings.EmailSenderSmtp" class="form-control" />
+                        <span class="text-danger"><ValidationMessage For="() => settings.EmailSenderSmtp" /></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Port</label>
+                    <div class="col-sm-9">
+                        <InputText @bind-Value="settings.EmailSenderPort" class="form-control" />
+                        <span class="text-danger"><ValidationMessage For="() => settings.EmailSenderPort" /></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">SSL</label>
+                    <div class="col-sm-9">
+                        <InputCheckbox @bind-Value="settings.EmailSenderSsl" class="form-control" />
+                        <span class="text-danger"><ValidationMessage For="() => settings.EmailSenderSsl" /></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Địa chỉ Email</label>
+                    <div class="col-sm-9">
+                        <InputText @bind-Value="settings.EmailSender" class="form-control" />
+                        <span class="text-danger"><ValidationMessage For="() => settings.EmailSender" /></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Mật khẩu</label>
+                    <div class="col-sm-9">
+                        <InputText @bind-Value="settings.EmailSenderPassword" class="form-control" />
+                        <span class="text-danger"><ValidationMessage For="() => settings.EmailSenderPassword" /></span>
+                    </div>
+                </div>
+                <h4 class="sub-title">Thiết lập tìm kiếm, mạng xã hội</h4>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Meta Title</label>
+                    <div class="col-sm-9">
+                        <InputText @bind-Value="settings.MetaTitleDefault" class="form-control" />
+                        <span class="text-danger"><ValidationMessage For="() => settings.MetaTitleDefault" /></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Meta Description</label>
+                    <div class="col-sm-9">
+                        <InputText @bind-Value="settings.MetaDescriptionDefault" class="form-control" />
+                        <span class="text-danger"><ValidationMessage For="() => settings.MetaDescriptionDefault" /></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Meta Keywords</label>
+                    <div class="col-sm-9">
+                        <InputText @bind-Value="settings.MetaKeywordsDefault" class="form-control" />
+                        <span class="text-danger"><ValidationMessage For="() => settings.MetaKeywordsDefault" /></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Google Analytics Code</label>
+                    <div class="col-sm-9">
+                        <InputText @bind-Value="settings.GoogleAnalyticsCode" class="form-control" />
+                        <span class="text-danger"><ValidationMessage For="() => settings.GoogleAnalyticsCode" /></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Code nhúng khác</label>
+                    <div class="col-sm-9">
+                        <InputText @bind-Value="settings.OtherCode" class="form-control" />
+                        <span class="text-danger"><ValidationMessage For="() => settings.OtherCode" /></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Facebook Page ID</label>
+                    <div class="col-sm-9">
+                        <InputText @bind-Value="settings.FacebookPageId" class="form-control" />
+                        <span class="text-danger"><ValidationMessage For="() => settings.FacebookPageId" /></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12" style="display:flex;justify-content:center">
+                        <button type="submit" class="btn btn-mat btn-primary m-r-10"><i class="fa fa-save"></i>Cập nhật</button>
+                        <a href="/Admin/Article" class="btn btn-mat btn-warning m-r-10"><i class="fa fa-times-circle"></i>Trở về</a>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>

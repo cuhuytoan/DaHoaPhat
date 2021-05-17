@@ -1,0 +1,74 @@
+﻿@page "/Admin/Account/ListNotification"
+<style>
+    .media a img{
+        height:80px;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <h3 class="box-title m-b-0">Danh sách thông báo</h3>
+            <p class="text-muted m-b-30 font-13"> Danh sách thông báo </p>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 messages-content ">
+                    <div>
+                        @foreach (var p in lstUserNoti)
+                        {
+                            <div class="media">
+                                <div class="media-left friend-box">
+                                    <a href="@p.URL">
+                                        <img class="media-object img-radius" src="/assets/images/notidefault.jpg" alt="">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <p class="msg-send"><b>@p.Subject</b></p>
+                                    <p>@p.Content</p>
+                                    <p><i class="icofont icofont-wall-clock f-12"></i> @CMS.Common.Utils.RenderTimeSince((DateTime)p.CreateDate)</p>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    <div class="dataTables_paginate paging_simple_numbers" id="simpletable_paginate" style="float:right">
+                        <ul class="pagination">
+                            <li class="paginate_button page-item previous" id="simpletable_previous">
+                                <a href="Admin/Account/ListNotification?p=@p " aria-controls="simpletable" data-dt-idx="1" tabindex="0" class="page-link">
+                                    <i class="fa fa-fast-backward"></i>
+                                </a>
+                            </li>
+                            <li class="paginate_button page-item previous" id="simpletable_previous">
+                                <a href="Admin/Account/ListNotification?p=@(p > 1 ? p - 1 : 1) " aria-controls="simpletable" data-dt-idx="@(p-1)" tabindex="0" class="page-link">
+                                    <i class="fa fa-step-backward"></i>
+                                </a>
+                            </li>
+                            @for (var i = 1; i <= totalPages; i++)
+                            {
+                                <li class="paginate_button page-item @(i == currentPage ? "active" : "")" style="@((i > currentPage + 2) || (i < currentPage -2) ? "display:none" : "" )">
+                                    <a href="Admin/Account/ListNotification?p=@i" aria-controls="simpletable" data-dt-idx="@i" tabindex="0" class="page-link">
+                                        @i
+                                    </a>
+                                </li>
+                            }
+                            <li class="paginate_button page-item next" id="simpletable_next">
+                                <a href="Admin/Account/ListNotification?p=@(p == totalPages ? totalPages : p + 1) " aria-controls="simpletable" data-dt-idx="@(p+1)" tabindex="0" class="page-link">
+                                    <i class="fa fa-step-forward"></i>
+                                </a>
+                            </li>
+                            <li class="paginate_button page-item next" id="simpletable_next">
+                                <a href="Admin/Account/ListNotification?p=@totalPages" aria-controls="simpletable" data-dt-idx="@totalPages" tabindex="0" class="page-link">
+                                    <i class="fa fa-fast-forward"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+      

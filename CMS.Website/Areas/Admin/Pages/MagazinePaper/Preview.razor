@@ -1,0 +1,145 @@
+﻿@page "/Admin/MagazinePaper/Preview"
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <h3 class="box-title m-b-0">Danh sách bài viết tạp chí: <b>@MagazinePaperItem.Name</b></h3>
+            <p class="text-muted m-b-30 font-13"> Danh sách bài viết phản biện cập nhật </p>
+            <div class="form-group row" style="justify-content: left; margin-bottom: 10px;">
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                    @if (user != null && (user.IsInRole("Quản trị hệ thống") || user.IsInRole("Lãnh đạo tòa soạn") || user.IsInRole("Thư ký tòa soạn")))
+                    {
+                        <a class="btn btn-mat btn-success m-r-10 m-b-10" style="color: #FFFFFF;" @onclick="@(() => OnPostDemand(6))"><i class="fa fa-play"></i>Cho đăng tạp chí giấy</a>
+                        <a class="btn btn-mat btn-success m-r-10 m-b-10" style="color: #FFFFFF;" @onclick="@(() => OnPostDemand(7))"><i class="fa fa-play"></i>Cho đăng tạp chí điện tử</a>
+                        <a class="btn btn-mat btn-warning m-r-10 m-b-10" style="color: #FFFFFF;" @onclick="@(() => OnPostDemand(0))"><i class="fa fa-trash"></i>Không đăng</a>
+                        <a class="btn btn-mat btn-warning m-r-10 m-b-10" style="color: #FFFFFF;" @onclick="@(() => OnPostDemand(4))"><i class="fa fa-edit"></i>Chuyển tác giả sửa</a>
+                    }
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                    <div>
+                        <input class="form-control m-r-10 m-b-10" type="search" @bind="keyword" placeholder="Từ khóa tìm kiếm..." />
+                        <a class="btn btn-mat btn-success m-r-10 m-b-10" href="Admin/MagazinePaper/Preview?p=1&keyword=@keyword&MagazinePaperId=@MagazinePaperId" style="color: #FFFFFF;"><i class="fa fa-search"></i>Tìm kiếm</a>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="white-box">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <input type="checkbox" class="check" @onchange="args => OnCheckBoxChange(true,0,args.Value)" />
+                                            <span class="info">Tất cả</span>
+                                        </th>
+                                        <th style="width:100px;">
+                                        </th>
+                                        <th>
+                                            Tiêu đề
+                                        </th>
+                                        <th>
+                                            Trạng thái bài viết
+                                        </th>                                       
+                                        <th>
+                                            Chi tiết
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (lstArticle == null)
+                                    {
+                                        <p><em>Loading...</em></p>
+                                    }
+                                    else
+                                    {
+                                        @foreach (var item in lstArticle)
+                                        {
+                                            bool Checked = false;
+                                            if (listArticleSelected.Contains(item.Id))
+                                            {
+                                                Checked = true;
+                                            }
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" class="check" checked="@Checked" @onchange="args => OnCheckBoxChange(false,item.Id,args.Value)">
+                                                </td>
+                                                <td>
+                                                    <img src="/data/article/mainimages/small/@item.Image" />
+                                                </td>
+                                                <td>
+                                                    <div style="font-weight: 700;">
+                                                        <a href="/Admin/MagazinePaper/Edit?MagazinePaperId=@item.Id">
+                                                            @item.Name
+                                                        </a>
+                                                    </div>
+                                                    <div>
+                                                        Đăng bởi <b>@item.Author</b> vào lúc
+                                                        <b>@item.CreateDate.Value.ToString("dd/MM/yyyy HH:mm")</b>
+                                                    </div>
+                                                    <div>
+                                                        Chuyên mục: <span style="font-weight: 700; color: #0094ff;">@item.ArticleCategoryName</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    @item.StatusName
+                                                </td>                      
+                                                <td style="text-align: center; padding-top: 30px;">
+                                                    <a href="/Admin/MagazinePaper/ReviewDetail?articleId=@item.Id">
+                                                        <i class="fa fa-edit" style="color: #0094ff;"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="dataTables_paginate paging_simple_numbers" id="simpletable_paginate" style="float:right">
+                                    <ul class="pagination">
+                                        <li class="paginate_button page-item previous" id="simpletable_previous">
+                                            <a href="Admin/MagazinePaper/Preview?p=1&keyword=@keyword&MagazinePaperId=@MagazinePaperId" aria-controls="simpletable" data-dt-idx="1" tabindex="0" class="page-link">
+                                                <i class="fa fa-fast-backward"></i>
+                                            </a>
+                                        </li>
+                                        <li class="paginate_button page-item previous" id="simpletable_previous">
+                                            <a href="Admin/MagazinePaper/Preview?p=@(p > 1 ? p - 1 : 1)&keyword=@keyword&MagazinePaperId=@MagazinePaperId" aria-controls="simpletable" data-dt-idx="@(p-1)" tabindex="0" class="page-link">
+                                                <i class="fa fa-step-backward"></i>
+                                            </a>
+                                        </li>
+                                        @for (var i = 1; i <= totalPages; i++)
+                                        {
+
+                                            <li class="paginate_button page-item @(i == currentPage ? "active" : "") " style="@((i > currentPage + 2) || (i < currentPage -2) ? "display:none" : "" )">
+                                                <a href="Admin/MagazinePaper/Preview?p=@i&keyword=@keyword&MagazinePaperId=@MagazinePaperId" aria-controls="simpletable" data-dt-idx="@i" tabindex="0" class="page-link">
+                                                    @i
+                                                </a>
+                                            </li>
+                                        }
+                                        <li class="paginate_button page-item next" id="simpletable_next">
+                                            <a href="Admin/MagazinePaper/Preview?p=@(p == totalPages ? totalPages : p + 1)&keyword=@keyword&MagazinePaperId=@MagazinePaperId" aria-controls="simpletable" data-dt-idx="@(p+1)" tabindex="0" class="page-link">
+                                                <i class="fa fa-step-forward"></i>
+                                            </a>
+                                        </li>
+                                        <li class="paginate_button page-item next" id="simpletable_next">
+                                            <a href="Admin/MagazinePaper/Preview?p=@totalPages&keyword=@keyword&MagazinePaperId=@MagazinePaperId" aria-controls="simpletable" data-dt-idx="@totalPages" tabindex="0" class="page-link">
+                                                <i class="fa fa-fast-forward"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

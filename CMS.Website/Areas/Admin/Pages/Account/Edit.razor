@@ -1,0 +1,117 @@
+﻿@page "/Admin/Account/Edit"
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <h3 class="box-title m-b-0">Cập nhật thành viên</h3>
+            <p class="text-muted m-b-30 font-13"> Cập nhật thành viên </p>
+            <div class="row">
+                <div class="col-sm-12" style="margin-left: auto; margin-right: auto;">
+                    <EditForm Model="userInfo" OnValidSubmit="@PostUserInfo">
+                        <DataAnnotationsValidator />
+                        <h4 class="sub-title">Thông tin bắt buộc</h4>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Tên đăng nhập</label>
+                            <div class="col-sm-9">
+                                <InputText @bind-Value="userInfo.AspNetUsers.UserName" class="form-control" />
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.AspNetUsers.UserName" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Mật khẩu</label>
+                            <div class="col-sm-9">
+                                <InputText type="password" @bind-Value="userInfo.AspNetUsers.Password" class="form-control" />
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.AspNetUsers.Password" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Xác nhận mật khẩu</label>
+                            <div class="col-sm-9">
+                                <InputText type="password" @bind-Value="userInfo.AspNetUsers.ConfirmPassword" class="form-control" />
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.AspNetUsers.ConfirmPassword" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-9">
+                                <InputText @bind-Value="userInfo.AspNetUsers.Email" class="form-control" />
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.AspNetUsers.Email" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Nhóm quyền</label>
+                            <div class="col-sm-9">
+                                <TelerikRadioGroup Data="@lstRole" @bind-Value="@userInfo.AspNetUserRoles.RoleId" ValueField="Id" TextField="Name"></TelerikRadioGroup>
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.AspNetUserRoles.RoleId" /></span>
+                            </div>
+                        </div>
+                        <hr />
+                        <h4 class="sub-title">Thông tin tùy chọn</h4>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Tên đầy đủ</label>
+                            <div class="col-sm-9">
+                                <InputText @bind-Value="userInfo.AspNetUserProfiles.FullName" class="form-control" />
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.AspNetUserProfiles.FullName" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Giới tính</label>
+                            <div class="col-sm-9">
+                                <TelerikDropDownList Data="@lstGender" ValueField="Key" TextField="Value" @bind-Value="@userInfo.AspNetUserProfiles.Gender" class="form-control" />
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.AspNetUserProfiles.Gender" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Ngày sinh</label>
+                            <div class="col-sm-9">
+                                <TelerikDatePicker Min="@MinDate" Max="@MaxDate" @bind-Value="@userInfo.AspNetUserProfiles.BirthDate" class="form-control" />
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.AspNetUserProfiles.BirthDate" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Cơ quan công tác</label>
+                            <div class="col-sm-9">
+                                <InputText @bind-Value="userInfo.AspNetUserProfiles.Company" class="form-control" />
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.AspNetUserProfiles.Company" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Địa chỉ</label>
+                            <div class="col-sm-9">
+                                <InputText @bind-Value="userInfo.AspNetUserProfiles.Address" class="form-control" />
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.AspNetUserProfiles.Address" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Điện thoại</label>
+                            <div class="col-sm-9">
+                                <InputText @bind-Value="userInfo.AspNetUserProfiles.Phone" class="form-control" />
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.AspNetUserProfiles.Phone" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Cơ quan công tác</label>
+                            <div class="col-sm-9">
+                                <InputText @bind-Value="userInfo.AspNetUserProfiles.Company" class="form-control" />
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.AspNetUserProfiles.Company" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Tài khoản ngân hàng</label>
+                            <div class="col-sm-9">
+                                <InputText @bind-Value="userInfo.AspNetUserProfiles.BankAcc" class="form-control" />
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.AspNetUserProfiles.BankAcc" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            
+                            <div class="col-sm-12" style="display:flex;justify-content:center">
+                                <button type="submit" class="btn btn-mat btn-primary  m-r-10"><i class="fa fa-save"></i>Cập nhật</button>
+                                <a href="/Admin/Account/Index"><button class="btn btn-mat btn-warning"><i class="fa fa-times-circle"></i>Trở về</button></a>
+                            </div>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
