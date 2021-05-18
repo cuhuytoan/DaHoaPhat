@@ -43,51 +43,30 @@ namespace CMS.Website.Areas.Admin.Pages.Article
         //List ArticleComment 
         List<SpArticleCommentSearchResult> lstArticleComment { get; set; }
         ////List FileAttach binding
-        List<ArticleAttachFile> lstAttachFileBinding { get; set; } = new List<ArticleAttachFile>();
+        List<ArticleAttachFile> lstAttachFileBinding { get; set; } = new List<ArticleAttachFile>();   
         //Noti Hub
-        private HubConnection hubConnection;
-        //For reload
-        bool _forceRerender;
         [CascadingParameter]
-        private Task<AuthenticationState> authenticationStateTask { get; set; }
-        ClaimsPrincipal user;
+        protected HubConnection hubConnection { get; set; }
+        [CascadingParameter]
+        private GlobalModel globalModel { get; set; }
         public List<string> RemoveAttributes { get; set; } = new List<string>() { "data-id" };
         public List<string> StripTags { get; set; } = new List<string>() { "font" };
         #endregion
 
-        #region LifeCycle
-        protected override async Task OnParametersSetAsync()
-        {
-
-
-        }
+        #region LifeCycle      
         protected override void OnInitialized()
         {
             NavigationManager.LocationChanged += HandleLocationChanged;
         }
         protected override async Task OnInitializedAsync()
-        {
-            //get claim principal
-            var authState = await authenticationStateTask;
-            user = authState.User;
-            //Init Hub
-            hubConnection = new HubConnectionBuilder()
-              .WithUrl(NavigationManager.ToAbsoluteUri("/notificationHubs"))
-              .Build();
-
-            await hubConnection.StartAsync();
-            //
+        {           
             await InitControl();
             await InitData();
-            StateHasChanged();
-
         }
 
         public void Dispose()
-        {
-            //GC.SuppressFinalize(this);
-            NavigationManager.LocationChanged -= HandleLocationChanged;
-            _ = hubConnection.DisposeAsync();
+        {           
+            NavigationManager.LocationChanged -= HandleLocationChanged;           
         }
         #endregion
 
@@ -149,10 +128,10 @@ namespace CMS.Website.Areas.Admin.Pages.Article
             ArticleComment item = new ArticleComment();
             item.ArticleId = articleId;
             item.Content = comment;
-            item.Name = user.Identity.Name;
-            item.CreateBy = UserManager.GetUserId(user);
+            item.Name = globalModel.user.Identity.Name;
+            item.CreateBy = globalModel.userId;
             item.CreateDate = DateTime.Now;
-            item.Email = UserManager.GetUserName(user);
+            item.Email = UserManager.GetUserName(globalModel.user);
             item.Active = true;
 
 

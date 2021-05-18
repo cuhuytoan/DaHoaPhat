@@ -87,7 +87,7 @@
                             </h4>
                         </div>                       
                     </div>
-                    @if (user != null && (user.IsInRole("Quản trị hệ thống") || user.IsInRole("Lãnh đạo tòa soạn") || user.IsInRole("Thư ký tòa soạn")))
+                    @if (globalModel.user != null && (globalModel.user.IsInRole("Quản trị hệ thống") || globalModel.user.IsInRole("Lãnh đạo tòa soạn") || globalModel.user.IsInRole("Thư ký tòa soạn")))
                     {
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
@@ -110,7 +110,7 @@
                                 {
                                     @foreach (var p in lstArticleComment)
                                     {
-                                        <a class="pull-left" href="#"> <img class="media-object thumb-sm img-circle" src="/data/user/mainimages/original/@p.AvatarUrl" alt=""> </a>
+                                        <a class="pull-left" href="#"> <img class="media-object thumb-sm img-circle" src="/data/globalModel.user/mainimages/original/@p.AvatarUrl" alt=""> </a>
                                         <div class="media-body">
                                             <span class="media-meta pull-right">@p.CreateDate?.ToString("dd/MM/yyy | HH:mm")</span>
                                             <h4 class="text-danger m-0">@p.Name</h4> <small class="text-muted">Emai: @p.Email</small>

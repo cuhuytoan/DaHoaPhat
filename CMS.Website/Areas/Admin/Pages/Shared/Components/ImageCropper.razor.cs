@@ -37,7 +37,7 @@ namespace CMS.Website.Areas.Admin.Pages.Shared.Components
         protected async Task OnConfirmationChange(bool value)
         {
             ShowConfirmation = false;
-            ImgData = response.ToString();
+            ImgData = response !=null ? response.ToString() :"";
             await ConfirmationCropChanged.InvokeAsync(value) ;
         }
         [JSInvokable]

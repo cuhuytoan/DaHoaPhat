@@ -21,16 +21,16 @@
                 aspectRatio: 16 / 9,
                 preview: '.img-preview',
                 ready: function (e) {
-                    console.log(e.type);
+                    //console.log(e.type);
                 },
                 cropstart: function (e) {
-                    console.log(e.type, e.detail.action);
+                   // console.log(e.type, e.detail.action);
                 },
                 cropmove: function (e) {
-                    console.log(e.type, e.detail.action);
+                    //console.log(e.type, e.detail.action);
                 },
                 cropend: function (e) {
-                    console.log(e.type, e.detail.action);
+                    //console.log(e.type, e.detail.action);
                 },
                 crop: function (e) {
                     var data = e.detail;
@@ -45,7 +45,7 @@
                     dataScaleY.value = typeof data.scaleY !== 'undefined' ? data.scaleY : '';
                 },
                 zoom: function (e) {
-                    console.log(e.type, e.detail.ratio);
+                  //  console.log(e.type, e.detail.ratio);
                 }
             };
             var cropper = new Cropper(image, options);
@@ -100,13 +100,13 @@
                         canvasData = cropper.getCanvasData();
 
                         options.ready = function () {
-                            console.log('ready');
+                           // console.log('ready');
                             cropper.setCropBoxData(cropBoxData).setCanvasData(canvasData);
                         };
                     } else {
                         options[target.name] = target.value;
                         options.ready = function () {
-                            console.log('ready');
+                           // console.log('ready');
                         };
                     }
 
@@ -158,7 +158,7 @@
                             try {
                                 data.option = JSON.parse(input.value);
                             } catch (e) {
-                                console.log(e.message);
+                               // console.log(e.message);
                             }
                         }
                     }
@@ -175,7 +175,7 @@
                             try {
                                 data.option = JSON.parse(data.option);
                             } catch (e) {
-                                console.log(e.message);
+                               // console.log(e.message);
                             }
 
                             if (uploadedImageType === 'image/jpeg') {
@@ -235,7 +235,7 @@
                         try {
                             input.value = JSON.stringify(result);
                         } catch (e) {
-                            console.log(e.message);
+                           // console.log(e.message);
                         }
                     }
                 }

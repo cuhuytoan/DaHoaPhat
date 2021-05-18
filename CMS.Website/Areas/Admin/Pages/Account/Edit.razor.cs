@@ -45,11 +45,7 @@ namespace CMS.Website.Areas.Admin.Pages.Account
         #endregion
 
         #region LifeCycle
-        protected override async Task OnParametersSetAsync()
-        {
-
-        }
-
+   
         protected override async Task OnInitializedAsync()
         {
             //get claim principal

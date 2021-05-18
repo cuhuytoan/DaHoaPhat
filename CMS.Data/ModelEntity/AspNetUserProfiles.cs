@@ -53,6 +53,10 @@ namespace CMS.Data.ModelEntity
         [StringLength(250)]
         public string Skype { get; set; }
         [StringLength(250)]
+        public string Zalo { get; set; }
+        [StringLength(250)]
+        public string Telegram { get; set; }
+        [StringLength(250)]
         public string AvatarUrl { get; set; }
         [StringLength(2000)]
         public string Signature { get; set; }
@@ -65,5 +69,6 @@ namespace CMS.Data.ModelEntity
         public bool? AllowNotifySms { get; set; }
         [StringLength(500)]
         public string BankAcc { get; set; }
+        public int? BankId { get; set; }
     }
 }

@@ -12,9 +12,7 @@ namespace CMS.Services.RepositoriesBase
         IAdvertisingRepository Advertising { get; }
         ISettingRepository Setting { get; }
         IUserNotiRepository UserNoti { get; }
-        IArticleCommentRepository ArticleComment { get; }
-        IArticleReviewRepository ArticleReview { get; }
-        IMagazinePaperRepository MagazinePaper { get; }
+        IArticleCommentRepository ArticleComment { get; }       
         void Save();
         Task<int> SaveChangesAsync();
     }

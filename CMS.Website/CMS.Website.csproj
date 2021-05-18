@@ -17,14 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Areas\Admin\Pages\ArticleReview\Preview.razor.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="Areas\Admin\Pages\ArticleReview\Preview.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Areas\Admin\Pages\Article\Edit.razor" />
     <None Include="Areas\Admin\Pages\Article\Index.razor" />
     <None Include="Areas\Admin\Pages\Shared\AdminLayout.razor" />
@@ -61,7 +53,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Pages\Components\" />
     <Folder Include="wwwroot\data\article\upload\thanhcongtctn%40gmail.com\" />
     <Folder Include="wwwroot\data\articlepublish\" />
   </ItemGroup>

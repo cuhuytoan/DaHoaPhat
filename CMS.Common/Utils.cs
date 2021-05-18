@@ -587,5 +587,22 @@ namespace CMS.Common
             }
             return wordCount;
         }
+        public static string GetBase64Image(string base64File)
+        {
+            Regex regex = new Regex(@"^[\w/\:.-]+;base64,");
+            base64File = regex.Replace(base64File, string.Empty);
+            return base64File;
+        }
+        public static string GetBase64ImageMime(string base64File)
+        {
+            string mimeType = "";
+            
+            Match match = Regex.Match(base64File, @"(?<=image\/)(.*?)(?=;)");
+            if(match.Success)
+            {
+                mimeType =  match.Value;
+            }    
+            return mimeType;
+        }
     }
 }
