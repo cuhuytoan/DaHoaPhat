@@ -6,6 +6,7 @@ using CMS.Website.Logging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -25,9 +26,11 @@ namespace CMS.Website.Areas.Admin.Pages.Settings
 
         #region Parameter
         public SettingDTO settings { get; set; } = new SettingDTO();
+        //Noti Hub
         [CascadingParameter]
-        private Task<AuthenticationState> authenticationStateTask { get; set; }
-        ClaimsPrincipal user;
+        protected HubConnection hubConnection { get; set; }
+        [CascadingParameter]
+        private GlobalModel globalModel { get; set; }
 
         #endregion
 
@@ -38,15 +41,9 @@ namespace CMS.Website.Areas.Admin.Pages.Settings
         }
 
         protected override async Task OnInitializedAsync()
-        {
-            //get claim principal
-            var authState = await authenticationStateTask;
-            user = authState.User;
-            //
+        {           
             await InitControl();
             await InitData();
-
-
         }
         public void Dispose()
         {

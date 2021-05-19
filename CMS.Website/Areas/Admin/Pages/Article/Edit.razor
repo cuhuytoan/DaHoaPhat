@@ -24,9 +24,14 @@
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Chuyên mục</label>
                                         <div class="col-sm-10">
-                                            <TelerikDropDownList @bind-Value="SelectedValue" Data="@lstArticleCategory" DefaultText="Chọn chuyên mục ..."
-                                                                 ValueField="Id" TextField="Name" Id="ArticleCategory" Width="100%">
-                                            </TelerikDropDownList>
+                                            <TelerikMultiSelect  @bind-Value="@SelectedCateValue"
+                                                                Data="@lstArticleCategory"         
+                                                                ValueField="@nameof(ArticleCategory.Id)"
+                                                                TextField="@nameof(ArticleCategory.Name)"
+                                                                OnChange="@OnArticleSelected"
+                                                                Placeholder="Chọn chuyên mục ..."
+                                                                 Width="100%">
+                                            </TelerikMultiSelect>
 
                                             <span class="text-danger"><ValidationMessage For="() => article.ArticleCategoryIds" /></span>
 
@@ -66,10 +71,7 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group row">
-                                        <div class="col-md-12" id="uploadImg">
-                                       
-
-                                                @*<InputFile OnChange="@OnInputFileChange" text="Chọn ảnh" accept="image/png,image/gif,image/jpeg" />*@
+                                        <div class="col-md-12" id="uploadImg">                                       
                                             <a @onclick="(() => OnCropImage())">
 
                                                 @{
@@ -92,15 +94,6 @@
 
                                             </a>
                                                
-                                         
-
-                                            @*<div id="image_preview_main">
-                                               
-                                            </div>
-                                            <a @onclick="(() => OnCropImage())">
-                                                <i class="fa fa-trash"></i>
-                                            </a>*@
-                                         
                                         </div>
                                     </div>
                                 </div>                                
@@ -109,16 +102,17 @@
                                 <div class="col-sm-12">
                                     <div class="form-group row">
                                         <div class="col-sm-12">
-                                            <h4 class="sub-title">Nội dung chi tiết bài viết <span style="color:red; font-size:0.7em;">(Tối thiếu 5000 từ tối đa 10000 từ)</span></h4>
+                                            <h4 class="sub-title">Nội dung chi tiết bài viết </h4>
                                             <TelerikEditor @bind-Value="article.Content"
                                                            Tools="@Tools"
                                                            Height="880px">
                                                 <EditorCustomTools>
-                                    <EditorCustomTool Name="ImportImage">
-                                        <InputFile  Icon="star" OnChange="@InsertImageEditor" text="Chọn ảnh" accept="image/png,image/gif,image/jpeg" />                                        
-                                    </EditorCustomTool>
-                                </EditorCustomTools>
+                                                    <EditorCustomTool Name="ImportImage">
+                                                        <InputFile Icon="star" OnChange="@InsertImageEditor" text="Chọn ảnh" accept="image/png,image/gif,image/jpeg" />
+                                                    </EditorCustomTool>
+                                                </EditorCustomTools>
                                             </TelerikEditor>
+                                            <span class="text-primary"> Độ dài nội dung @(article.Content != null ?CMS.Common.Utils.CountWords(article.Content):0) từ</span>
                                             <span class="text-danger"><ValidationMessage For="() => article.Content" /></span>
                                         </div>
                                     </div>

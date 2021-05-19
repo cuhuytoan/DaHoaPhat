@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+
 @using Blazored.Toast.Configuration;
 <TelerikRootComponent>
     <BlazoredToasts Position="ToastPosition.BottomRight"
@@ -11,58 +12,25 @@
                     WarningIcon="fa fa-exclamation-triangle"
                     ShowProgressBar="@true" />
 
+    <CascadingValue Value="hubConnection">
+        <CascadingValue Value="globalModel">
+            <div id="wrapper">
+                <nav class="navbar navbar-default navbar-static-top m-b-0">
+                    <Header />
+                </nav>
+                <aside class="sidebar" role="navigation">
+                    <LeftMenuLayout />
+                </aside>
+                <div class="page-wrapper">
 
-    <div id="wrapper">
-        <nav class="navbar navbar-default navbar-static-top m-b-0">
-            <Header />
-        </nav>
-        <aside class="sidebar" role="navigation">
-            <LeftMenuLayout />
-        </aside>
-        <div class="page-wrapper">
-            <div class="container-fluid">
-                @Body
+                    <div class="container-fluid">
+                        @Body
+
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+        </CascadingValue>
+    </CascadingValue>
 </TelerikRootComponent>
-
-
-@code {
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-
-            await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/Cubic/plugins/components/jquery/dist/jquery.min.js");
-
-            await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/Cubic/cubic-html/bootstrap/dist/js/bootstrap.min.js");
-
-            await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/Cubic/cubic-html/js/sidebarmenu.js");
-
-            await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/Cubic/cubic-html/js/jquery.slimscroll.js");
-
-            await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/Cubic/cubic-html/js/waves.js");
-
-            await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/Cubic/cubic-html/js/custom.js");
-
-            await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/Cubic/cubic-html/js/jasny-bootstrap.js");
-
-            //await JSRuntime.InvokeAsync<IJSObjectReference>("import", "https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js");
-
-            //await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/assets/js/customcht.js");
-
-            await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/Cubic/plugins/components/styleswitcher/jQuery.style.switcher.js");
-            //Cropper Js
-            await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/assets/cropperjs/cropper.js");
-
-            await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/assets/cropperjs/_scripts.js");
-
-
-        }
-
-    }
-}
-
 
 

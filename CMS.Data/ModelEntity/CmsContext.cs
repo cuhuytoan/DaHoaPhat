@@ -9,7 +9,6 @@ namespace CMS.Data.ModelEntity
 {
     public partial class CmsContext : DbContext
     {
-        
         public CmsContext(DbContextOptions<CmsContext> options)
             : base(options)
         {
@@ -23,16 +22,8 @@ namespace CMS.Data.ModelEntity
         public virtual DbSet<ArticleBlockArticle> ArticleBlockArticle { get; set; }
         public virtual DbSet<ArticleCategory> ArticleCategory { get; set; }
         public virtual DbSet<ArticleCategoryArticle> ArticleCategoryArticle { get; set; }
-        public virtual DbSet<ArticleCategoryCheck> ArticleCategoryCheck { get; set; }
         public virtual DbSet<ArticleComment> ArticleComment { get; set; }
-        public virtual DbSet<ArticleContentType> ArticleContentType { get; set; }
         public virtual DbSet<ArticleRelationArticle> ArticleRelationArticle { get; set; }
-        public virtual DbSet<ArticleRevStatus> ArticleRevStatus { get; set; }
-        public virtual DbSet<ArticleReview> ArticleReview { get; set; }
-        public virtual DbSet<ArticleReviewArticle> ArticleReviewArticle { get; set; }
-        public virtual DbSet<ArticleReviewDetail> ArticleReviewDetail { get; set; }
-        public virtual DbSet<ArticleReviewPerson> ArticleReviewPerson { get; set; }
-        public virtual DbSet<ArticleReviewStatus> ArticleReviewStatus { get; set; }
         public virtual DbSet<ArticleStatus> ArticleStatus { get; set; }
         public virtual DbSet<ArticleTop> ArticleTop { get; set; }
         public virtual DbSet<ArticleType> ArticleType { get; set; }
@@ -44,14 +35,12 @@ namespace CMS.Data.ModelEntity
         public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<Bank> Bank { get; set; }
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<Department> Department { get; set; }
         public virtual DbSet<DepartmentMan> DepartmentMan { get; set; }
         public virtual DbSet<District> District { get; set; }
         public virtual DbSet<Location> Location { get; set; }
-        public virtual DbSet<MagazinePaper> MagazinePaper { get; set; }
-        public virtual DbSet<MagazinePaperArticle> MagazinePaperArticle { get; set; }
-        public virtual DbSet<MagazinePaperStatus> MagazinePaperStatus { get; set; }
         public virtual DbSet<ProductBrand> ProductBrand { get; set; }
         public virtual DbSet<ProductBrandCategory> ProductBrandCategory { get; set; }
         public virtual DbSet<ProductBrandModelManagement> ProductBrandModelManagement { get; set; }

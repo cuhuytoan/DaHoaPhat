@@ -22,14 +22,14 @@ namespace CMS.Data.ModelDTO
         [MaxWords(250, ErrorMessage = "Nội dung tóm tắt không quá 250 từ")]
         public string Description { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập nội dung")]
-        [MinWords(5000, ErrorMessage = "Nội dung tối thiểu 5000 từ")]
-        [MaxWords(10000, ErrorMessage = "Nội dung tối đa 10000 từ")]
+        //[MinWords(5000, ErrorMessage = "Nội dung tối thiểu 5000 từ")]
+        //[MaxWords(10000, ErrorMessage = "Nội dung tối đa 10000 từ")]
         public string Content { get; set; }
         public string Author { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập ngày bắt đầu")]
-        public DateTime? StartDate { get; set; }
+        public DateTime? StartDate { get; set; } = DateTime.Now;
         [Required(ErrorMessage = "Vui lòng nhập ngày kết thúc")]
-        public DateTime? EndDate { get; set; }
+        public DateTime? EndDate { get; set; } = DateTime.Now.AddYears(1);
         public bool? Active { get; set; }
         public int? Counter { get; set; }
         public string CreateBy { get; set; }

@@ -5,6 +5,7 @@ using CMS.Data.ModelDTO;
 using CMS.Data.ModelEntity;
 using CMS.Data.ModelFilter;
 using CMS.Website.Areas.Admin.Pages.Shared;
+using CMS.Website.Areas.Admin.Pages.Shared.Components;
 using CMS.Website.Logging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -14,12 +15,14 @@ using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.AspNetCore.WebUtilities;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Telerik.Blazor.Components;
 using Telerik.Blazor.Components.Editor;
+using FontFamily = Telerik.Blazor.Components.Editor.FontFamily;
 
 namespace CMS.Website.Areas.Admin.Pages.Article
 {
@@ -40,14 +43,15 @@ namespace CMS.Website.Areas.Admin.Pages.Article
         public int? articleId { get; set; }
         public ArticleDTO article { get; set; } = new ArticleDTO();
         public int ArticleStatusId { get; set; } = 0;
-        List<ArticleCategory> lstArticleCategory { get; set; }
+        List<ArticleCategory> lstArticleCategory { get; set; } = new List<ArticleCategory>();
         public string PreviewImage { get; set; }
-        public int? SelectedValue { get; set; }
+        public List<int> SelectedCateValue { get; set; } = new List<int>();
+        public List<string> SelectedCateName { get; set; } = new List<string>();
         List<string> imageDataUrls = new List<string>();
         public int postType { get; set; }
         public bool chkTopArticleCategory { get; set; } = false;
-        public bool chkTopArticleCategoryParent { get; set; } = false;
-        IReadOnlyList<IBrowserFile> MainImages;
+        public bool chkTopArticleCategoryParent { get; set; } = false;   
+        public IReadOnlyList<IBrowserFile> MainImages { get; set; }
         // setup upload endpoints
         public string SaveUrl => ToAbsoluteUrl("api/upload/save");
         public string RemoveUrl => ToAbsoluteUrl("api/upload/remove");
@@ -58,48 +62,24 @@ namespace CMS.Website.Areas.Admin.Pages.Article
         //Modal Crop Image
         protected ImageCropper imageCropperModal { get; set; }
         //Noti Hub
-        private HubConnection hubConnection;
-        //For reload
-        bool _forceRerender;
         [CascadingParameter]
-        private Task<AuthenticationState> authenticationStateTask { get; set; }
-        ClaimsPrincipal user;
-        public List<string> RemoveAttributes { get; set; } = new List<string>() { "data-id" };
-        public List<string> StripTags { get; set; } = new List<string>() { "font" };
+        protected HubConnection hubConnection { get; set; }
+        [CascadingParameter]
+        private GlobalModel globalModel { get; set; }
+        
+        
         #endregion
 
-        #region LifeCycle
-        protected override async Task OnParametersSetAsync()
-        {
-
-
-        }
-        protected override void OnInitialized()
-        {
-
-        }
+        #region LifeCycle     
         protected override async Task OnInitializedAsync()
-        {
-            //get claim principal
-            var authState = await authenticationStateTask;
-            user = authState.User;
-            //Init Hub
-            hubConnection = new HubConnectionBuilder()
-              .WithUrl(NavigationManager.ToAbsoluteUri("/notificationHubs"))
-              .Build();
-            await hubConnection.StartAsync();
-
-            //
+        {            
             await InitControl();
-            await InitData();
-            StateHasChanged();
-
+            await InitData();            
         }
 
         public void Dispose()
         {
-            //GC.SuppressFinalize(this);
-            _ = hubConnection.DisposeAsync();
+            GC.SuppressFinalize(this);          
         }
         #endregion
 
@@ -129,7 +109,9 @@ namespace CMS.Website.Areas.Admin.Pages.Article
                 if (result != null)
                 {
                     article = Mapper.Map<ArticleDTO>(result);
-                    SelectedValue = Convert.ToInt32(article.ArticleCategoryIds);
+                    //Get Lst ArticleCategory
+                    var lstArtCate = await Repository.ArticleCategory.GetLstArticleCatebyArticleId((int)article.Id);
+                    SelectedCateValue = lstArtCate.Select(x => x.ArticleCategoryId).ToList();
                 }
                 //L
                 lstAttachFileBinding = await Repository.Article.ArticleAttachGetLstByArticleId((int)articleId);
@@ -138,6 +120,12 @@ namespace CMS.Website.Areas.Admin.Pages.Article
         #endregion
 
         #region Event
+
+        async Task OnArticleSelected()
+        {           
+            SelectedCateName = lstArticleCategory.Where(p => SelectedCateValue.Contains(p.Id)).Select(p => p.Name).ToList();
+            article.ArticleCategoryIds = String.Join(",", SelectedCateValue.ToArray());
+        }
 
         async Task OnInputFileChange(InputFileChangeEventArgs e)
         {
@@ -173,18 +161,17 @@ namespace CMS.Website.Areas.Admin.Pages.Article
             }
             //Create new
             if (article.Id == null || article.Id == 0)
-            {
-                article.ArticleCategoryIds = SelectedValue.ToString();
-                article.Id = await Repository.Article.ArticleInsert(Mapper.Map<CMS.Data.ModelEntity.Article>(article), UserManager.GetUserId(user), ArticleStatusId);
+            {                
+                article.Id = await Repository.Article.ArticleInsert(Mapper.Map<CMS.Data.ModelEntity.Article>(article), globalModel.userId, ArticleStatusId,SelectedCateValue);
             }
             //Update 
             if (article.Id != null && article.Id > 0)
             {
                 try
                 {   //Save Main Image
-                    if (MainImages != null)
+                    if (imageDataUrls != null & imageDataUrls.Count > 0)
                     {
-                        article.Image = await SaveMainImage((int)article.Id, MainImages);
+                        article.Image = await SaveMainImage((int)article.Id, imageDataUrls);
                     }
                     //Save Upload File
                     if (lstAttachFile.Count > 0)
@@ -194,8 +181,8 @@ namespace CMS.Website.Areas.Admin.Pages.Article
                             x.ArticleId = article.Id;
                             x.CreateDate = DateTime.Now;
                             x.LastEditDate = DateTime.Now;
-                            x.CreateBy = UserManager.GetUserId(user);
-                            x.LastEditBy = UserManager.GetUserId(user);
+                            x.CreateBy = globalModel.userId;
+                            x.LastEditBy = globalModel.userId;
                         });
                         var uploadResult = await Repository.Article.ArticleAttachInsert(lstAttachFile);
                         if (!uploadResult)
@@ -204,7 +191,7 @@ namespace CMS.Website.Areas.Admin.Pages.Article
                         }
                     }
 
-                    await Repository.Article.ArticleUpdate(Mapper.Map<CMS.Data.ModelEntity.Article>(article), UserManager.GetUserId(user), ArticleStatusId);
+                    await Repository.Article.ArticleUpdate(Mapper.Map<CMS.Data.ModelEntity.Article>(article), globalModel.userId, ArticleStatusId,SelectedCateValue);
 
                     if (chkTopArticleCategory == true)
                     {
@@ -216,8 +203,8 @@ namespace CMS.Website.Areas.Admin.Pages.Article
                     }
                     //ToastMessage
                     toastService.ShowToast(ToastLevel.Success, "Cập nhật bài viết thành công", "Thành công");
-                    //Noti for user
-                    await hubConnection.SendAsync("SendNotification", UserManager.GetUserId(user), "Gửi bài viết thành công", $"Bạn đã gửi bài viết <b>{article.Name}</b> tới tòa soạn thành công", $"/Admin/Article/Preview?articleId={article.Id}", article.Image);
+                    //Noti for globalModel.user
+                    await hubConnection.SendAsync("SendNotification", globalModel.userId, "Gửi bài viết thành công", $"Bạn đã gửi bài viết <b>{article.Name}</b> tới tòa soạn thành công", $"/Admin/Article/Preview?articleId={article.Id}", article.Image);
                     //Noti for sectary
                     var modelfilter = new AccountSearchFilter();
                     modelfilter.RoleId = Guid.Parse("EF289F43-08FD-4C16-9F82-498BC8D1CD85"); // Thư kí
@@ -229,7 +216,7 @@ namespace CMS.Website.Areas.Admin.Pages.Article
                     {
                         foreach (var p in lstProfielSec.Items)
                         {
-                            await hubConnection.SendAsync("SendNotification", p.Id, "Bài viết mới gửi", $"Bài viết {article.Name} đã được {user.Identity.Name} gửi tới tòa soạn chờ sơ duyệt", $"/Admin/Article/Preview?articleId={article.Id}", article.Image);
+                            await hubConnection.SendAsync("SendNotification", p.Id, "Bài viết mới gửi", $"Bài viết {article.Name} đã được {globalModel.user.Identity.Name} gửi tới tòa soạn chờ sơ duyệt", $"/Admin/Article/Preview?articleId={article.Id}", article.Image);
                         }
                     }
                 }
@@ -275,21 +262,26 @@ namespace CMS.Website.Areas.Admin.Pages.Article
 
         }
         //Save MainImage
-        protected async Task<string> SaveMainImage(int ArticleId, IReadOnlyList<IBrowserFile> MainImage)
+        protected async Task<string> SaveMainImage(int ArticleId, List<string> imageDataUrls)
         {
             string fileName = "noimages.png";
-            foreach (var file in MainImage)
+            foreach (var file in imageDataUrls)
             {
-                if (file == null) return fileName;
+                var imageDataByteArray = Convert.FromBase64String(CMS.Common.Utils.GetBase64Image(file));
+          
+
                 var urlArticle = await Repository.Article.CreateArticleURL(ArticleId);
                 var timestamp = new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds();
-                fileName = String.Format("{0}-{1}.{2}", urlArticle, timestamp, file.ContentType.Replace("image/", ""));
-                var physicalPath = Path.Combine(_env.WebRootPath, "data/article/mainimages/original", fileName);
-                using (var fileStream = new FileStream(physicalPath, FileMode.Create))
+                fileName = String.Format("{0}-{1}.{2}", urlArticle, timestamp, CMS.Common.Utils.GetBase64ImageMime(file));
+                var physicalPath = Path.Combine(_env.WebRootPath, "data/article/mainimages/original");
+             
+                using (MemoryStream ms = new MemoryStream(imageDataByteArray))
                 {
-                    await file.OpenReadStream().CopyToAsync(fileStream);
+                    using (Bitmap bm2 = new Bitmap(ms))
+                    {
+                        bm2.Save(Path.Combine(physicalPath, fileName));
+                    }
                 }
-
                 try
                 {
                     Utils.EditSize(Path.Combine(_env.WebRootPath, "data/article/mainimages/original", fileName), Path.Combine(_env.WebRootPath, "data/article/mainimages/small", fileName), 500, 500);
@@ -332,8 +324,7 @@ namespace CMS.Website.Areas.Admin.Pages.Article
         async Task DeleteAttachFile(int articleAttachFileId)
         {
             await Repository.Article.ArticleAttachDelete(articleAttachFileId);
-            //_forceRerender = true;
-            //StateHasChanged();
+            StateHasChanged();
         }
 
         async Task OnCropImage()
@@ -346,6 +337,8 @@ namespace CMS.Website.Areas.Admin.Pages.Article
             {
                 if(imageCropperModal.ImgData !=null)
                 {
+
+                    article.Image = null;
                     imageDataUrls.Clear();
                     imageDataUrls.Add(imageCropperModal.ImgData);
                     StateHasChanged();

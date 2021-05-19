@@ -1,13 +1,16 @@
 ﻿using AutoMapper;
 using Blazored.Toast.Services;
+using CMS.Data.ModelDTO;
 using CMS.Data.ModelEntity;
 using CMS.Data.ModelFilter;
 using CMS.Website.Areas.Admin.Pages.Shared;
+using CMS.Website.Areas.Admin.Pages.Shared.Components;
 using CMS.Website.Logging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.AspNetCore.WebUtilities;
 using System;
 using System.Collections.Generic;
@@ -50,9 +53,10 @@ namespace CMS.Website.Areas.Admin.Pages.Article
         List<ArticleCategory> lstArticleCategory { get; set; }
         List<ArticleStatus> lstArticleStatus { get; set; }
 
+        //[CascadingParameter]
+        //private Task<AuthenticationState> authenticationStateTask { get; set; }
         [CascadingParameter]
-        private Task<AuthenticationState> authenticationStateTask { get; set; }
-        ClaimsPrincipal user;
+        protected GlobalModel globalModel { get; set; }
         protected ConfirmBase DeleteConfirmation { get; set; }
         List<int> listArticleSelected { get; set; } = new List<int>();
         bool _forceRerender;
@@ -73,8 +77,8 @@ namespace CMS.Website.Areas.Admin.Pages.Article
 
         protected override async Task OnInitializedAsync()
         {
-            var authState = await authenticationStateTask;
-            user = authState.User;
+            //var authState = await authenticationStateTask;
+            //user = authState.User;
             await InitControl();
             await InitData();
         }
@@ -127,9 +131,9 @@ namespace CMS.Website.Areas.Admin.Pages.Article
             modelFilter.ArticleStatusId = articleStatusSelected;
             modelFilter.FromDate = DateTime.Now.AddYears(-10);
             modelFilter.ToDate = DateTime.Now;
-            if (user.IsInRole("Cộng tác viên"))
+            if (globalModel.user.IsInRole("Cộng tác viên"))
             {
-                modelFilter.CreateBy = Guid.Parse(UserManager.GetUserId(user));
+                modelFilter.CreateBy = Guid.Parse(globalModel.userId);
             }
             var result = await Repository.Article.ArticleSearchWithPaging(modelFilter);
 

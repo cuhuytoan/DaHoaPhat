@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CMS.Data.ModelEntity;
 using CMS.Website.Areas.Admin.Pages.Shared;
+using CMS.Website.Areas.Admin.Pages.Shared.Components;
 using CMS.Website.Logging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;

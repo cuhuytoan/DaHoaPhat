@@ -19,8 +19,8 @@ namespace CMS.Services.Repositories
 
     public interface IArticleRepository : IRepositoryBase<Article>
     {
-        Task<int?> ArticleInsert(Article model, string UserId, int ArticleStatusId);
-        Task ArticleUpdate(Article model, string UserId, int ArticleStatusId);
+        Task<int?> ArticleInsert(Article model, string userId, int articleStatusId,List<int> articleCategoryArticle);
+        Task ArticleUpdate(Article model, string UserId, int ArticleStatusId, List<int> articleCategoryArticle);
         Task ArticleDelete(int ArticleId);
         Task<Article> ArticleGetById(int ArticleId);
         Task<List<Article>> ArticleSearch(string keyword);
@@ -55,17 +55,17 @@ namespace CMS.Services.Repositories
         {
         }
 
-        public async Task<int?> ArticleInsert(Article model, string UserId, int ArticleStatusId)
+        public async Task<int?> ArticleInsert(Article model, string userId, int articleStatusId, List<int> articleCategoryArticle)
         {
 
             // Add một lần
             model.ArticleTypeId = 1;
             model.ProductBrandId = 0;
-            model.ArticleStatusId = ArticleStatusId;
-            model.CreateBy = UserId;
+            model.ArticleStatusId = articleStatusId;
+            model.CreateBy = userId;
             model.CreateDate = DateTime.Now;
             model.LastEditDate = DateTime.Now;
-            model.LastEditBy = UserId;
+            model.LastEditBy = userId;
             model.CanCopy = true;
             model.CanComment = true;
             model.CanDelete = true;
@@ -75,11 +75,11 @@ namespace CMS.Services.Repositories
 
             await CmsContext.SaveChangesAsync();
             //Insert articleCategoryArticle
-            await ArticleSetArticleCategory(model.Id, Int32.Parse(model.ArticleCategoryIds));
+            await ArticleSetArticleCategory(model.Id, articleCategoryArticle);
             return model.Id;
         }
 
-        public async Task ArticleUpdate(Article model, string UserId, int ArticleStatusId)
+        public async Task ArticleUpdate(Article model, string userId, int articleStatusId, List<int> articleCategoryArticle)
         {
 
             try
@@ -89,7 +89,7 @@ namespace CMS.Services.Repositories
                 {
                     //items.ArticleTypeId = model.ArticleTypeId;
                     items.ArticleCategoryIds = model.ArticleCategoryIds;
-                    items.ArticleStatusId = ArticleStatusId;
+                    items.ArticleStatusId = articleStatusId;
                     items.Name = model.Name;
                     items.SubTitle = model.SubTitle;
                     items.ImageDescription = model.ImageDescription;
@@ -105,6 +105,8 @@ namespace CMS.Services.Repositories
                     items.MetaDescription = model.MetaDescription;
                     items.MetaKeywords = model.MetaKeywords;
                     items.Image = model.Image;
+                    items.LastEditBy = userId;
+                    items.LastEditDate = DateTime.Now;
 
                     if (string.IsNullOrEmpty(items.Url))
                     {
@@ -113,7 +115,7 @@ namespace CMS.Services.Repositories
 
                     await CmsContext.SaveChangesAsync();
                     //Insert articleCategoryArticle
-                    await ArticleSetArticleCategory(model.Id, Int32.Parse(model.ArticleCategoryIds));
+                    await ArticleSetArticleCategory(model.Id, articleCategoryArticle);
 
                 }
             }
@@ -236,23 +238,26 @@ namespace CMS.Services.Repositories
             return output;
         }
 
-        public async Task ArticleSetArticleCategory(int ArticleId, int ArticleCategoryId)
+        public async Task ArticleSetArticleCategory(int ArticleId, List<int> articleCategoryArticle)
         {
-
-            var item = await CmsContext.ArticleCategoryArticle.FirstOrDefaultAsync(p => p.ArticleId == ArticleId && p.ArticleCategoryId == ArticleCategoryId);
+            var listItem = new List<ArticleCategoryArticle>();
+            var item = await CmsContext.ArticleCategoryArticle.Where(p => p.ArticleId == ArticleId).ToListAsync();
             if (item != null) // Update
             {
-                item.ArticleCategoryId = ArticleCategoryId;
-                CmsContext.SaveChanges();
-            }
-            else
-            {
-                var addItem = new ArticleCategoryArticle();
-                addItem.ArticleId = ArticleId;
-                addItem.ArticleCategoryId = ArticleCategoryId;
-                CmsContext.ArticleCategoryArticle.Add(addItem);
+                CmsContext.ArticleCategoryArticle.RemoveRange(item);
                 await CmsContext.SaveChangesAsync();
             }
+            //Add
+            foreach(var p in articleCategoryArticle)
+            {
+                var itemArtCate = new ArticleCategoryArticle();
+                itemArtCate.ArticleId = ArticleId;
+                itemArtCate.ArticleCategoryId = p;
+                listItem.Add(itemArtCate);
+            }
+            await CmsContext.ArticleCategoryArticle.AddRangeAsync(listItem);
+            await CmsContext.SaveChangesAsync();
+
         }
 
         private async Task SaveImage(IEnumerable<IFormFile> files, int ArticleId, IHostingEnvironment _env)

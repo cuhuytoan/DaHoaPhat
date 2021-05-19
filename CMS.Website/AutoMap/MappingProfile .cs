@@ -32,11 +32,7 @@ namespace CMS.Website.AutoMap
             //ArticleComment 
             CreateMap<ArticleCommentDTO, ArticleComment>().ReverseMap();
             CreateMap<ArticleSearchDTO, SpArticleCommentSearchResult>().ReverseMap();
-            //ArticleReview
-            CreateMap<ArticleReviewDTO, ArticleReview>().ReverseMap();
-            CreateMap<ArticleReviewDetail, ArticleReviewDetailDTO>().ReverseMap();
-            //ArticlePublish
-            CreateMap<MagazinePaperDTO, MagazinePaper>().ReverseMap();
+           
 
             //Setting
             CreateMap<SettingDTO, Setting>().ReverseMap();

@@ -16,38 +16,13 @@ namespace CMS.Services.RepositoriesBase
         private ISettingRepository _setting;
         private IUserNotiRepository _userNoti;
         private IArticleCommentRepository _articleComment;
-        private IArticleReviewRepository _articleReview;
-        private IMagazinePaperRepository _magazinePaper;
+     
 
         public RepositoryWrapper(IDbContextFactory<CmsContext> CmsContext)
         {
             _cmsContext = CmsContext;
 
-        }
-        public IArticleReviewRepository ArticleReview
-        {
-            get
-            {
-                if (_articleReview == null)
-                {
-                    _articleReview = new ArticleReviewRepository(_cmsContext.CreateDbContext());
-                }
-
-                return _articleReview;
-            }
-        }
-        public IMagazinePaperRepository MagazinePaper
-        {
-            get
-            {
-                if (_magazinePaper == null)
-                {
-                    _magazinePaper = new MagazinePaperRepository(_cmsContext.CreateDbContext());
-                }
-
-                return _magazinePaper;
-            }
-        }
+        }      
         public IArticleCommentRepository ArticleComment
         {
             get

@@ -41,10 +41,7 @@ namespace CMS.Website.Areas.Admin.Pages.Account
         #endregion
 
         #region LifeCycle
-        protected override async Task OnParametersSetAsync()
-        {
-
-        }
+      
 
         protected override async Task OnInitializedAsync()
         {
@@ -53,8 +50,7 @@ namespace CMS.Website.Areas.Admin.Pages.Account
             user = authState.User;
             userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            await InitControl();
-            await InitData();
+          
         }
         public void Dispose()
         {
@@ -63,15 +59,7 @@ namespace CMS.Website.Areas.Admin.Pages.Account
         #endregion
 
         #region Init
-        protected async Task InitControl()
-        {
-
-        }
-        protected async Task InitData()
-        {
-
-
-        }
+       
         #endregion
 
         #region Event

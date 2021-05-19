@@ -1,171 +1,107 @@
 ﻿@using Microsoft.AspNetCore.SignalR.Client
-@implements IAsyncDisposable
+@using CMS.Data.ModelDTO;
 
-<style>   
+
+<style>
     .user-profile-header img {
         position: relative;
         width: 45px;
         height: 45px;
     }
 </style>
-    <div class="navbar-header">
-        <a class="navbar-toggle font-20 hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse">
-            <i class="fa fa-bars"></i>
+<div class="navbar-header">
+    <a class="navbar-toggle font-20 hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse">
+        <i class="fa fa-bars"></i>
+    </a>
+    <div class="top-left-part">
+        <a class="logo" href="/Admin/Article">
+            <b>
+                <img style="height:40px;" src="/assets/images/logo.png" alt="home" />
+            </b>
+            <span>
+                Tạp chí Luật học
+                @*<img src="/Cubic/plugins/images/logo-text.png" alt="homepage" class="dark-logo" />*@
+            </span>
         </a>
-        <div class="top-left-part">
-            <a class="logo" href="/Admin/Article">
-                <b>
-                    <img style="height:40px;" src="/assets/images/logo.png" alt="home" />
-                </b>
-                <span>
-                    Tạp chí Luật học
-                    @*<img src="/Cubic/plugins/images/logo-text.png" alt="homepage" class="dark-logo" />*@
-                </span>           
+    </div>
+    <ul class="nav navbar-top-links navbar-left hidden-xs">
+        <li>
+            <a href="javascript:void(0)" class="sidebartoggler font-20 waves-effect waves-light"><i class="icon-arrow-left-circle"></i></a>
+        </li>
+        <li>
+            <form role="search" class="app-search hidden-xs">
+                <i class="icon-magnifier"></i>
+                <input type="text" placeholder="Tìm kiếm..." class="form-control">
+            </form>
+        </li>
+    </ul>
+    <ul class="nav navbar-top-links navbar-right pull-right">
+        <li class="dropdown">
+            <a class="dropdown-toggle waves-effect waves-light font-20" data-toggle="dropdown" href="javascript:void(0);">
+                <i class="icon-speech"></i>
+                <span class="badge badge-xs badge-danger">@globalModel.totalUnread</span>
             </a>
-        </div>
-        <ul class="nav navbar-top-links navbar-left hidden-xs">
-            <li>
-                <a href="javascript:void(0)" class="sidebartoggler font-20 waves-effect waves-light"><i class="icon-arrow-left-circle"></i></a>
-            </li>
-            <li>
-                <form role="search" class="app-search hidden-xs">
-                    <i class="icon-magnifier"></i>
-                    <input type="text" placeholder="Tìm kiếm..." class="form-control">
-                </form>
-            </li>
-        </ul>
-        <ul class="nav navbar-top-links navbar-right pull-right">
-            <li class="dropdown">
-                <a class="dropdown-toggle waves-effect waves-light font-20" data-toggle="dropdown" href="javascript:void(0);">
-                    <i class="icon-speech"></i>
-                    <span class="badge badge-xs badge-danger">@totalUnread</span>
-                </a>
-                <ul class="dropdown-menu mailbox animated bounceInDown">
+            <ul class="dropdown-menu mailbox animated bounceInDown">
+                <li>
+                    <div class="drop-title">Bạn có @globalModel.totalUnread thông báo</div>
+                </li>
+                @if (globalModel.lstUserNoti == null)
+                {
                     <li>
-                        <div class="drop-title">Bạn có @totalUnread thông báo</div>
+                        <p><em>Loading...</em></p>
                     </li>
-                    @if (lstUserNoti == null)
+
+                }
+                else
+                {
+                    @foreach (var p in globalModel.lstUserNoti)
                     {
                         <li>
-                            <p><em>Loading...</em></p>
+                            <div class="message-center">
+                                <a href="@p.URL">
+                                    <div class="user-img">
+                                        <img src="/assets/images/logo.png" alt="user" class="img-circle">
+                                        <span class="profile-status online pull-right"></span>
+                                    </div>
+                                    <div class="mail-contnet">
+                                        <h5>@p.Subject</h5>
+                                        <span class="mail-desc">@((MarkupString)@p.Content)</span>
+                                        <span class="time">@CMS.Common.Utils.RenderTimeSince((DateTime)p.CreateDate)</span>
+                                    </div>
+                                </a>
+                            </div>
                         </li>
-
-                    }
-                    else
-                    {
-                        @foreach (var p in lstUserNoti)
-                        {
-                            <li>
-                                <div class="message-center">
-                                    <a href="@p.URL">
-                                        <div class="user-img">
-                                            <img src="/assets/images/logo.png" alt="user" class="img-circle">
-                                            <span class="profile-status online pull-right"></span>
-                                        </div>
-                                        <div class="mail-contnet">
-                                            <h5>@p.Subject</h5>
-                                            <span class="mail-desc">@((MarkupString)@p.Content)</span>
-                                            <span class="time">@CMS.Common.Utils.RenderTimeSince((DateTime)p.CreateDate)</span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </li>
-                        }
-
                     }
 
-                    <li>
-                        <a class="text-center" href="/Admin/Account/ListNotification">
-                            <strong>Xem tất cả</strong>
-                            <i class="fa fa-angle-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </li>  
-            <li class="dropdown user-profile-header">
-                <a href="javascript:void(0);" class="dropdown-toggle u-dropdown text-blue" style="display:flex;align-items:center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
-                    <img src="/data/user/mainimages/small/@(String.IsNullOrEmpty(@avatar) ? "noimages.png" : avatar)" alt="user-img" class="img-circle">
-                    @*<span class="d-none m-l-10"> @user.Identity.Name</span>*@
-                </a>
-                <ul class="dropdown-menu mailbox animated bounceInDown">
-                    <li><a href="/Admin/Account/EditProfile"><i class="fa fa-user"></i> Thông tin cá nhân</a></li>
-                    <li><a href="/Admin/Account/ChangePassword"><i class="fa fa-key"></i> Đổi mật khẩu</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="/Identity/Account/Logout"><i class="fa fa-power-off"></i> Đăng xuất</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-
-    <!-- ===== Top-Navigation-End ===== -->
-    @code{
-        public List<SpUserNotifySearchResult> lstUserNoti { get; set; } = new List<SpUserNotifySearchResult>();
-        public int? totalUnread { get; set; }
-        private HubConnection hubConnection;
-        private List<string> messages = new List<string>();
-        [CascadingParameter]
-        private Task<AuthenticationState> authenticationStateTask { get; set; }
-        ClaimsPrincipal user;
-        string userId { get; set; }
-        public string avatar { get; set; } = "noimages.png";
-
-
-        protected override async Task OnInitializedAsync()
-        {
-            //get claim principal
-            var authState = await authenticationStateTask;
-            user = authState.User;
-            userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            hubConnection = new HubConnectionBuilder()
-                .WithUrl(NavigationManager.ToAbsoluteUri("/notificationHubs"), options => {
-                    options.Headers.Add("USERID", userId);
-                })
-                .Build();
-
-            hubConnection.On<string, string,string,string,string>("ReceiveMessage", (toUserId, subject, content,url, imageUrl) =>
-            {
-                //ToastMessage
-                if(this.userId == toUserId)
-                {
-                    toastService.ShowToast(ToastLevel.Info, $"{subject}", "Bạn có thông báo mới");
-                    lstUserNoti.Insert(0, new SpUserNotifySearchResult
-                    {
-                        Subject = subject,
-                        Content = content,
-                        URL = url,
-                        CreateDate = DateTime.Now
-                    }) ;
-                    totalUnread += 1;
-                    StateHasChanged();
                 }
-            });
 
+                <li>
+                    <a class="text-center" href="/Admin/Account/ListNotification">
+                        <strong>Xem tất cả</strong>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown user-profile-header">
+            <a href="javascript:void(0);" class="dropdown-toggle u-dropdown text-blue" style="display:flex;align-items:center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                <img src="/data/user/mainimages/small/@(String.IsNullOrEmpty(@globalModel.avatar) ? "noimages.png" : globalModel.avatar)" alt="user-img" class="img-circle">
+                @*<span class="d-none m-l-10"> @user.Identity.Name</span>*@
+            </a>
+            <ul class="dropdown-menu mailbox animated bounceInDown">
+                <li><a href="/Admin/Account/EditProfile"><i class="fa fa-user"></i> Thông tin cá nhân</a></li>
+                <li><a href="/Admin/Account/ChangePassword"><i class="fa fa-key"></i> Đổi mật khẩu</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/Identity/Account/Logout"><i class="fa fa-power-off"></i> Đăng xuất</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
 
-            await hubConnection.StartAsync();
-
-            await InitData();
-
-        }
-        private async Task InitData()
-        {
-            var profiles = await Repository.AspNetUsers.AspNetUserProfilesGetByUserId(userId);
-            if (profiles != null)
-            {
-                avatar = profiles.AvatarUrl;
-            }
-            var result = await Repository.UserNoti.GetAllNoti(null, userId, null, 3, 1);
-            lstUserNoti = result.Items;
-            totalUnread = result.TotalSize;
-        }
-
-        void test()
-        {
-            hubConnection.SendAsync("SendNotification", userId, "Gửi bài viết thành công", $"Bạn đã gửi bài viết <b</b> tới tòa soạn thành công", "/Admin/Article");
-        }
-
-        public async ValueTask DisposeAsync()
-        {
-            await hubConnection.DisposeAsync();
-        }
-    }
+<!-- ===== Top-Navigation-End ===== -->
+@code{
+    [CascadingParameter]
+    protected GlobalModel globalModel { get; set; }
+    [CascadingParameter]
+    private HubConnection hubConnection { get; set; }   
+}

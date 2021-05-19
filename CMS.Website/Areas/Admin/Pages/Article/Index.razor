@@ -9,7 +9,7 @@
             <div class="form-group row" style="justify-content: left; margin-bottom: 10px;">
                 <div class="col-xs-12 col-sm-12 col-md-6">
                     <a class="btn btn-mat btn-primary m-r-10 m-b-10" style="color: #FFFFFF;" href="/Admin/Article/Edit"><i class="fa fa-plus-circle"></i>Thêm mới</a>
-                    @if (user != null && (user.IsInRole("Quản trị hệ thống") || user.IsInRole("Lãnh đạo tòa soạn") || user.IsInRole("Thư ký tòa soạn")))
+                    @if (globalModel.user != null && (globalModel.user.IsInRole("Quản trị hệ thống") || globalModel.user.IsInRole("Lãnh đạo tòa soạn") || globalModel.user.IsInRole("Thư ký tòa soạn")))
                     {
                         @*<a class="btn btn-mat btn-success m-r-10 m-b-10" style="color: #FFFFFF;" @onclick="@(() => OnPostDemand(2))"><i class="fa fa-play"></i>Duyệt phản biện</a>*@
                         <a class="btn btn-mat btn-warning m-r-10 m-b-10" style="color: #FFFFFF;" @onclick="@(() => OnPostDemand(0))"><i class="fa fa-play-circle"></i>Hủy đăng</a>
@@ -128,7 +128,7 @@
                                                 {
                                                     <td>
                                                         <div style="margin-top: 20px;">
-                                                            @if (item.LastEditBy == UserManager.GetUserId(user))
+                                                            @if (item.LastEditBy == globalModel.userId)
                                                             {
                                                                 <a href="/Admin/Article/Edit?articleId=@item.Id">
                                                                     <i class="fa fa-edit"></i>
