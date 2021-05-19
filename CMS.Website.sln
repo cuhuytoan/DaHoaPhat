@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMS.Services", "CMS.Service
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMS.Website", "CMS.Website\CMS.Website.csproj", "{643717D1-AC10-45A9-9CE9-6B2B3029D7BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMS.RCLDiary", "CMS.RCLDiary\CMS.RCLDiary.csproj", "{0F3392E0-314B-4A7D-A381-181E0CB03E51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{643717D1-AC10-45A9-9CE9-6B2B3029D7BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{643717D1-AC10-45A9-9CE9-6B2B3029D7BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{643717D1-AC10-45A9-9CE9-6B2B3029D7BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F3392E0-314B-4A7D-A381-181E0CB03E51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F3392E0-314B-4A7D-A381-181E0CB03E51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F3392E0-314B-4A7D-A381-181E0CB03E51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F3392E0-314B-4A7D-A381-181E0CB03E51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

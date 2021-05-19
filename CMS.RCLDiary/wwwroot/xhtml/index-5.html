@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+	<meta name="robots" content="" />
+	<meta name="description" content="MyDiary - Blog HTML Template" />
+	<meta property="og:title" content="MyDiary - Blog HTML Template" />
+	<meta property="og:description" content="MyDiary - Blog HTML Template" />
+	<meta property="og:image" content="" />
+	<meta name="format-detection" content="telephone=no">
+	
+	<!-- FAVICONS ICON -->
+	<link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
+	
+	<!-- PAGE TITLE HERE -->
+	<title>MyDiary - Blog HTML Template</title>
+	
+	<!-- MOBILE SPECIFIC -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.min.js"></script>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+	
+	<!-- STYLESHEETS -->
+	<link rel="stylesheet" type="text/css" href="css/plugins.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/templete.css">
+	<link class="skin" rel="stylesheet" type="text/css" href="css/skin/skin-1.css">
+	
+</head>
+<body id="bg">
+<div class="page-wraper">
+<div id="loading-area"></div>
+	<div class="modal fade subscribe-modal-bx" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content subscribe-form">
+				<div class="modal-header">
+					<div class="sub-title">
+						<h3 class="title">Join Us To Day</h3>
+						<p>Receive Only The Best Posts Via Email</p>
+					</div>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="script/mailchamp.php" method="post" class="dzSubscribe row align-items-center">
+						<div class="col-lg-12 col-md-12">
+							<div class="form-group">
+								<input name="dzName" required="required" type="text" class="form-control" placeholder="Your Name ">
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-12">
+							<div class="form-group">
+								<input name="dzEmail" required="required" type="email" class="form-control" placeholder="Your Email Address">
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-12">
+							<div class="form-group m-b0">
+								<button name="submit" value="Submit" type="submit" class="btn secondry radius-no btn-block">Subscribe</button>
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<div class="dzSubscribeMsg"></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Content -->
+    <div class="bg-white sidenav-layout">
+		<!-- header -->
+		<header class="site-header mo-left header-full header bg-dark">
+			<!-- Quik search -->
+			<div class="dlab-quik-search">
+				<form action="#">
+					<input name="search" value="" type="text" class="form-control" placeholder="Search...">
+					<span id="quik-search"><i class="ti-search"></i></span>
+				</form>
+				<span class="search-remove" id="quik-search-remove"><i class="ti-close"></i></span>
+			</div>
+			<!-- Main Header END -->
+			<!-- Header Left -->
+			<div class="header-nav navbar-collapse collapse full-sidenav content-scroll">
+				<!-- Menu Button -->
+				<div class="menu-btn">
+					<a href="javascript:;" class="menu-icon">
+						<div class="menu-icon-in">
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+					</a>
+				</div>
+				<div class="menu-close">
+					<i class="la la-close"></i>
+				</div>
+				<!-- website logo -->
+				<div class="logo-header">
+					<a href="index.html"><img src="images/logo.png" alt=""/></a>
+				</div>
+				<ul class="nav navbar-nav">	
+					<li class="active">
+						<a href="javascript:void(0);">Home <i class="fa fa-chevron-down"></i></a>
+						<ul class="sub-menu">
+							<li><a href="index.html">Home 01</a></li>
+							<li><a href="index-2.html">Home 02</a></li>
+							<li><a href="index-3.html">Home 03</a></li>
+							<li><a href="index-4.html">Home 04</a></li>
+							<li><a href="index-5.html">Home 05</a></li>
+						</ul>	
+					</li>
+					<li>
+						<a href="javascript:void(0);">Post Layout <i class="fa fa-chevron-down"></i></a>
+						<ul class="sub-menu">
+							<li><a href="post-standart.html">Post Standart</a></li>
+							<li><a href="post-left-sidebar.html">Post Left Sidebar</a></li>
+							<li><a href="post-header-image.html">Post Header Image</a></li>
+							<li><a href="post-slide-show.html">Post Slide Show</a></li>
+							<li><a href="post-side-image.html">Post Side Image</a></li>
+							<li><a href="post-gallery.html">Post Gallery</a></li>
+							<li><a href="post-gallery-alternative.html">Post Gallery Alt</a></li>
+							<li><a href="post-link.html">Post Link</a></li>
+							<li><a href="post-audio.html">Post Audio</a></li>
+							<li><a href="post-video.html">Post Video</a></li>
+							<li><a href="post-pagination.html">Post With Pagination</a></li>
+							<li><a href="post-open-gutenberg.html">Post Open Gutenberg</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="javascript:void(0);">Shop <i class="fa fa-chevron-down"></i></a>
+						<ul class="sub-menu">
+							<li><a href="shop-product.html">Product</a></li>
+							<li><a href="shop-product-details.html">Product Details</a></li>
+							<li><a href="shop-cart.html">Cart</a></li>
+							<li><a href="shop-checkout.html">Checkout</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="javascript:void(0);">Pages <i class="fa fa-chevron-down"></i></a>
+						<ul class="sub-menu">
+							<li><a href="about-me.html">About</a></li>
+							<li><a href="archive.html">Archive</a></li>
+							<li><a href="author.html">Author</a></li>
+							<li><a href="category.html">Category</a></li>
+							<li><a href="tags.html">Tags</a></li>
+							<li><a href="search-results.html">Search results</a></li>
+							<li><a href="coming-soon.html">Coming Soon</a></li>
+							<li><a href="sitedown.html">Maintenance</a></li>
+							<li><a href="error-404.html">Error 404</a></li>
+						</ul>
+					</li>
+					<li><a href="contact-me.html">Contact</a></li>
+				</ul>
+				<!-- extra nav -->
+				<div class="extra-nav extra-nav-left">
+					<div class="extra-cell">
+						<ul>
+							<li class="search-btn"><a id="quik-search-btn" class="btn white" href="javascript:;"><i class="fa fa-search m-r5"></i> Search</a></li>
+							<li><a href="javascript:;" class="btn white" data-toggle="modal" data-target="#exampleModal">Subscribe</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="author-bx">
+					<div class="author-media">
+						<img src="images/author.jpg" alt="">
+					</div>
+					<div class="author-info">
+						<p>I am <strong>Shailja Reddy</strong> I am developer base in London </p>
+						<ul class="author-social">
+							<li><a href="javascript:void(0);" class=""><i class="fa fa-facebook"></i></a></li>
+							<li><a href="javascript:void(0);" class=""><i class="fa fa-instagram"></i></a></li>
+							<li><a href="javascript:void(0);" class=""><i class="fa fa-twitter"></i></a></li>
+							<li><a href="javascript:void(0);" class=""><i class="fa fa-linkedin"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- Header Left End -->
+		</header>
+		<!-- header END -->
+		<div class="main-content">
+			<!-- Blog Post -->
+			<div class="section-full bg-grey">
+				<div class="container-fluid sidenav-post">
+					<div id="masonry" class="row blog-masonary style-2" data-column-width="1">
+						<div class="card-container col-xl-6 col-lg-8 col-md-12 col-sm-12 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+							<div class="blog-card blog-grid post-boxed-sp">
+								<div class="dlab-post-media">
+									<img src="images/masonry/pic1.jpg" alt=""/>
+								</div>
+								<div class="blog-card-info">
+									<div class="dlab-post-meta">
+										<ul>
+											<li class="post-category"><a href="javascript:void(0);">beauty</a>, <a href="javascript:void(0);">beauty</a></li>
+											<li class="post-date">at <span>12 August 2020</span></li>
+										</ul>
+									</div>
+									<h2 class="title"><a href="post-left-sidebar.html">Natural Hair Guru Who Launch Products For Tresses</a></h2>
+									<div class="dlab-feed-meta">
+										<ul>
+											<li class="post-like"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-up"></i><span>231</span></a></li>
+											<li class="post-dislike"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-down"></i><span>584</span></a></li>
+											<li class="post-view"><a href="javascript:void(0);"><i class="fa fa-eye"></i><span>397</span></a></li>
+											<li class="post-share"><i class="fa fa-share-alt"></i><span>Share</span>
+												<ul>
+													<li><a href="javascript:;"><i class="fa fa-facebook"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-google-plus"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-linkedin"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-twitter"></i></a></li>
+												</ul>
+											</li>
+										</ul>
+									</div>
+									<a href="post-standart.html" class="post-readmore" data-text="Read More">Read More</a>
+								</div>
+							</div>
+						</div>
+						<div class="card-container col-xl-3 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.4s">
+							<div class="blog-card blog-grid overlay-post center">
+								<div class="dlab-post-media">
+									<img src="images/masonry/pic2.jpg" alt=""/>
+								</div>
+								<div class="blog-card-info">
+									<div class="dlab-post-meta">
+										<ul>
+											<li class="post-tag"><a href="tags.html">Culture</a></li>
+										</ul>
+									</div>
+									<h4 class="title"><a href="post-header-image.html">Las Catalinas Car Free Costa Rica Town Welcomes a Hotel</a></h4>
+									<div class="dlab-feed-meta">
+										<ul>
+											<li class="post-date">12 Aug 2020</li>
+											<li class="post-like"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-up"></i><span>231</span></a></li>
+											<li class="post-dislike"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-down"></i><span>584</span></a></li>
+											<li class="post-view"><a href="javascript:void(0);"><i class="fa fa-eye"></i><span>397</span></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-container col-xl-3 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.6s">
+							<div class="blog-card blog-grid post-boxed-sp">
+								<div class="dlab-post-media">
+									<img src="images/masonry/pic3.jpg" alt=""/>
+								</div>
+								<div class="blog-card-info">
+									<div class="dlab-post-meta">
+										<ul>
+											<li class="post-category"><a href="javascript:void(0);">beauty</a>, <a href="javascript:void(0);">beauty</a></li>
+											<li class="post-date">at <span>12 August 2020</span></li>
+										</ul>
+									</div>
+									<h4 class="title"><a href="post-left-sidebar.html">Lori Loughlin and May Finally Break Their Silence in Court TomorrowTresses</a></h4>
+									<div class="dlab-feed-meta">
+										<ul>
+											<li class="post-like"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-up"></i><span>231</span></a></li>
+											<li class="post-dislike"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-down"></i><span>584</span></a></li>
+											<li class="post-view"><a href="javascript:void(0);"><i class="fa fa-eye"></i><span>397</span></a></li>
+											<li class="post-share"><i class="fa fa-share-alt"></i><span>Share</span>
+												<ul>
+													<li><a href="javascript:;"><i class="fa fa-facebook"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-google-plus"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-linkedin"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-twitter"></i></a></li>
+												</ul>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-container col-xl-3 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.8s">
+							<div class="blog-card blog-grid overlay-post center">
+								<div class="dlab-post-media">
+									<img src="images/masonry/pic4.jpg" alt=""/>
+								</div>
+								<div class="blog-card-info">
+									<div class="dlab-post-meta">
+										<ul>
+											<li class="post-tag"><a href="tags.html">Culture</a></li>
+										</ul>
+									</div>
+									<h4 class="title"><a href="post-header-image.html">Las Catalinas Car Free Costa Rica Town Welcomes a Hotel</a></h4>
+									<div class="dlab-feed-meta">
+										<ul>
+											<li class="post-date">12 Aug 2020</li>
+											<li class="post-like"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-up"></i><span>231</span></a></li>
+											<li class="post-dislike"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-down"></i><span>584</span></a></li>
+											<li class="post-view"><a href="javascript:void(0);"><i class="fa fa-eye"></i><span>397</span></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-container col-xl-3 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+							<div class="blog-card blog-grid post-boxed-sp">
+								<div class="dlab-post-media">
+									<img src="images/masonry/pic5.jpg" alt=""/>
+								</div>
+								<div class="blog-card-info">
+									<div class="dlab-post-meta">
+										<ul>
+											<li class="post-category"><a href="javascript:void(0);">beauty</a>, <a href="javascript:void(0);">beauty</a></li>
+											<li class="post-date">at <span>12 August 2020</span></li>
+										</ul>
+									</div>
+									<h4 class="title"><a href="post-left-sidebar.html">All the Celebratory Moments from His New York Wedding</a></h4>
+									<div class="dlab-feed-meta">
+										<ul>
+											<li class="post-like"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-up"></i><span>231</span></a></li>
+											<li class="post-dislike"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-down"></i><span>584</span></a></li>
+											<li class="post-view"><a href="javascript:void(0);"><i class="fa fa-eye"></i><span>397</span></a></li>
+											<li class="post-share"><i class="fa fa-share-alt"></i><span>Share</span>
+												<ul>
+													<li><a href="javascript:;"><i class="fa fa-facebook"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-google-plus"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-linkedin"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-twitter"></i></a></li>
+												</ul>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-container col-xl-3 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.8s">
+							<div class="blog-card blog-grid overlay-post center">
+								<div class="dlab-post-media">
+									<img src="images/masonry/pic6.jpg" alt=""/>
+								</div>
+								<div class="blog-card-info">
+									<div class="dlab-post-meta">
+										<ul>
+											<li class="post-tag"><a href="tags.html">Culture</a></li>
+										</ul>
+									</div>
+									<h4 class="title"><a href="post-header-image.html">Las Catalinas Car Free Costa Rica Town Welcomes a Hotel</a></h4>
+									<div class="dlab-feed-meta">
+										<ul>
+											<li class="post-date">12 Aug 2020</li>
+											<li class="post-like"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-up"></i><span>231</span></a></li>
+											<li class="post-dislike"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-down"></i><span>584</span></a></li>
+											<li class="post-view"><a href="javascript:void(0);"><i class="fa fa-eye"></i><span>397</span></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-container col-xl-3 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+							<div class="blog-card blog-grid post-boxed-sp">
+								<div class="dlab-post-media">
+									<img src="images/masonry/pic7.jpg" alt=""/>
+								</div>
+								<div class="blog-card-info">
+									<div class="dlab-post-meta">
+										<ul>
+											<li class="post-category"><a href="javascript:void(0);">beauty</a>, <a href="javascript:void(0);">beauty</a></li>
+											<li class="post-date">at <span>12 August 2020</span></li>
+										</ul>
+									</div>
+									<h4 class="title"><a href="post-left-sidebar.html">How Bob Productions Transformed Beauty From Directional PonytailsTresses</a></h4>
+									<div class="dlab-feed-meta">
+										<ul>
+											<li class="post-like"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-up"></i><span>231</span></a></li>
+											<li class="post-dislike"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-down"></i><span>584</span></a></li>
+											<li class="post-view"><a href="javascript:void(0);"><i class="fa fa-eye"></i><span>397</span></a></li>
+											<li class="post-share"><i class="fa fa-share-alt"></i><span>Share</span>
+												<ul>
+													<li><a href="javascript:;"><i class="fa fa-facebook"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-google-plus"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-linkedin"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-twitter"></i></a></li>
+												</ul>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-container col-xl-3 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.8s">
+							<div class="blog-card blog-grid overlay-post center">
+								<div class="dlab-post-media">
+									<img src="images/masonry/pic8.jpg" alt=""/>
+								</div>
+								<div class="blog-card-info">
+									<div class="dlab-post-meta">
+										<ul>
+											<li class="post-tag"><a href="tags.html">Culture</a></li>
+										</ul>
+									</div>
+									<h4 class="title"><a href="post-header-image.html">Las Catalinas Car Free Costa Rica Town Welcomes a Hotel</a></h4>
+									<div class="dlab-feed-meta">
+										<ul>
+											<li class="post-date">12 Aug 2020</li>
+											<li class="post-like"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-up"></i><span>231</span></a></li>
+											<li class="post-dislike"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-down"></i><span>584</span></a></li>
+											<li class="post-view"><a href="javascript:void(0);"><i class="fa fa-eye"></i><span>397</span></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-container col-xl-3 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+							<div class="blog-card blog-grid post-boxed-sp">
+								<div class="dlab-post-media">
+									<img src="images/masonry/pic9.jpg" alt=""/>
+								</div>
+								<div class="blog-card-info">
+									<div class="dlab-post-meta">
+										<ul>
+											<li class="post-category"><a href="javascript:void(0);">beauty</a>, <a href="javascript:void(0);">beauty</a></li>
+											<li class="post-date">at <span>12 August 2020</span></li>
+										</ul>
+									</div>
+									<h4 class="title"><a href="post-left-sidebar.html">Natural Hair Guru Who Launch Products For Tresses</a></h4>
+									<div class="dlab-feed-meta">
+										<ul>
+											<li class="post-like"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-up"></i><span>231</span></a></li>
+											<li class="post-dislike"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-down"></i><span>584</span></a></li>
+											<li class="post-view"><a href="javascript:void(0);"><i class="fa fa-eye"></i><span>397</span></a></li>
+											<li class="post-share"><i class="fa fa-share-alt"></i><span>Share</span>
+												<ul>
+													<li><a href="javascript:;"><i class="fa fa-facebook"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-google-plus"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-linkedin"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-twitter"></i></a></li>
+												</ul>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-container col-xl-3 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.8s">
+							<div class="blog-card blog-grid overlay-post center">
+								<div class="dlab-post-media">
+									<img src="images/masonry/pic10.jpg" alt=""/>
+								</div>
+								<div class="blog-card-info">
+									<div class="dlab-post-meta">
+										<ul>
+											<li class="post-tag"><a href="tags.html">Culture</a></li>
+										</ul>
+									</div>
+									<h4 class="title"><a href="post-header-image.html">Las Catalinas Car Free Costa Rica Town Welcomes a Hotel</a></h4>
+									<div class="dlab-feed-meta">
+										<ul>
+											<li class="post-date">12 Aug 2020</li>
+											<li class="post-like"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-up"></i><span>231</span></a></li>
+											<li class="post-dislike"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-down"></i><span>584</span></a></li>
+											<li class="post-view"><a href="javascript:void(0);"><i class="fa fa-eye"></i><span>397</span></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-container col-xl-3 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+							<div class="blog-card blog-grid post-boxed-sp">
+								<div class="dlab-post-media">
+									<img src="images/masonry/pic11.jpg" alt=""/>
+								</div>
+								<div class="blog-card-info">
+									<div class="dlab-post-meta">
+										<ul>
+											<li class="post-category"><a href="javascript:void(0);">beauty</a>, <a href="javascript:void(0);">beauty</a></li>
+											<li class="post-date">at <span>12 August 2020</span></li>
+										</ul>
+									</div>
+									<h4 class="title"><a href="post-left-sidebar.html">Ready or Not, the Return of the Hobo Bag Is NighTresses</a></h4>
+									<div class="dlab-feed-meta">
+										<ul>
+											<li class="post-like"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-up"></i><span>231</span></a></li>
+											<li class="post-dislike"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-down"></i><span>584</span></a></li>
+											<li class="post-view"><a href="javascript:void(0);"><i class="fa fa-eye"></i><span>397</span></a></li>
+											<li class="post-share"><i class="fa fa-share-alt"></i><span>Share</span>
+												<ul>
+													<li><a href="javascript:;"><i class="fa fa-facebook"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-google-plus"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-linkedin"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-twitter"></i></a></li>
+												</ul>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-container col-xl-3 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.8s">
+							<div class="blog-card blog-grid overlay-post center">
+								<div class="dlab-post-media">
+									<img src="images/masonry/pic12.jpg" alt=""/>
+								</div>
+								<div class="blog-card-info">
+									<div class="dlab-post-meta">
+										<ul>
+											<li class="post-tag"><a href="tags.html">Culture</a></li>
+										</ul>
+									</div>
+									<h4 class="title"><a href="post-header-image.html">Las Catalinas Car Free Costa Rica Town Welcomes a Hotel</a></h4>
+									<div class="dlab-feed-meta">
+										<ul>
+											<li class="post-date">12 Aug 2020</li>
+											<li class="post-like"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-up"></i><span>231</span></a></li>
+											<li class="post-dislike"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-down"></i><span>584</span></a></li>
+											<li class="post-view"><a href="javascript:void(0);"><i class="fa fa-eye"></i><span>397</span></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-container col-xl-3 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+							<div class="blog-card blog-grid post-boxed-sp">
+								<div class="dlab-post-media">
+									<img src="images/masonry/pic13.jpg" alt=""/>
+								</div>
+								<div class="blog-card-info">
+									<div class="dlab-post-meta">
+										<ul>
+											<li class="post-category"><a href="javascript:void(0);">beauty</a>, <a href="javascript:void(0);">beauty</a></li>
+											<li class="post-date">at <span>12 August 2020</span></li>
+										</ul>
+									</div>
+									<h4 class="title"><a href="post-left-sidebar.html">Natural Hair Guru Who Launch Products For Tresses</a></h4>
+									<div class="dlab-feed-meta">
+										<ul>
+											<li class="post-like"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-up"></i><span>231</span></a></li>
+											<li class="post-dislike"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-down"></i><span>584</span></a></li>
+											<li class="post-view"><a href="javascript:void(0);"><i class="fa fa-eye"></i><span>397</span></a></li>
+											<li class="post-share"><i class="fa fa-share-alt"></i><span>Share</span>
+												<ul>
+													<li><a href="javascript:;"><i class="fa fa-facebook"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-google-plus"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-linkedin"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-twitter"></i></a></li>
+												</ul>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-container col-xl-3 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.8s">
+							<div class="blog-card blog-grid overlay-post center">
+								<div class="dlab-post-media">
+									<img src="images/masonry/pic14.jpg" alt=""/>
+								</div>
+								<div class="blog-card-info">
+									<div class="dlab-post-meta">
+										<ul>
+											<li class="post-tag"><a href="tags.html">Culture</a></li>
+										</ul>
+									</div>
+									<h4 class="title"><a href="post-header-image.html">Las Catalinas Car Free Costa Rica Town Welcomes a Hotel</a></h4>
+									<div class="dlab-feed-meta">
+										<ul>
+											<li class="post-date">12 Aug 2020</li>
+											<li class="post-like"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-up"></i><span>231</span></a></li>
+											<li class="post-dislike"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-down"></i><span>584</span></a></li>
+											<li class="post-view"><a href="javascript:void(0);"><i class="fa fa-eye"></i><span>397</span></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-container col-xl-3 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+							<div class="blog-card blog-grid post-boxed-sp">
+								<div class="dlab-post-media">
+									<img src="images/masonry/pic15.jpg" alt=""/>
+								</div>
+								<div class="blog-card-info">
+									<div class="dlab-post-meta">
+										<ul>
+											<li class="post-category"><a href="javascript:void(0);">beauty</a>, <a href="javascript:void(0);">beauty</a></li>
+											<li class="post-date">at <span>12 August 2020</span></li>
+										</ul>
+									</div>
+									<h4 class="title"><a href="post-left-sidebar.html">Natural Hair Guru Who Launch Products For Tresses</a></h4>
+									<div class="dlab-feed-meta">
+										<ul>
+											<li class="post-like"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-up"></i><span>231</span></a></li>
+											<li class="post-dislike"><a href="javascript:void(0);"><i class="fa fa-thumbs-o-down"></i><span>584</span></a></li>
+											<li class="post-view"><a href="javascript:void(0);"><i class="fa fa-eye"></i><span>397</span></a></li>
+											<li class="post-share"><i class="fa fa-share-alt"></i><span>Share</span>
+												<ul>
+													<li><a href="javascript:;"><i class="fa fa-facebook"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-google-plus"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-linkedin"></i></a></li>
+													<li><a href="javascript:;"><i class="fa fa-twitter"></i></a></li>
+												</ul>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="reload-btn text-center">
+						<a href="javascript:void(0);" class="btn">Load More <i class="fa fa-repeat"></i></a>
+					</div>
+				</div>
+			</div>
+			<!-- Blog Post End -->
+			<!-- Instagram Post Carousel -->
+			<div class="section-full insta-post-carousel owl-carousel mfp-gallery owl-none wow fadeIn" data-wow-duration="2s" data-wow-delay="0.6s">
+				<div class="item">
+					<a href="images/blog/card/full-img/pic1.jpg" class="mfp-link dlab-img-effect" title="Title Come Here">
+						<img src="images/blog/card/pic1.jpg" alt="">
+					</a>
+				</div>
+				<div class="item">
+					<a href="images/blog/card/full-img/pic2.jpg" class="mfp-link dlab-img-effect" title="Title Come Here">
+						<img src="images/blog/card/pic2.jpg" alt="">
+					</a>
+				</div>
+				<div class="item">
+					<a href="images/blog/card/full-img/pic3.jpg" class="mfp-link dlab-img-effect" title="Title Come Here">
+						<img src="images/blog/card/pic3.jpg" alt="">
+					</a>
+				</div>
+				<div class="item">
+					<a href="images/blog/card/full-img/pic4.jpg" class="mfp-link dlab-img-effect" title="Title Come Here">
+						<img src="images/blog/card/pic4.jpg" alt="">
+					</a>
+				</div>
+				<div class="item">
+					<a href="images/blog/card/full-img/pic5.jpg" class="mfp-link dlab-img-effect" title="Title Come Here">
+						<img src="images/blog/card/pic5.jpg" alt="">
+					</a>
+				</div>
+				<div class="item">
+					<a href="images/blog/card/full-img/pic6.jpg" class="mfp-link dlab-img-effect" title="Title Come Here">
+						<img src="images/blog/card/pic6.jpg" alt="">
+					</a>
+				</div>
+				<div class="item">
+					<a href="images/blog/card/full-img/pic6.jpg" class="mfp-link dlab-img-effect" title="Title Come Here">
+						<img src="images/blog/card/pic7.jpg" alt="">
+					</a>
+				</div>
+			</div>
+			<!-- Blog Card Carousel End -->
+			<!-- Footer -->
+			<footer class="site-footer wow fadeIn" data-wow-duration="2s" data-wow-delay="0.8s">
+				<div class="footer-top">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-4 align-self-center">
+								<ul class="footer-link m-b0 p-l0">
+									<li><a href="index.html">Blog</a></li>
+									<li><a href="about-me.html">Shop</a></li>
+									<li><a href="contact-me.html">About</a></li>
+								</ul>						
+							</div>
+							<div class="col-lg-4">
+								<div class="footer-logo">
+									<a href="index.html"><img src="images/logo.png" alt=""/></a>
+								</div>
+							</div>
+							<div class="col-lg-4 align-self-center">
+								<ul class="social-icon m-b0 p-l0">
+									<li><a href="javascript:void(0);" class="btn radius-xl"><i class="fa fa-instagram"></i></a></li>
+									<li><a href="javascript:void(0);" class="btn radius-xl"><i class="fa fa-twitter"></i></a></li>
+									<li><a href="javascript:void(0);" class="btn radius-xl"><i class="fa fa-facebook"></i></a></li>
+									<li><a href="javascript:void(0);" class="btn radius-xl"><i class="fa fa-youtube-play"></i></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer-bottom">
+					<div class="container">
+						<p>© 2020. Copyright MyDiary Template.</p>
+					</div>
+				</div>
+			</footer>
+			<!-- Footer END-->
+		</div>
+	</div>
+    <button class="scroltop fa fa-chevron-up" ></button>
+</div>
+<!-- JAVASCRIPT FILES ========================================= -->
+<script src="js/jquery.min.js"></script><!-- JQUERY.MIN JS -->
+<script src="plugins/wow/wow.js"></script><!-- WOW JS -->
+<script src="plugins/bootstrap/js/popper.min.js"></script><!-- BOOTSTRAP.MIN JS -->
+<script src="plugins/bootstrap/js/bootstrap.min.js"></script><!-- BOOTSTRAP.MIN JS -->
+<script src="plugins/bootstrap-select/bootstrap-select.min.js"></script><!-- FORM JS -->
+<script src="plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script><!-- FORM JS -->
+<script src="plugins/magnific-popup/magnific-popup.js"></script><!-- MAGNIFIC POPUP JS -->
+<script src="plugins/counter/waypoints-min.js"></script><!-- WAYPOINTS JS -->
+<script src="plugins/counter/counterup.min.js"></script><!-- COUNTERUP JS -->
+<script src="plugins/imagesloaded/imagesloaded.js"></script><!-- IMAGESLOADED -->
+<script src="plugins/masonry/masonry-3.1.4.js"></script><!-- MASONRY -->
+<script src="plugins/masonry/masonry.filter.js"></script><!-- MASONRY -->
+<script src="plugins/owl-carousel/owl.carousel.js"></script><!-- OWL SLIDER -->
+<script src="plugins/scroll/scrollbar.min.js"></script><!-- Scroll Bar -->
+<script src="plugins/lightgallery/js/lightgallery-all.min.js"></script><!-- Lightgallery -->
+<script src="js/custom.js"></script><!-- CUSTOM FUCTIONS  -->
+<script src="js/dz.carousel.js"></script><!-- SORTCODE FUCTIONS -->
+<script src="js/dz.ajax.js"></script><!-- CONTACT JS  -->
+</body>
+</html>
