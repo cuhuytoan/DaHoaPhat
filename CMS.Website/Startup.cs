@@ -17,11 +17,12 @@ namespace CMS.Website
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            _env = env;
         }
-
+        public IWebHostEnvironment _env { get; }
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -68,6 +69,13 @@ namespace CMS.Website
             {
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
                     new[] { "application/octet-stream" });
+            });
+            services.AddServerSideBlazor().AddCircuitOptions(o =>
+            {
+                if (_env.IsDevelopment()) //only add details when debugging
+                {
+                    o.DetailedErrors = true;
+                }
             });
         }
 

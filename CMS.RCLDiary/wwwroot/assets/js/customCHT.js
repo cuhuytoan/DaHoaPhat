@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+/*$(document).on('DOMSubtreeModified', function () {*/
 
 	var sync1 = $("#sync1");
 	var sync2 = $("#sync2");

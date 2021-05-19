@@ -1,9 +1,6 @@
 ﻿@page "/"
 @namespace CMS.Website.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@{
-    Layout = null;
-}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,35 +40,38 @@
 
 </head>
 
-<body>
+<body id="bg">
+    <div class="page-wraper">
+        <div id="loading-area"></div>
+        <app>
+            <component type="typeof(App)" render-mode="ServerPrerendered" />
+        </app>
 
-    <app>
-        <component type="typeof(App)" render-mode="ServerPrerendered" />
-    </app>
+        <button class="scroltop fa fa-chevron-up"></button>
+    </div>
+
+        <script src="_content/CMS.RCLDiary/js/jquery.min.js"></script>
+        <script src="_content/CMS.RCLDiary/plugins/wow/wow.js"></script>
+        <script src="_content/CMS.RCLDiary/plugins/bootstrap/js/popper.min.js"></script>
+        <script src="_content/CMS.RCLDiary/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="_content/CMS.RCLDiary/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="_content/CMS.RCLDiary/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+        <script src="_content/CMS.RCLDiary/plugins/magnific-popup/magnific-popup.js"></script>
+        <script src="_content/CMS.RCLDiary/plugins/counter/waypoints-min.js"></script>
+        <script src="_content/CMS.RCLDiary/plugins/counter/counterup.min.js"></script>
+        <script src="_content/CMS.RCLDiary/plugins/imagesloaded/imagesloaded.js"></script>
+        <script src="_content/CMS.RCLDiary/plugins/masonry/masonry-3.1.4.js"></script>
+        <script src="_content/CMS.RCLDiary/plugins/masonry/masonry.filter.js"></script>
+        <script src="_content/CMS.RCLDiary/plugins/owl-carousel/owl.carousel.js"></script>
+        <script src="_content/CMS.RCLDiary/plugins/scroll/scrollbar.min.js"></script>
+        <script src="_content/CMS.RCLDiary/plugins/lightgallery/js/lightgallery-all.min.js"></script>
+        <script src="_content/CMS.RCLDiary/js/custom.js"></script>
+        <script src="_content/CMS.RCLDiary/js/dz.carousel.js"></script>
+        <script src="_content/CMS.RCLDiary/js/dz.ajax.js"></script>
+        <script src="_content/CMS.RCLDiary/assets/js/customCHT.js"></script>
 
 
-    <!-- JAVASCRIPT FILES ========================================= -->
-    <script src="_content/CMS.RCLDiary/js/jquery.min.js"></script><!-- JQUERY.MIN JS -->
-    <script src="_content/CMS.RCLDiary/plugins/wow/wow.js"></script><!-- WOW JS -->
-    <script src="_content/CMS.RCLDiary/plugins/bootstrap/js/popper.min.js"></script><!-- BOOTSTRAP.MIN JS -->
-    <script src="_content/CMS.RCLDiary/plugins/bootstrap/js/bootstrap.min.js"></script><!-- BOOTSTRAP.MIN JS -->
-    <script src="_content/CMS.RCLDiary/plugins/bootstrap-select/bootstrap-select.min.js"></script><!-- FORM JS -->
-    <script src="_content/CMS.RCLDiary/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script><!-- FORM JS -->
-    <script src="_content/CMS.RCLDiary/plugins/magnific-popup/magnific-popup.js"></script><!-- MAGNIFIC POPUP JS -->
-    <script src="_content/CMS.RCLDiary/plugins/counter/waypoints-min.js"></script><!-- WAYPOINTS JS -->
-    <script src="_content/CMS.RCLDiary/plugins/counter/counterup.min.js"></script><!-- COUNTERUP JS -->
-    <script src="_content/CMS.RCLDiary/plugins/imagesloaded/imagesloaded.js"></script><!-- IMAGESLOADED -->
-    <script src="_content/CMS.RCLDiary/plugins/masonry/masonry-3.1.4.js"></script><!-- MASONRY -->
-    <script src="_content/CMS.RCLDiary/plugins/masonry/masonry.filter.js"></script><!-- MASONRY -->
-    <script src="_content/CMS.RCLDiary/plugins/owl-carousel/owl.carousel.js"></script><!-- OWL SLIDER -->
-    <script src="_content/CMS.RCLDiary/plugins/scroll/scrollbar.min.js"></script><!-- Scroll Bar -->
-    <script src="_content/CMS.RCLDiary/plugins/lightgallery/js/lightgallery-all.min.js"></script><!-- Lightgallery -->
-    <script src="_content/CMS.RCLDiary/js/custom.js"></script><!-- CUSTOM FUCTIONS  -->
-    <script src="_content/CMS.RCLDiary/js/dz.carousel.js"></script><!-- SORTCODE FUCTIONS -->
-    <script src="_content/CMS.RCLDiary/js/dz.ajax.js"></script><!-- CONTACT JS  -->
-    <script src="_content/CMS.RCLDiary/assets/js/customCHT.js"></script><!-- CONTACT JS  -->
-
-    <script src="_framework/blazor.server.js"></script>
+        <script src="_framework/blazor.server.js"></script>
 </body>
 
 </html>

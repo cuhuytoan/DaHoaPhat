@@ -10,9 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\HomePage\**" />
     <Compile Remove="wwwroot\adminty\**" />
+    <Content Remove="Pages\HomePage\**" />
     <Content Remove="wwwroot\adminty\**" />
+    <EmbeddedResource Remove="Pages\HomePage\**" />
     <EmbeddedResource Remove="wwwroot\adminty\**" />
+    <None Remove="Pages\HomePage\**" />
     <None Remove="wwwroot\adminty\**" />
   </ItemGroup>
 
@@ -54,7 +58,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\HomePage\" />
+    <Folder Include="Pages\BlogCategory\" />
+    <Folder Include="Pages\BlogDetail\" />
     <Folder Include="wwwroot\data\article\upload\thanhcongtctn%40gmail.com\" />
     <Folder Include="wwwroot\data\articlepublish\" />
   </ItemGroup>

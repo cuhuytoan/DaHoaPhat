@@ -1,5 +1,38 @@
 ﻿@inherits LayoutComponentBase
+    <!-- header -->
+<header class="site-header mo-left header-full header">
+    <HeaderComponent />
+</header>
+<!-- header END -->
+<div class="page-content bg-white">
+    @Body
+</div>
+<footer class="site-footer wow fadeIn" data-wow-duration="2s" data-wow-delay="0.8s">
+</footer>
+@code{ 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/CMS.RCLDiary/js/jquery.min.js");
+            JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/CMS.RCLDiary/plugins/wow/wow.js");
+            JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/CMS.RCLDiary/plugins/bootstrap/js/popper.min.js");
+            JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/CMS.RCLDiary/plugins/bootstrap-select/bootstrap-select.min.js");
+            JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/CMS.RCLDiary/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js");
+            JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/CMS.RCLDiary/plugins/magnific-popup/magnific-popup.js");
+            JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/CMS.RCLDiary/plugins/counter/waypoints-min.js");
+            JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/CMS.RCLDiary/plugins/counter/counterup.min.js");
+            JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/CMS.RCLDiary/plugins/imagesloaded/imagesloaded.js");
+            JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/CMS.RCLDiary/plugins/masonry/masonry-3.1.4.js");
+            JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/CMS.RCLDiary/plugins/masonry/masonry.filter.js");
+            JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/CMS.RCLDiary/plugins/owl-carousel/owl.carousel.js");
+            JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/CMS.RCLDiary/plugins/scroll/scrollbar.min.js");
+            JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/CMS.RCLDiary/plugins/lightgallery/js/lightgallery-all.min.js");
+            JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/CMS.RCLDiary/js/custom.js");
+            JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/CMS.RCLDiary/js/dz.carousel.js");
+            JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/CMS.RCLDiary/js/dz.ajax.js");
+            JSRuntime.InvokeAsync<IJSObjectReference>("import", "_content/CMS.RCLDiary/assets/js/customCHT.js");
+        }
 
-
-@Body
-
+    }
+}
