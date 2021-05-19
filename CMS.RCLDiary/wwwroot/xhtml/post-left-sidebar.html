@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+	<meta name="robots" content="" />
+	<meta name="description" content="MyDiary - Blog HTML Template" />
+	<meta property="og:title" content="MyDiary - Blog HTML Template" />
+	<meta property="og:description" content="MyDiary - Blog HTML Template" />
+	<meta property="og:image" content="" />
+	<meta name="format-detection" content="telephone=no">
+	
+	<!-- FAVICONS ICON -->
+	<link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
+	
+	<!-- PAGE TITLE HERE -->
+	<title>MyDiary - Blog HTML Template</title>
+	
+	<!-- MOBILE SPECIFIC -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.min.js"></script>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+	
+	<!-- STYLESHEETS -->
+	<link rel="stylesheet" type="text/css" href="css/plugins.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/templete.css">
+	<link class="skin" rel="stylesheet" type="text/css" href="css/skin/skin-1.css">
+	
+</head>
+<body id="bg">
+<div class="page-wraper">
+<div id="loading-area"></div>
+	<div class="modal fade subscribe-modal-bx" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content subscribe-form">
+				<div class="modal-header">
+					<div class="sub-title">
+						<h3 class="title">Join Us To Day</h3>
+						<p>Receive Only The Best Posts Via Email</p>
+					</div>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="script/mailchamp.php" method="post" class="dzSubscribe row align-items-center">
+						<div class="col-lg-12 col-md-12">
+							<div class="form-group">
+								<input name="dzName" required="required" type="text" class="form-control" placeholder="Your Name ">
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-12">
+							<div class="form-group">
+								<input name="dzEmail" required="required" type="email" class="form-control" placeholder="Your Email Address">
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-12">
+							<div class="form-group m-b0">
+								<button name="submit" value="Submit" type="submit" class="btn secondry radius-no btn-block">Subscribe</button>
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<div class="dzSubscribeMsg"></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="header-author">
+		<div class="author-bx">
+			<div class="author-media">
+				<img src="images/author.jpg" alt=""/>
+			</div>
+			<div class="author-info">
+				<h2 class="title">Hi. i am Shailja Reddy</h2>
+				<p>I am a developer based in Melbourne</p>
+				<ul class="author-social">
+					<li><a href="javascript:void(0);" class=""><i class="fa fa-facebook"></i> <span>facebook</span></a></li>
+					<li><a href="javascript:void(0);" class=""><i class="fa fa-instagram"></i> <span>instagram</span></a></li>
+					<li><a href="javascript:void(0);" class=""><i class="fa fa-twitter"></i> <span>twitter</span></a></li>
+					<li><a href="javascript:void(0);" class=""><i class="fa fa-linkedin"></i> <span>linkedin</span></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- header -->
+    <header class="site-header mo-left header-full header">
+		<!-- main header -->
+		<div class="sticky-header main-bar-wraper navbar-expand-lg">
+			<div class="main-bar clearfix ">
+				<div class="container-fluid">
+					<!-- website logo -->
+					<div class="logo-header mostion">
+						<a href="index.html"><img src="images/logo-black.png" alt=""></a>
+					</div>
+					
+					<!-- nav toggle button -->
+					<button class="navbar-toggler collapsed navicon justify-content-end" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+						<span></span>
+						<span></span>
+						<span></span>
+					</button>
+					
+					<!-- extra nav -->
+					<div class="extra-nav">
+						<div class="extra-cell">
+							<ul>
+								<li class="search-btn">
+									<a id="quik-search-btn" href="javascript:;"><i class="ti-search m-r10"></i><span>Search</span></a>
+								</li>
+								<li>
+									<button type="button" data-toggle="modal" data-target="#exampleModal" class="btn secondry radius-no">Subscribe</button>
+								</li>
+							</ul>
+						</div>
+					</div>
+					
+					<!-- Quik search -->
+					<div class="dlab-quik-search">
+						<form action="#">
+							<input name="search" value="" type="text" class="form-control" placeholder="Search...">
+							<span id="quik-search"><i class="ti-search"></i></span>
+						</form>
+						<span class="search-remove" id="quik-search-remove"><i class="ti-close"></i></span>
+					</div>
+					
+					<!-- main nav -->
+					<div class="header-nav navbar-collapse collapse justify-content-left" id="navbarNavDropdown">
+						<div class="logo-header">
+							<a href="index.html"><img src="images/logo.png" alt=""></a>
+						</div>
+						<ul class="nav navbar-nav">	
+							<li class="active">
+								<a href="javascript:void(0);">Home<i class="fa fa-chevron-down"></i></a>
+								<ul class="sub-menu">
+									<li><a href="index.html">Home 01</a></li>
+									<li><a href="index-2.html">Home 02</a></li>
+									<li><a href="index-3.html">Home 03</a></li>
+									<li><a href="index-4.html">Home 04</a></li>
+									<li><a href="index-5.html">Home 05</a></li>
+								</ul>	
+							</li>
+							<li>
+								<a href="javascript:void(0);">Post Layout<i class="fa fa-chevron-down"></i></a>
+								<ul class="sub-menu">
+									<li><a href="post-standart.html">Post Standart</a></li>
+									<li><a href="post-left-sidebar.html">Post Left Sidebar</a></li>
+									<li><a href="post-header-image.html">Post Header Image</a></li>
+									<li><a href="post-slide-show.html">Post Slide Show</a></li>
+									<li><a href="post-side-image.html">Post Side Image</a></li>
+									<li><a href="post-gallery.html">Post Gallery</a></li>
+									<li><a href="post-gallery-alternative.html">Post Gallery Alt</a></li>
+									<li><a href="post-link.html">Post Link</a></li>
+									<li><a href="post-audio.html">Post Audio</a></li>
+									<li><a href="post-video.html">Post Video</a></li>
+									<li><a href="post-pagination.html">Post With Pagination</a></li>
+									<li><a href="post-open-gutenberg.html">Post Open Gutenberg</a></li>
+								</ul>
+							</li>
+							<li class="has-mega-menu post-slider life-style">
+								<a href="javascript:void(0);">Category<i class="fa fa-chevron-down"></i></a>
+								<div class="mega-menu">
+									<div class="life-style-bx">
+										<div class="life-style-tabs">
+											<ul>
+												<li><a href="javascript:void(0);" id="st-all" class="post-tabs active">All</a></li>
+												<li><a href="javascript:void(0);" id="st-beauty" class="post-tabs">Beauty</a></li>
+												<li><a href="javascript:void(0);" id="st-lifestyle" class="post-tabs">Lifestyle</a></li>
+												<li><a href="javascript:void(0);" id="st-fashion" class="post-tabs">Fashion</a></li>
+												<li><a href="javascript:void(0);" id="st-travel" class="post-tabs">Travel</a></li>
+											</ul>
+										</div>
+										<div class="life-style-post text-center">
+											<div id="all" class="life-style-post-bx show">
+												<div class="header-blog-carousel owl-carousel owl-btn-center-lr">
+													<div class="item">
+														<div class="blog-post blog-sm">
+															<div class="dlab-post-media">
+																<a href="post-standart.html"><img src="images/category/pic1.jpg" alt=""></a>
+															</div>
+															<div class="dlab-post-info">
+																<div class="dlab-post-title ">
+																	<h5 class="post-title"><a href="post-standart.html">Ready or Not, the Return into of the Hobo Bag Is Nigh</a></h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="item">
+														<div class="blog-post blog-sm">
+															<div class="dlab-post-media">
+																<a href="post-left-sidebar.html"><img src="images/category/pic2.jpg" alt=""></a>
+															</div>
+															<div class="dlab-post-info">
+																<div class="dlab-post-title ">
+																	<h5 class="post-title"><a href="post-left-sidebar.html">This Week on Instagram, Celebri ties Went All-In on Prints</a></h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="item">
+														<div class="blog-post blog-sm">
+															<div class="dlab-post-media">
+																<a href="post-full-width.html"><img src="images/category/pic3.jpg" alt=""></a>
+															</div>
+															<div class="dlab-post-info">
+																<div class="dlab-post-title">
+																	<h5 class="post-title"><a href="post-header-image.html">Anniversary With An Exhibition At Dallas Contemporary</a></h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="item">
+														<div class="blog-post blog-sm">
+															<div class="dlab-post-media">
+																<a href="post-slide-show.html"><img src="images/category/pic4.jpg" alt=""></a>
+															</div>
+															<div class="dlab-post-info">
+																<div class="dlab-post-title ">
+																	<h5 class="post-title"><a href="post-slide-show.html">La Dolce Vita Meets Old School on Beach Style </a></h5>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="beauty" class="life-style-post-bx">
+												<div class="header-blog-carousel owl-carousel owl-btn-center-lr">
+													<div class="item">
+														<div class="blog-post blog-sm">
+															<div class="dlab-post-media">
+																<a href="post-standart.html"><img src="images/category/pic1.jpg" alt=""></a>
+															</div>
+															<div class="dlab-post-info">
+																<div class="dlab-post-title ">
+																	<h5 class="post-title"><a href="post-standart.html">Ready or Not, the Return into of the Hobo Bag Is Nigh</a></h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="item">
+														<div class="blog-post blog-sm">
+															<div class="dlab-post-media">
+																<a href="post-left-sidebar.html"><img src="images/category/pic2.jpg" alt=""></a>
+															</div>
+															<div class="dlab-post-info">
+																<div class="dlab-post-title ">
+																	<h5 class="post-title"><a href="post-left-sidebar.html">This Week on Instagram, Celebri ties Went All-In on Prints</a></h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="item">
+														<div class="blog-post blog-sm">
+															<div class="dlab-post-media">
+																<a href="post-full-width.html"><img src="images/category/pic3.jpg" alt=""></a>
+															</div>
+															<div class="dlab-post-info">
+																<div class="dlab-post-title">
+																	<h5 class="post-title"><a href="post-header-image.html">Anniversary With An Exhibition At Dallas Contemporary</a></h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="item">
+														<div class="blog-post blog-sm">
+															<div class="dlab-post-media">
+																<a href="post-slide-show.html"><img src="images/category/pic4.jpg" alt=""></a>
+															</div>
+															<div class="dlab-post-info">
+																<div class="dlab-post-title ">
+																	<h5 class="post-title"><a href="post-slide-show.html">La Dolce Vita Meets Old School on Beach Style </a></h5>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="lifestyle" class="life-style-post-bx">
+												<div class="header-blog-carousel owl-carousel owl-btn-center-lr">
+													<div class="item">
+														<div class="blog-post blog-sm">
+															<div class="dlab-post-media">
+																<a href="post-standart.html"><img src="images/category/pic1.jpg" alt=""></a>
+															</div>
+															<div class="dlab-post-info">
+																<div class="dlab-post-title ">
+																	<h5 class="post-title"><a href="post-standart.html">Ready or Not, the Return into of the Hobo Bag Is Nigh</a></h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="item">
+														<div class="blog-post blog-sm">
+															<div class="dlab-post-media">
+																<a href="post-left-sidebar.html"><img src="images/category/pic2.jpg" alt=""></a>
+															</div>
+															<div class="dlab-post-info">
+																<div class="dlab-post-title ">
+																	<h5 class="post-title"><a href="post-left-sidebar.html">This Week on Instagram, Celebri ties Went All-In on Prints</a></h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="item">
+														<div class="blog-post blog-sm">
+															<div class="dlab-post-media">
+																<a href="post-full-width.html"><img src="images/category/pic3.jpg" alt=""></a>
+															</div>
+															<div class="dlab-post-info">
+																<div class="dlab-post-title">
+																	<h5 class="post-title"><a href="post-header-image.html">Anniversary With An Exhibition At Dallas Contemporary</a></h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="item">
+														<div class="blog-post blog-sm">
+															<div class="dlab-post-media">
+																<a href="post-slide-show.html"><img src="images/category/pic4.jpg" alt=""></a>
+															</div>
+															<div class="dlab-post-info">
+																<div class="dlab-post-title ">
+																	<h5 class="post-title"><a href="post-slide-show.html">La Dolce Vita Meets Old School on Beach Style </a></h5>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="fashion" class="life-style-post-bx">
+												<div class="header-blog-carousel owl-carousel owl-btn-center-lr">
+													<div class="item">
+														<div class="blog-post blog-sm">
+															<div class="dlab-post-media">
+																<a href="post-standart.html"><img src="images/category/pic1.jpg" alt=""></a>
+															</div>
+															<div class="dlab-post-info">
+																<div class="dlab-post-title ">
+																	<h5 class="post-title"><a href="post-standart.html">Ready or Not, the Return into of the Hobo Bag Is Nigh</a></h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="item">
+														<div class="blog-post blog-sm">
+															<div class="dlab-post-media">
+																<a href="post-left-sidebar.html"><img src="images/category/pic2.jpg" alt=""></a>
+															</div>
+															<div class="dlab-post-info">
+																<div class="dlab-post-title ">
+																	<h5 class="post-title"><a href="post-left-sidebar.html">This Week on Instagram, Celebri ties Went All-In on Prints</a></h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="item">
+														<div class="blog-post blog-sm">
+															<div class="dlab-post-media">
+																<a href="post-full-width.html"><img src="images/category/pic3.jpg" alt=""></a>
+															</div>
+															<div class="dlab-post-info">
+																<div class="dlab-post-title">
+																	<h5 class="post-title"><a href="post-header-image.html">Anniversary With An Exhibition At Dallas Contemporary</a></h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="item">
+														<div class="blog-post blog-sm">
+															<div class="dlab-post-media">
+																<a href="post-slide-show.html"><img src="images/category/pic4.jpg" alt=""></a>
+															</div>
+															<div class="dlab-post-info">
+																<div class="dlab-post-title ">
+																	<h5 class="post-title"><a href="post-slide-show.html">La Dolce Vita Meets Old School on Beach Style </a></h5>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div id="travel" class="life-style-post-bx">
+												<div class="header-blog-carousel owl-carousel owl-btn-center-lr">
+													<div class="item">
+														<div class="blog-post blog-sm">
+															<div class="dlab-post-media">
+																<a href="post-standart.html"><img src="images/category/pic1.jpg" alt=""></a>
+															</div>
+															<div class="dlab-post-info">
+																<div class="dlab-post-title ">
+																	<h5 class="post-title"><a href="post-standart.html">Ready or Not, the Return into of the Hobo Bag Is Nigh</a></h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="item">
+														<div class="blog-post blog-sm">
+															<div class="dlab-post-media">
+																<a href="post-left-sidebar.html"><img src="images/category/pic2.jpg" alt=""></a>
+															</div>
+															<div class="dlab-post-info">
+																<div class="dlab-post-title ">
+																	<h5 class="post-title"><a href="post-left-sidebar.html">This Week on Instagram, Celebri ties Went All-In on Prints</a></h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="item">
+														<div class="blog-post blog-sm">
+															<div class="dlab-post-media">
+																<a href="post-full-width.html"><img src="images/category/pic3.jpg" alt=""></a>
+															</div>
+															<div class="dlab-post-info">
+																<div class="dlab-post-title">
+																	<h5 class="post-title"><a href="post-header-image.html">Anniversary With An Exhibition At Dallas Contemporary</a></h5>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="item">
+														<div class="blog-post blog-sm">
+															<div class="dlab-post-media">
+																<a href="post-slide-show.html"><img src="images/category/pic4.jpg" alt=""></a>
+															</div>
+															<div class="dlab-post-info">
+																<div class="dlab-post-title ">
+																	<h5 class="post-title"><a href="post-slide-show.html">La Dolce Vita Meets Old School on Beach Style </a></h5>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li>
+								<a href="javascript:void(0);">Shop<i class="fa fa-chevron-down"></i></a>
+								<ul class="sub-menu">
+									<li><a href="shop-product.html">Product</a></li>
+									<li><a href="shop-product-details.html">Product Details</a></li>
+									<li><a href="shop-cart.html">Cart</a></li>
+									<li><a href="shop-checkout.html">Checkout</a></li>
+								</ul>
+							</li>
+							<li>
+								<a href="javascript:void(0);">Pages<i class="fa fa-chevron-down"></i></a>
+								<ul class="sub-menu">
+									<li><a href="about-me.html">About</a></li>
+									<li><a href="archive.html">Archive</a></li>
+									<li><a href="author.html">Author</a></li>
+									<li><a href="category.html">Category</a></li>
+									<li><a href="tags.html">Tags</a></li>
+									<li><a href="search-results.html">Search results</a></li>
+									<li><a href="coming-soon.html">Coming Soon</a></li>
+									<li><a href="sitedown.html">Maintenance</a></li>
+									<li><a href="error-404.html">Error 404</a></li>
+								</ul>
+							</li>
+							<li><a href="contact-me.html">Contact</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+    </header>
+    <!-- header END --> 
+    <!-- Content -->
+    <div class="page-content bg-white">
+		<!-- Post Standart -->
+		<div class="section-full content-inner bg-white">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4 col-md-4 col-sm-12 col-12">
+						<div class="side-bar sticky-top">
+							<div class="widget widget-author wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+								<h6 class="widget-title">About Me</h6>
+								<div class="author-profile-info">
+									<div class="author-profile-pic">	
+										<a href="javascript:void(0);">
+											<img src="images/author.jpg" alt="Profile Pic" width="130" height="130">
+										</a>
+									</div>
+									<div class="author-profile-content">
+										<h6 class="title">I Am Shailja Reddy</h6>
+										<p>There are many variations of passages of Lorem Ipsum available.</p>
+										<ul class="social-icon m-b0">
+											<li><a href="javascript:void(0);" class="btn radius-xl"><i class="fa fa-instagram"></i></a></li>
+											<li><a href="javascript:void(0);" class="btn radius-xl"><i class="fa fa-twitter"></i></a></li>
+											<li><a href="javascript:void(0);" class="btn radius-xl"><i class="fa fa-facebook"></i></a></li>
+											<li><a href="javascript:void(0);" class="btn radius-xl"><i class="fa fa-pinterest-p"></i></a></li>
+											<li><a href="javascript:void(0);" class="btn radius-xl"><i class="fa fa-youtube-play"></i></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="widget recent-posts-entry wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.8s">
+								<h6 class="widget-title"><span>Popular Posts</span></h6>
+								<div class="widget-post-bx">
+									<div class="widget-post clearfix">
+										<div class="dlab-post-media">
+											<img src="images/blog/recent-blog/pic1.jpg" alt="">
+										</div>
+										<div class="dlab-post-info">
+											<div class="dlab-post-meta">
+												<ul>
+													<li class="post-category"><a href="javascript:void(0);">Lifestyle</a></li>
+													<li class="post-date">at <span>12 August 2018</span></li>
+												</ul>
+											</div>
+											<h6 class="post-title"><a href="post-header-image.html">Hamish Bowles Spends a Week in Qatar and Is Dazzled by Doha</a></h6>
+										</div>
+									</div>
+									<div class="widget-post clearfix">
+										<div class="dlab-post-media">
+											<img src="images/blog/recent-blog/pic2.jpg" alt="">
+										</div>
+										<div class="dlab-post-info">
+											<div class="dlab-post-meta">
+												<ul>
+													<li class="post-category"><a href="javascript:void(0);">Lifestyle</a></li>
+													<li class="post-date">at <span>12 August 2018</span></li>
+												</ul>
+											</div>
+											<h6 class="post-title"><a href="post-left-sidebar.html">This Week on Instagram, Celebri ties Went All-In on Prints</a></h6>
+										</div>
+									</div>
+									<div class="widget-post clearfix">
+										<div class="dlab-post-media">
+											<img src="images/blog/recent-blog/pic3.jpg" alt="">
+										</div>
+										<div class="dlab-post-info">
+											<div class="dlab-post-meta">
+												<ul>
+													<li class="post-category"><a href="javascript:void(0);">Lifestyle</a></li>
+													<li class="post-date">at <span>12 August 2018</span></li>
+												</ul>
+											</div>
+											<h6 class="post-title"><a href="post-standart.html">Anniversary With An Exhibition At Dallas Contemporary</a></h6>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="widget widget_categories wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+								<h6 class="widget-title"><span>Categories</span></h6>
+								<ul>
+									<li><a href="category.html">Culture </a> <span class="badge">11</span> </li>
+									<li><a href="category.html">Lifestyle </a> <span class="badge">08</span></li>
+									<li><a href="category.html">Fashion </a> <span class="badge">14</span></li>
+									<li><a href="category.html">Food & Health </a> <span class="badge">05</span></li>
+									<li><a href="category.html">Travel </a> <span class="badge">10</span></li>
+								</ul>
+							</div>
+							<div class="widget widget-vlog wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.4s">
+								<h6 class="widget-title"><span>Latest Vlog</span></h6>
+								<div class="widget-carousel owl-carousel owl-dots-style1 owl-none owl-theme">
+									<div class="item">
+										<div class="post-box">
+											<img src="images/video-post/pic1.jpg" alt="">
+											<a href="https://www.youtube.com/watch?v=Dj6CKxQue7U" class="popup-youtube video"><i class="fa fa-youtube-play"></i></a>
+										</div>
+									</div>
+									<div class="item">
+										<div class="post-box">
+											<img src="images/video-post/pic2.jpg" alt="">
+											<a href="https://www.youtube.com/watch?v=Dj6CKxQue7U" class="popup-youtube video"><i class="fa fa-youtube-play"></i></a>
+										</div>
+									</div>
+									<div class="item">
+										<div class="post-box">
+											<img src="images/video-post/pic3.jpg" alt="">
+											<a href="https://www.youtube.com/watch?v=Dj6CKxQue7U" class="popup-youtube video"><i class="fa fa-youtube-play"></i></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-8 col-md-8 col-sm-12 col-12">
+						<div class="blog-post blog-single sidebar">
+							<div class="dlab-post-info">
+								<div class="dlab-post-meta">
+									<ul>
+										<li class="post-author"><span>by</span> <a href="author.html">Shailja Reddy</a></li>
+										<li class="post-category">in <a href="javascript:void(0);">beauty</a>, <a href="javascript:void(0);">fashion</a></li>
+										<li class="post-date">at <span>12 August 2020</span></li>
+									</ul>
+								</div>
+								<h2 class="title">The Best Street Style Photos From Russia Fashion Week Fall 2020</h2>
+								<div class="dlab-post-media">
+									<a href="javascript:;"><img src="images/blog/large/pic1.jpg" alt=""></a>
+								</div>
+								<div class="dlab-post-text text">
+									<p>Lorem ipsum dolor sit amet, conse ctetur dipiscing elit. Sed maximus condi mentum efficitur. Suspendi potenti. Fusce diam felis, ullamcor aca felis sed, volutpat varius tortor. Ut eleifend justo sed quam blandit vehicula ante hendrerit. Sed condimentum libero vel eros porta, eu malesuada nulla bibendum.</p>
+									<p>Proin varius sollicitudin nulla quis fermentum. Nunc vitae arcu eget diam gravida ultrices finibus nec mi. Maecenas egestas libero. Donec ultricies convallis urna. Morbi consequat stibulum nunc sed semper. </p>
+									<p>Aliquam laoreet fringilla velit, quis pulvinar ex bibendum vestibulum. Aenean vel dapibus ex. Curabitur sodales dui ut hendrerit volutpat. Phasellus fringilla semper urna, eu dapibus lacus porttitor at. Sed eget pellentes orci. Aliquam pulvinar augue sed molestie semper. Integer ullamcorper magna fringilla arcu rutrum, sed porttitor ex viverra. </p>
+									<h4>Curabitur elementum lobortis malesuada.</h4>
+									<p>Aliquam laoreet fringilla velit, quis pulvinar ex bibendum vestibulum. Aenean vel dapibus ex. Curabitur sodales dui ut hendrerit volutpat. Phasellus fringilla semper urna, eu dapibus lacus porttitor at. Sed eget pellentes orci. Aliquam pulvinar augue sed molestie semper. Integer ullamcorper magna ex viverra. </p>
+									<div class="wp-block-image">
+										<figure class="alignright">
+											<img src="images/gallery/pic1.jpg" width="400" alt="">
+										</figure>
+									</div>
+									<p>Nullam hendreri rhoncus turpis, sit amet feugiat arcu efficitur ut. Phasellus blandit, diam sed tinci dunt dignissim, enim metus vulputate libero.</p>
+									<p>Eget dignissim dolor nunc in metus. Duis suscipit lacus quis facilisis venenatis, assa dapibus quam.</p>
+									<p>Nid dignissim neque mi id enim. Maecenas gravi odio et suscipit euismod, aortor urna scele risque ante, facilisis purus purus sodales arcu. </p>
+									<p>Aenean vitae massa sit amet mi scipit scelerisque risus. Aliquam pretium sit amet nunc ut ligula.</p>
+									<p>Cras ac erat sapien. Etiam porta, arcu sed scelerisque dapibus, orci felis tincidunt tellus, at bibendum ex velit ac dolor. Aenean auctor, lectus laoreet efficitur dapibus, orci nulla ultrices risus, sed olutpat nisl nulla at felis. Integer ligula risus, ultricies eu velit non, rutrum consectetur neque. Sed ullamcorper hendrerit. </p>
+									<p>Nulla ultrices diam at odio malesuada lacinia. Fusce eget posuere purus. Donec accumsan vehicula mi, id imperdiet nulla ornare eu. Orci varius natoque penatibus et magnis dis parturient scetur ridiculus mus. </p>
+									<p>Praesent vehicula neque et augue consectetur placerat. Ut pellente euismod sapien eget venenatis. Proin massa lacus, dapibus a scelerisque a, molestie sit amet mauris. Cras maximus lectus quis orci feu giat, at tristique velit bibendum. Etiam augue arcu, cursus id egestas ut, viverra ipsum sit amet aliquet tempus. </p>
+								</div>
+								<div class="post-footer">
+									<div class="dlab-post-meta">
+										<span class="title">TAGS : </span>
+										<ul class="tag-list">
+											<li class="post-tag"><a href="tags.html">#Lifestyle</a></li>
+											<li class="post-tag"><a href="tags.html">#Blog</a></li>
+											<li class="post-tag"><a href="tags.html">#Instagram</a></li>
+											<li class="post-tag"><a href="tags.html">#Image</a></li>
+										</ul>
+									</div>
+									<div class="share-post">
+										<ul class="list-inline m-b0">
+											<li><a href="javascript:void(0);" class="btn sharp radius-xl facebook"><i class="fa fa-facebook"></i></a></li>
+											<li><a href="javascript:void(0);" class="btn sharp radius-xl instagram"><i class="fa fa-instagram"></i></a></li>
+											<li><a href="javascript:void(0);" class="btn sharp radius-xl twitter"><i class="fa fa-twitter"></i></a></li>
+											<li><a href="javascript:void(0);" class="btn sharp radius-xl linkedin"><i class="fa fa-linkedin"></i></a></li>
+										</ul>
+									</div>
+								</div>
+								<!-- <div class="share-post">
+									<ul class="slide-social">
+										<li><a href="javascript:void(0);"><i class="fa fa-facebook"></i></a></li>
+										<li><a href="javascript:void(0);"><i class="fa fa-twitter"></i></a></li>
+										<li><a href="javascript:void(0);"><i class="fa fa-pinterest"></i></a></li>
+									</ul>
+								</div> -->
+							</div>
+						</div>
+						<div class="author-profile-info widget">
+							<div class="author-profile-pic">	
+								<a href="javascript:void(0);">
+									<img src="images/author.jpg" alt="Profile Pic" width="130" height="130">
+								</a>
+							</div>
+							<div class="author-profile-content">
+								<h6 class="title">I Am Shailja Reddy</h6>
+								<p>Integer leo turpis, dignissim eget massa ectetur placerat felis. Praesent maximus cursus ut pre tium. Praesent vel massa libero. Aenean fermentum ultrices interdum varius.</p>
+								<ul class="social-icon m-b0">
+									<li><a href="javascript:void(0);" class="btn radius-xl"><i class="fa fa-instagram"></i></a></li>
+									<li><a href="javascript:void(0);" class="btn radius-xl"><i class="fa fa-twitter"></i></a></li>
+									<li><a href="javascript:void(0);" class="btn radius-xl"><i class="fa fa-facebook"></i></a></li>
+									<li><a href="javascript:void(0);" class="btn radius-xl"><i class="fa fa-pinterest-p"></i></a></li>
+									<li><a href="javascript:void(0);" class="btn radius-xl"><i class="fa fa-youtube-play"></i></a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="clear m-b30" id="comment-list">
+							<div class="comments-area" id="comments">
+								<div class="section-head text-center">
+									<span>Comments</span>
+								</div>
+								<!-- comment list END -->
+								<ol class="comment-list">
+									<li class="comment">
+										<div class="comment-body">
+											<div class="comment-author vcard"> 
+												<img  class="avatar photo" src="images/author-img/pic2.jpg" alt=""> 
+												<cite class="fn">Stacy poe</cite> 
+												<span class="says">says:</span> 
+												 <div class="comment-meta"> <a href="javascript:void(0);">October 6, 2015 at 7:15 am</a> </div>
+												<div class="reply"> <a href="javascript:void(0);" class="comment-reply-link">Reply</a> </div>
+											</div>
+											<div class="comment-content">
+												<p>Aliquam viverra, ligula at mattis pharetra, risus nibh dignissim le in luctus odio nulla in nunc. Fusce a purus sed mauris faucibus suscipit.</p>
+											</div>
+										</div>
+										<ol class="children">
+											<li class="comment odd parent">
+												<div class="comment-body">
+													<div class="comment-author vcard"> 
+														<img  class="avatar photo" src="images/author-img/pic3.jpg" alt=""> 
+														<cite class="fn">Muhammad Clay</cite> 
+														<span class="says">says:</span> 
+														 <div class="comment-meta"> <a href="javascript:void(0);">October 6, 2015 at 7:15 am</a> </div>
+														<div class="reply"> <a href="javascript:void(0);" class="comment-reply-link">Reply</a> </div>
+													</div>
+													<div class="comment-content">
+														<p>Aliquam viverra, ligula at mattis pharetra, risus nibh dignissim le in luctus odio nulla in nunc. Fusce a purus sed mauris faucibus suscipit.</p>
+													</div>
+												</div>
+											</li>
+										</ol>
+										<!-- list END -->
+									</li>
+									<li class="comment">
+										<div class="comment-body">
+											<div class="comment-author vcard"> 
+												<img  class="avatar photo" src="images/author-img/pic2.jpg" alt=""> 
+												<cite class="fn">Shailja Reddy</cite> 
+												<span class="says">says:</span> 
+												 <div class="comment-meta"> <a href="javascript:void(0);">October 6, 2015 at 7:15 am</a> </div>
+												<div class="reply"> <a href="javascript:void(0);" class="comment-reply-link">Reply</a> </div>
+											</div>
+											<div class="comment-content">
+												<p>Aliquam viverra, ligula at mattis pharetra, risus nibh dignissim le in luctus odio nulla in nunc. Fusce a purus sed mauris faucibus suscipit.</p>
+											</div>
+										</div>
+										<ol class="children">
+											<li class="comment odd parent">
+												<div class="comment-body">
+													<div class="comment-author vcard"> 
+														<img  class="avatar photo" src="images/author-img/pic3.jpg" alt=""> 
+														<cite class="fn">Stacy poe</cite> 
+														<span class="says">says:</span> 
+														 <div class="comment-meta"> <a href="javascript:void(0);">October 6, 2015 at 7:15 am</a> </div>
+														<div class="reply"> <a href="javascript:void(0);" class="comment-reply-link">Reply</a> </div>
+													</div>
+													<div class="comment-content">
+														<p>Aliquam viverra, ligula at mattis pharetra, risus nibh dignissim le in luctus odio nulla in nunc. Fusce a purus sed mauris faucibus suscipit.</p>
+													</div>
+												</div>
+											</li>
+										</ol>
+										<!-- list END -->
+									</li>
+								</ol>
+								<!-- comment list END -->
+							</div>
+						</div>
+						<!-- Form -->
+						<div class="comments-area" id="respond">
+							<div class="comment-respond">
+								<div class="section-head text-center">
+									<span>LEAVE A REPLY</span>
+								</div>
+								<h3 class="comment-reply-title" id="reply-title">
+									<small> <a style="display:none;" href="javascript:void(0);" id="cancel-comment-reply-link" rel="nofollow">Cancel reply</a> </small>
+								</h3>
+								<form class="comment-form" id="commentform" method="post">
+									<p class="comment-form-author">
+										<label for="author">Name <span class="required">*</span></label>
+										<input type="text" value="" placeholder="Name" id="author">
+									</p>
+									<p class="comment-form-email">
+										<label for="email">Email <span class="required">*</span></label>
+										<input type="text" value="" placeholder="Email" id="email">
+									</p>
+									<p class="comment-form-comment">
+										<label for="comment">Comment</label>
+										<textarea rows="8" placeholder="Add a Comment" id="comment"></textarea>
+									</p>
+									<p class="form-submit">
+										<input type="submit" value="Post Comment" class="btn radius-no secondry" id="submit">
+									</p>
+								</form>
+							</div>
+						</div>
+						<!-- Form END -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Post Standart End -->
+		<!-- Instagram Post Carousel -->
+		<div class="section-full insta-post-carousel owl-carousel owl-none wow fadeIn lightgallery" data-wow-duration="2s" data-wow-delay="0.6s">
+			<div class="item">
+				<span data-exthumbimage="images/blog/card/small/pic1.jpg" data-src="images/blog/card/full-img/pic1.jpg" class="check-km dlab-img-effect" title="Title Come Here">		
+					<img src="images/blog/card/pic1.jpg" alt="">
+				</span>
+			</div>
+			<div class="item">
+				<span data-exthumbimage="images/blog/card/small/pic2.jpg" data-src="images/blog/card/full-img/pic2.jpg" class="check-km dlab-img-effect" title="Title Come Here">		
+					<img src="images/blog/card/pic2.jpg" alt="">
+				</span>
+			</div>
+			<div class="item">
+				<span data-exthumbimage="images/blog/card/small/pic3.jpg" data-src="images/blog/card/full-img/pic3.jpg" class="check-km dlab-img-effect" title="Title Come Here">		
+					<img src="images/blog/card/pic3.jpg" alt="">
+				</span>
+			</div>
+			<div class="item">
+				<span data-exthumbimage="images/blog/card/small/pic4.jpg" data-src="images/blog/card/full-img/pic4.jpg" class="check-km dlab-img-effect" title="Title Come Here">		
+					<img src="images/blog/card/pic4.jpg" alt="">
+				</span>
+			</div>
+			<div class="item">
+				<span data-exthumbimage="images/blog/card/small/pic5.jpg" data-src="images/blog/card/full-img/pic5.jpg" class="check-km dlab-img-effect" title="Title Come Here">		
+					<img src="images/blog/card/pic5.jpg" alt="">
+				</span>
+			</div>
+			<div class="item">
+				<span data-exthumbimage="images/blog/card/small/pic6.jpg" data-src="images/blog/card/full-img/pic6.jpg" class="check-km dlab-img-effect" title="Title Come Here">		
+					<img src="images/blog/card/pic6.jpg" alt="">
+				</span>
+			</div>
+			<div class="item">
+				<span data-exthumbimage="images/blog/card/small/pic7.jpg" data-src="images/blog/card/full-img/pic7.jpg" class="check-km dlab-img-effect" title="Title Come Here">		
+					<img src="images/blog/card/pic7.jpg" alt="">
+				</span>
+			</div>
+		</div>
+		<!-- Blog Card Carousel End -->
+    </div>
+    <!-- Content END-->
+	<!-- Footer -->
+    <footer class="site-footer wow fadeIn" data-wow-duration="2s" data-wow-delay="0.8s">
+        <div class="footer-top">
+            <div class="container">
+				<div class="row">
+					<div class="col-md-4 align-self-center">
+						<ul class="footer-link m-b0 p-l0">
+							<li><a href="index.html">Blog</a></li>
+							<li><a href="about-me.html">Shop</a></li>
+							<li><a href="contact-me.html">About</a></li>
+						</ul>						
+					</div>
+					<div class="col-md-4">
+						<div class="footer-logo">
+							<a href="index.html"><img src="images/logo.png" alt=""/></a>
+						</div>
+					</div>
+					<div class="col-md-4 align-self-center">
+						<ul class="social-icon m-b0 p-l0">
+							<li><a href="javascript:void(0);" class="btn radius-xl"><i class="fa fa-instagram"></i></a></li>
+							<li><a href="javascript:void(0);" class="btn radius-xl"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="javascript:void(0);" class="btn radius-xl"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="javascript:void(0);" class="btn radius-xl"><i class="fa fa-youtube-play"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+        </div>
+		<div class="footer-bottom">
+			<div class="container">
+				<p>© 2020. Copyright MyDiary Template.</p>
+			</div>
+		</div>
+    </footer>
+    <!-- Footer END-->
+    <button class="scroltop fa fa-chevron-up" ></button>
+</div>
+<!-- JAVASCRIPT FILES ========================================= -->
+<script src="js/jquery.min.js"></script><!-- JQUERY.MIN JS -->
+<script src="plugins/wow/wow.js"></script><!-- WOW JS -->
+<script src="plugins/bootstrap/js/popper.min.js"></script><!-- BOOTSTRAP.MIN JS -->
+<script src="plugins/bootstrap/js/bootstrap.min.js"></script><!-- BOOTSTRAP.MIN JS -->
+<script src="plugins/bootstrap-select/bootstrap-select.min.js"></script><!-- FORM JS -->
+<script src="plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script><!-- FORM JS -->
+<script src="plugins/magnific-popup/magnific-popup.js"></script><!-- MAGNIFIC POPUP JS -->
+<script src="plugins/counter/waypoints-min.js"></script><!-- WAYPOINTS JS -->
+<script src="plugins/counter/counterup.min.js"></script><!-- COUNTERUP JS -->
+<script src="plugins/imagesloaded/imagesloaded.js"></script><!-- IMAGESLOADED -->
+<script src="plugins/masonry/masonry-3.1.4.js"></script><!-- MASONRY -->
+<script src="plugins/masonry/masonry.filter.js"></script><!-- MASONRY -->
+<script src="plugins/owl-carousel/owl.carousel.js"></script><!-- OWL SLIDER -->
+<script src="plugins/scroll/scrollbar.min.js"></script><!-- Scroll Bar -->
+<script src="plugins/lightgallery/js/lightgallery-all.min.js"></script><!-- Lightgallery -->
+<script src="js/custom.js"></script><!-- CUSTOM FUCTIONS  -->
+<script src="js/dz.carousel.js"></script><!-- SORTCODE FUCTIONS -->
+<script src="js/dz.ajax.js"></script><!-- CONTACT JS  -->
+</body>
+</html>

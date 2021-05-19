@@ -9,3 +9,5 @@ CMS.Services/obj/
 CMS.Website/wwwroot/data/
 CMS.Services/bin/
 CMS.RCL/bin/
+CMS.RCLDiary/bin/
+CMS.RCLDiary/obj/

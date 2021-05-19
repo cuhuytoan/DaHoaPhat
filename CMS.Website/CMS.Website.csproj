@@ -49,10 +49,12 @@
   <ItemGroup>
     <ProjectReference Include="..\CMS.Common\CMS.Common.csproj" />
     <ProjectReference Include="..\CMS.Data\CMS.Data.csproj" />
+    <ProjectReference Include="..\CMS.RCLDiary\CMS.RCLDiary.csproj" />
     <ProjectReference Include="..\CMS.Services\CMS.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\HomePage\" />
     <Folder Include="wwwroot\data\article\upload\thanhcongtctn%40gmail.com\" />
     <Folder Include="wwwroot\data\articlepublish\" />
   </ItemGroup>
