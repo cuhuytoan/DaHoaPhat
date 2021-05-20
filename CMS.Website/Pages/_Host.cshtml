@@ -36,42 +36,45 @@
     <link rel="stylesheet" type="text/css" href="_content/CMS.RCLDiary/css/style.css">
     <link rel="stylesheet" type="text/css" href="_content/CMS.RCLDiary/css/templete.css">
     <link class="skin" rel="stylesheet" type="text/css" href="_content/CMS.RCLDiary/css/skin/skin-1.css">
-
-
 </head>
 
 <body id="bg">
     <div class="page-wraper">
         <div id="loading-area"></div>
         <app>
-            <component type="typeof(App)" render-mode="ServerPrerendered" />
+            <component type="typeof(App)" render-mode="Server" />
         </app>
 
         <button class="scroltop fa fa-chevron-up"></button>
     </div>
+    <script src="_framework/blazor.server.js"></script>
+    <script src="_content/CMS.RCLDiary/js/jquery.min.js"></script>
+    <script src="_content/CMS.RCLDiary/plugins/wow/wow.js"></script>
+    <script src="_content/CMS.RCLDiary/plugins/bootstrap/js/popper.min.js"></script>
+    <script src="_content/CMS.RCLDiary/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="_content/CMS.RCLDiary/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="_content/CMS.RCLDiary/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+    <script src="_content/CMS.RCLDiary/plugins/magnific-popup/magnific-popup.js"></script>
+    <script src="_content/CMS.RCLDiary/plugins/counter/waypoints-min.js"></script>
+    <script src="_content/CMS.RCLDiary/plugins/counter/counterup.min.js"></script>
+    <script src="_content/CMS.RCLDiary/plugins/imagesloaded/imagesloaded.js"></script>
+    <script src="_content/CMS.RCLDiary/plugins/masonry/masonry-3.1.4.js"></script>
+    <script src="_content/CMS.RCLDiary/plugins/masonry/masonry.filter.js"></script>
+    <script src="_content/CMS.RCLDiary/plugins/owl-carousel/owl.carousel.js"></script>
+    <script src="_content/CMS.RCLDiary/plugins/scroll/scrollbar.min.js"></script>
+    <script src="_content/CMS.RCLDiary/plugins/lightgallery/js/lightgallery-all.min.js"></script>
+    <script src="_content/CMS.RCLDiary/js/custom.js"></script>
+    <script src="_content/CMS.RCLDiary/js/dz.carousel.js"></script>
+    <script src="_content/CMS.RCLDiary/js/dz.ajax.js"></script>
 
-        <script src="_content/CMS.RCLDiary/js/jquery.min.js"></script>
-        <script src="_content/CMS.RCLDiary/plugins/wow/wow.js"></script>
-        <script src="_content/CMS.RCLDiary/plugins/bootstrap/js/popper.min.js"></script>
-        <script src="_content/CMS.RCLDiary/plugins/bootstrap/js/bootstrap.min.js"></script>
-        <script src="_content/CMS.RCLDiary/plugins/bootstrap-select/bootstrap-select.min.js"></script>
-        <script src="_content/CMS.RCLDiary/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-        <script src="_content/CMS.RCLDiary/plugins/magnific-popup/magnific-popup.js"></script>
-        <script src="_content/CMS.RCLDiary/plugins/counter/waypoints-min.js"></script>
-        <script src="_content/CMS.RCLDiary/plugins/counter/counterup.min.js"></script>
-        <script src="_content/CMS.RCLDiary/plugins/imagesloaded/imagesloaded.js"></script>
-        <script src="_content/CMS.RCLDiary/plugins/masonry/masonry-3.1.4.js"></script>
-        <script src="_content/CMS.RCLDiary/plugins/masonry/masonry.filter.js"></script>
-        <script src="_content/CMS.RCLDiary/plugins/owl-carousel/owl.carousel.js"></script>
-        <script src="_content/CMS.RCLDiary/plugins/scroll/scrollbar.min.js"></script>
-        <script src="_content/CMS.RCLDiary/plugins/lightgallery/js/lightgallery-all.min.js"></script>
-        <script src="_content/CMS.RCLDiary/js/custom.js"></script>
-        <script src="_content/CMS.RCLDiary/js/dz.carousel.js"></script>
-        <script src="_content/CMS.RCLDiary/js/dz.ajax.js"></script>
-        <script src="_content/CMS.RCLDiary/assets/js/customCHT.js"></script>
+    @*<script>
+            Blazor.start().then(function () {
+                var customScript = document.createElement('script');
+                customScript.setAttribute('src', '_content/CMS.RCLDiary/assets/js/customCHT.js');
+                document.head.appendChild(customScript);
+            });
+        </script>*@
 
-
-        <script src="_framework/blazor.server.js"></script>
+    <script src="_content/CMS.RCLDiary/assets/js/customCHT.js"></script>
 </body>
-
 </html>
