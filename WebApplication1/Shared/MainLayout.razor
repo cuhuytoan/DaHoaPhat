@@ -1,0 +1,47 @@
+﻿@inherits LayoutComponentBase
+@inject IJSRuntime JSRuntime
+
+<div class="header-author" style=" background-image: url(images/pattern/pt3.png);">
+    <HeaderAuthorComponent />
+
+</div>
+
+<!-- header -->
+<header class="site-header mo-left header-full header">
+    <HeaderComponent />
+</header>
+<!-- header END -->
+<div class="page-content bg-white">
+    @Body
+</div>
+<footer class="site-footer wow fadeIn" data-wow-duration="2s" data-wow-delay="0.8s">
+    <FooterComponent />
+</footer>
+@code{
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            //await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/js/jquery.min.js");
+            //await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/plugins/wow/wow.js");
+            //await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/plugins/bootstrap/js/popper.min.js");
+            //await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/plugins/bootstrap-select/bootstrap-select.min.js");
+            //await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js");
+            //await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/plugins/magnific-popup/magnific-popup.js");
+            //await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/plugins/counter/waypoints-min.js");
+            //await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/plugins/counter/counterup.min.js");
+            //await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/plugins/imagesloaded/imagesloaded.js");
+            //await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/plugins/masonry/masonry-3.1.4.js");
+            //await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/plugins/masonry/masonry.filter.js");
+            //await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/plugins/owl-carousel/owl.carousel.js");
+            //await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/plugins/scroll/scrollbar.min.js");
+            //await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/plugins/lightgallery/js/lightgallery-all.min.js");
+            await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/js/custom.js");
+            await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/js/dz.carousel.js");
+            await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/js/dz.ajax.js");
+            await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/assets/js/customCHT.js");
+
+        }
+
+    }
+    }

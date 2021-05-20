@@ -42,7 +42,7 @@
     <div class="page-wraper">
         <div id="loading-area"></div>
         <app>
-            <component type="typeof(App)" render-mode="Server" />
+            <component type="typeof(App)" render-mode="ServerPrerendered" />
         </app>
 
         <button class="scroltop fa fa-chevron-up"></button>
@@ -66,15 +66,7 @@
     <script src="_content/CMS.RCLDiary/js/custom.js"></script>
     <script src="_content/CMS.RCLDiary/js/dz.carousel.js"></script>
     <script src="_content/CMS.RCLDiary/js/dz.ajax.js"></script>
-
-    @*<script>
-            Blazor.start().then(function () {
-                var customScript = document.createElement('script');
-                customScript.setAttribute('src', '_content/CMS.RCLDiary/assets/js/customCHT.js');
-                document.head.appendChild(customScript);
-            });
-        </script>*@
-
     <script src="_content/CMS.RCLDiary/assets/js/customCHT.js"></script>
+    
 </body>
 </html>
