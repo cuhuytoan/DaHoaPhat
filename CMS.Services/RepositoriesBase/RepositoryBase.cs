@@ -15,6 +15,7 @@ namespace CMS.Services.RepositoriesBase
     {
         protected CmsContext CmsContext { get; set; }
         private DbSet<T> table = null;
+
         public RepositoryBase(CmsContext CmsContext)
         {
             this.CmsContext = CmsContext;
@@ -23,89 +24,64 @@ namespace CMS.Services.RepositoriesBase
 
         public IQueryable<T> FindAll()
         {
-
             return CmsContext.Set<T>().AsNoTracking();
-
         }
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
         {
-
             return CmsContext.Set<T>().Where(expression).AsNoTracking();
-
         }
 
         public void Create(T entity)
         {
-
             CmsContext.Set<T>().Add(entity);
-
         }
 
         public void Update(T entity)
         {
-
             CmsContext.Set<T>().Update(entity);
-
         }
 
         public void Delete(T entity)
         {
-
             CmsContext.Set<T>().Remove(entity);
-
         }
 
         public ValueTask<T> FindAsync(object id)
         {
-
             return CmsContext.Set<T>().FindAsync(id);
-
-
         }
 
         public T GetById(object id)
         {
-
             return CmsContext.Set<T>().Find(id);
-
-
         }
 
         public T FirstOrDefault(Expression<Func<T, bool>> expression)
         {
-
             return CmsContext.Set<T>().FirstOrDefault(expression);
-
         }
 
         public async Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> expression)
         {
-
             return await CmsContext.Set<T>().SingleOrDefaultAsync(expression);
-
         }
-
 
         public async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> expression)
         {
-
             return await CmsContext.Set<T>().FirstOrDefaultAsync(expression);
-
         }
 
         public string FormatURL(string Title)
         {
-            string StrSource = "";
             UTF8Encoding encoder = new UTF8Encoding();
             byte[] bytes = Encoding.UTF8.GetBytes(Title.ToLower());
-            StrSource = encoder.GetString(bytes).Trim();
+            string StrSource = encoder.GetString(bytes).Trim();
 
             StrSource = StrSource.Replace(((char)34).ToString(), "");
             StrSource = StrSource.Replace(((char)8220).ToString(), "");
             StrSource = StrSource.Replace(((char)8221).ToString(), "");
             StrSource = StrSource.Replace(" ", "-");
-
 
             var replaceChars = CmsContext.ReplaceChar.ToList();
             foreach (var charItem in replaceChars)
@@ -115,8 +91,8 @@ namespace CMS.Services.RepositoriesBase
 
             StrSource = RepairURL(StrSource);
             return StrSource;
-
         }
+
         public string RepairURL(string URL)
         {
             string tmp = URL;
@@ -130,10 +106,8 @@ namespace CMS.Services.RepositoriesBase
                         new SqlParameter("@OldChar", chr),
                         new SqlParameter("@NewChar", '-')
                         );
-
                 }
             }
-
 
             return tmp;
         }
@@ -142,7 +116,7 @@ namespace CMS.Services.RepositoriesBase
         {
             var setting = await CmsContext.Setting.FirstOrDefaultAsync();
 
-            SmtpClient smtpClient = new SmtpClient();
+            SmtpClient smtpClient = new();
             smtpClient.Host = setting.EmailSenderSmtp;
             smtpClient.Port = int.Parse(setting.EmailSenderPort);
             smtpClient.EnableSsl = setting.EmailSenderSsl.Value;

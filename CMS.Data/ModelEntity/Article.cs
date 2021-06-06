@@ -47,10 +47,12 @@ namespace CMS.Data.ModelEntity
         public string LastEditBy { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? LastEditDate { get; set; }
+        public int? Checked { get; set; }
         [StringLength(450)]
         public string CheckBy { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? CheckDate { get; set; }
+        public int? Approved { get; set; }
         [StringLength(450)]
         public string ApproveBy { get; set; }
         [Column(TypeName = "datetime")]
@@ -70,6 +72,5 @@ namespace CMS.Data.ModelEntity
         public string MetaKeywords { get; set; }
         [StringLength(500)]
         public string DocumentRefer { get; set; }
-        public int? ArticleContentTypeId { get; set; }
     }
 }

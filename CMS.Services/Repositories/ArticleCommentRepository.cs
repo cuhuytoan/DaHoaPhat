@@ -8,18 +8,19 @@ using System.Threading.Tasks;
 
 namespace CMS.Services.Repositories
 {
-
     public interface IArticleCommentRepository : IRepositoryBase<ArticleComment>
     {
         Task<VirtualizeResponse<SpArticleCommentSearchResult>> ArticleCommentSearch(ArticleCommentSearchFilter model);
+
         Task<int> ArticleCommentPostComment(ArticleComment model);
+
         Task<bool> ArticleCommentDelete(int articleCommentId);
     }
+
     public class ArticleCommentRepository : RepositoryBase<ArticleComment>, IArticleCommentRepository
     {
         public ArticleCommentRepository(CmsContext CmsDBContext) : base(CmsDBContext)
         {
-
         }
 
         public async Task<bool> ArticleCommentDelete(int articleCommentId)
@@ -60,9 +61,10 @@ namespace CMS.Services.Repositories
 
         public async Task<int> ArticleCommentPostComment(ArticleComment model)
         {
-            CmsContext.Entry(model).State = EntityState.Added;
+            CmsContext.Entry(model).State = model.Id >0 ? EntityState.Modified : EntityState.Added;
+            
             await CmsContext.SaveChangesAsync();
-
+            CmsContext.ChangeTracker.Clear();
             return model.Id;
         }
     }

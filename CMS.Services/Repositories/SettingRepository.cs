@@ -5,18 +5,17 @@ using System.Threading.Tasks;
 
 namespace CMS.Services.Repositories
 {
-
     public interface ISettingRepository : IRepositoryBase<Setting>
     {
         Task<Setting> GetSetting();
+
         Task<int> PostSetting(Setting model);
     }
+
     public class SettingRepository : RepositoryBase<Setting>, ISettingRepository
     {
-
         public SettingRepository(CmsContext CmsDBContext) : base(CmsDBContext)
         {
-
         }
 
         public async Task<Setting> GetSetting()

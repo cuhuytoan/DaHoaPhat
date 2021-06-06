@@ -7,6 +7,7 @@ namespace CMS.Data.ModelDTO
     {
         [Key]
         public int NoItem { get; set; }
+
         public int Id { get; set; }
         public Nullable<int> ProductBrandId { get; set; }
         public Nullable<int> ArticleTypeId { get; set; }

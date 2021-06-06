@@ -47,8 +47,8 @@
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-3 col-form-label">SSL</label>
-                    <div class="col-sm-9">
-                        <InputCheckbox @bind-Value="settings.EmailSenderSsl" class="form-control" />
+                    <div class="col-sm-9 switchery-demo">
+                         <InputCheckbox @bind-Value="settings.EmailSenderSsl" class="js-switch" data-color="#13dafe" />                                            
                         <span class="text-danger"><ValidationMessage For="() => settings.EmailSenderSsl" /></span>
                     </div>
                 </div>

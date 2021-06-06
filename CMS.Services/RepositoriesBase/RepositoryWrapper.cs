@@ -16,13 +16,126 @@ namespace CMS.Services.RepositoriesBase
         private ISettingRepository _setting;
         private IUserNotiRepository _userNoti;
         private IArticleCommentRepository _articleComment;
-     
+        private IArticleCommentStaffRepository _articleCommentStaff;
+        private IMasterDataRepository _masterDate;
+        private IProductBrandRepository _productBrand;
+        private IProductCategoryRepository _productCategory;
+        private IProductCommentRepository _productComment;
+        private IProductCommentStaffRepository _productCommentStaff;
+        private IProductRepository _product;
+        private IProductPictureRepository _productPicture;
+        private IProductPropertiesRepository _productProperties;
 
         public RepositoryWrapper(IDbContextFactory<CmsContext> CmsContext)
         {
             _cmsContext = CmsContext;
+        }
 
-        }      
+        public IProductPropertiesRepository ProductProperties
+        {
+            get
+            {
+                if (_productProperties == null)
+                {
+                    _productProperties = new ProductPropertiesRepository(_cmsContext.CreateDbContext());
+                }
+
+                return _productProperties;
+            }
+        }
+
+        public IProductPictureRepository ProductPicture
+        {
+            get
+            {
+                if (_productPicture == null)
+                {
+                    _productPicture = new ProductPictureRepository(_cmsContext.CreateDbContext());
+                }
+
+                return _productPicture;
+            }
+        }
+
+        public IProductBrandRepository ProductBrand
+        {
+            get
+            {
+                if (_productBrand == null)
+                {
+                    _productBrand = new ProductBrandRepository(_cmsContext.CreateDbContext());
+                }
+
+                return _productBrand;
+            }
+        }
+
+        public IProductCommentRepository ProductComment
+        {
+            get
+            {
+                if (_productComment == null)
+                {
+                    _productComment = new ProductCommentRepository(_cmsContext.CreateDbContext());
+                }
+
+                return _productComment;
+            }
+        }
+
+        public IProductCommentStaffRepository ProductCommentStaff
+        {
+            get
+            {
+                if (_productCommentStaff == null)
+                {
+                    _productCommentStaff = new ProductCommentStaffRepository(_cmsContext.CreateDbContext());
+                }
+
+                return _productCommentStaff;
+            }
+        }
+
+
+        public IProductRepository Product
+        {
+            get
+            {
+                if (_product == null)
+                {
+                    _product = new ProductRepository(_cmsContext.CreateDbContext());
+                }
+
+                return _product;
+            }
+        }
+
+        public IProductCategoryRepository ProductCategory
+        {
+            get
+            {
+                if (_productCategory == null)
+                {
+                    _productCategory = new ProductCategoryRepository(_cmsContext.CreateDbContext());
+                }
+
+                return _productCategory;
+            }
+        }
+
+        public IMasterDataRepository MasterData
+        {
+            get
+            {
+                if (_masterDate == null)
+                {
+                    _masterDate = new MasterDataRepository(_cmsContext.CreateDbContext());
+                }
+
+                return _masterDate;
+            }
+        }
+
         public IArticleCommentRepository ArticleComment
         {
             get
@@ -35,6 +148,20 @@ namespace CMS.Services.RepositoriesBase
                 return _articleComment;
             }
         }
+
+        public IArticleCommentStaffRepository ArticleCommentStaff
+        {
+            get
+            {
+                if (_articleCommentStaff == null)
+                {
+                    _articleCommentStaff = new ArticleCommentStaffRepository(_cmsContext.CreateDbContext());
+                }
+
+                return _articleCommentStaff;
+            }
+        }
+
         public IUserNotiRepository UserNoti
         {
             get
@@ -47,6 +174,7 @@ namespace CMS.Services.RepositoriesBase
                 return _userNoti;
             }
         }
+
         public ISettingRepository Setting
         {
             get
@@ -59,6 +187,7 @@ namespace CMS.Services.RepositoriesBase
                 return _setting;
             }
         }
+
         public IAccountRepository AspNetUsers
         {
             get
@@ -71,6 +200,7 @@ namespace CMS.Services.RepositoriesBase
                 return _accountRepository;
             }
         }
+
         public IAdvertisingRepository Advertising
         {
             get
@@ -83,6 +213,7 @@ namespace CMS.Services.RepositoriesBase
                 return _advertisingRepository;
             }
         }
+
         public IArticleRepository Article
         {
             get
@@ -95,6 +226,7 @@ namespace CMS.Services.RepositoriesBase
                 return _articleRepository;
             }
         }
+
         public IArticleCategoryRepository ArticleCategory
         {
             get
@@ -107,6 +239,7 @@ namespace CMS.Services.RepositoriesBase
                 return _articleCategoryRepository;
             }
         }
+
         public IPermissionRepository Permission
         {
             get

@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using CMS.Services.RepositoriesBase;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace CMS.Website.Areas.Identity.Pages.Account
@@ -17,14 +20,15 @@ namespace CMS.Website.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-
+        private readonly RepositoryWrapper Repository;
         public LoginModel(SignInManager<IdentityUser> signInManager,
             ILogger<LoginModel> logger,
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager, RepositoryWrapper Repository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            this.Repository = Repository;
         }
 
         [BindProperty]
@@ -39,8 +43,8 @@ namespace CMS.Website.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required(ErrorMessage = "Vui lòng nhập Email")]
-            [EmailAddress(ErrorMessage = "Email không hợp lệ")]
+            [Required(ErrorMessage = "Vui lòng nhập tài khoản")]
+            //[EmailAddress(ErrorMessage = "Email không hợp lệ")]
             public string Email { get; set; }
 
             [Required(ErrorMessage = "Mật khẩu không hợp lệ")]
@@ -81,6 +85,19 @@ namespace CMS.Website.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    //Update LastLoginDate
+                    var user = await _userManager.FindByNameAsync(Input.Email);
+                    if(user !=null)
+                    {
+                        var profiles = await Repository.AspNetUsers.AspNetUserProfilesGetByUserId(user.Id);
+                        if (profiles != null)
+                        {
+                            profiles.LastActivityDate = DateTime.Now;
+                            profiles.LastLoginDate = DateTime.Now;
+                            await Repository.AspNetUsers.AspNetUserProfilesUpdate(profiles);
+                        }
+                    }
+                    
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }

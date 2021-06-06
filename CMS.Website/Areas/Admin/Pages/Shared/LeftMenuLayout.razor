@@ -8,7 +8,7 @@
 
                 <a href="javascript:void(0);" class="dropdown-toggle u-dropdown text-blue" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
                     <img src="/data/user/mainimages/small/@(String.IsNullOrEmpty(@globalModel.avatar) ? "noimages.png" : globalModel.avatar)" alt="user-img" class="img-circle">
-
+                    
                 </a>
                 <ul class="dropdown-menu animated flipInY">
                     <li><a href="/Admin/Account/EditProfile"><i class="fa fa-user"></i> Thông tin cá nhân</a></li>
@@ -22,54 +22,26 @@
     </div>
     <nav class="sidebar-nav">
         <ul id="side-menu">
-            @if (globalModel.user != null && (globalModel.user.IsInRole("Cộng tác viên") || globalModel.user.IsInRole("Quản trị hệ thống") || globalModel.user.IsInRole("Lãnh đạo tòa soạn") || globalModel.user.IsInRole("Thư ký tòa soạn")))
-            {
+            <AuthorizeView Roles="Cộng tác viên,Quản trị hệ thống,Lãnh đạo tòa soạn,Thư ký tòa soạn,Phụ trách chuyên mục">
                 <li class="active">
                     <a class="waves-effect" href="javascript:void(0);" aria-expanded="true"><i class="icon-screen-desktop fa-fw"></i> <span class="hide-menu"> Quản lý bài viết </span></a>
                     <ul aria-expanded="true" class="collapse">
                         <li> <a href="/Admin/Article/Edit">Thêm mới bài viết</a> </li>
                         <li> <a href="/Admin/Article">Tất cả bài viết</a> </li>
-                        <li> <a href="/Admin/Article?p=1&articleCategoryId=&keyword=&articleStatusId=1">Bài viết mới gửi</a> </li>
-                        <li> <a href="/Admin/Article?p=1&articleCategoryId=&keyword=&articleStatusId=3">Bài viết đang phản biện</a> </li>
-                        <li> <a href="/Admin/Article?p=1&articleCategoryId=&keyword=&articleStatusId=5">Bài viết chờ đăng</a> </li>
                     </ul>
                 </li>
-            }
-            @if (globalModel.user != null && (globalModel.user.IsInRole("Quản trị hệ thống") || globalModel.user.IsInRole("Lãnh đạo tòa soạn") || globalModel.user.IsInRole("Thư ký tòa soạn")))
-            {
+            </AuthorizeView>
+      @*      <AuthorizeView Roles="Phụ trách ngành hàng,Quản trị hệ thống,Cập nhật sản phẩm">
                 <li class="active">
-                    <a class="waves-effect" href="javascript:void(0);" aria-expanded="true"><i class="icon-notebook fa-fw"></i> <span class="hide-menu"> Quản lý đợt phản biện </span></a>
+                    <a class="waves-effect" href="javascript:void(0);" aria-expanded="true"><i class="icon-briefcase fa-fw"></i> <span class="hide-menu"> Quản lý sản phẩm </span></a>
                     <ul aria-expanded="true" class="collapse">
-                        <li> <a href="/Admin/ArticleReview/Edit">Thêm mới đợt phản biện</a> </li>
-                        <li> <a href="/Admin/ArticleReview/Index">Tất cả đợt phản biện</a> </li>
-                        <li> <a href="/Admin/ArticleReview/Index?articleRevStatusId=1">Đợt phản biện chờ duyệt</a> </li>
-                        <li> <a href="/Admin/ArticleReview/Index?articleRevStatusId=2">Đợt phản biện đã duyệt</a> </li>
+                        <li> <a href="/Admin/Product/Edit">Thêm mới sản phẩm</a> </li>
+                        <li> <a href="/Admin/Product">Tất cả sản phẩm</a> </li>
                     </ul>
                 </li>
-            }
-            @if (globalModel.user != null && (globalModel.user.IsInRole("Hội đồng phản biện")))
-            {
-                <li class="active">
-                    <a class="waves-effect" href="javascript:void(0);" aria-expanded="true"><i class="icon-eyeglass fa-fw"></i> <span class="hide-menu"> Quản lý phản biện </span></a>
-                    <ul aria-expanded="true" class="collapse">
-                        <li> <a href="/Admin/ArticleReview/ListReview">Tất cả bài viết</a> </li>
-                        <li> <a href="/Admin/ArticleReview/ListReview?articleInReviewStatusId=-1">Bài viết chờ phản biện</a> </li>
-                        <li> <a href="/Admin/ArticleReview/ListReview?articleInReviewStatusId=1">Bài viết đã phản biện</a> </li>
-                    </ul>
-                </li>
-            }
-            @if (globalModel.user != null && (globalModel.user.IsInRole("Quản trị hệ thống") || globalModel.user.IsInRole("Lãnh đạo tòa soạn") || globalModel.user.IsInRole("Thư ký tòa soạn")))
-            {
-                <li class="active">
-                    <a class="waves-effect" href="javascript:void(0);" aria-expanded="true"><i class="icon-book-open fa-fw"></i> <span class="hide-menu"> Quản lý số báo </span></a>
-                    <ul aria-expanded="true" class="collapse">
-                        <li> <a href="/Admin/MagazinePaper/Edit">Thêm mới số báo</a> </li>
-                        <li> <a href="/Admin/MagazinePaper/Index">Danh sách số báo</a> </li>
-                    </ul>
-                </li>
-            }
-            @if (globalModel.user != null && (globalModel.user.IsInRole("Quản trị hệ thống") || globalModel.user.IsInRole("Lãnh đạo tòa soạn") || globalModel.user.IsInRole("Thư ký tòa soạn")))
-            {
+            </AuthorizeView>*@
+
+            <AuthorizeView Roles="Cộng tác viên,Quản trị hệ thống,Lãnh đạo tòa soạn,Thư ký tòa soạn">
                 <li class="active">
                     <a class="waves-effect" href="javascript:void(0);" aria-expanded="true"><i class="icon-people fa-fw"></i> <span class="hide-menu"> Quản lý thành viên </span></a>
                     <ul aria-expanded="true" class="collapse">
@@ -79,11 +51,9 @@
                 </li>
                 <li class="active">
                     <a class="waves-effect" href="/Admin/Settings/Edit" aria-expanded="true"><i class="icon-settings fa-fw"></i> <span class="hide-menu"> Cấu hình hệ thống </span></a>
-                    @*<ul aria-expanded="true" class="collapse">
-                            <li> <a href="">Cấu hình hệ thống</a> </li>
-                        </ul>*@
                 </li>
-            }
+            </AuthorizeView>
+
             <li class="active">
                 <a class="waves-effect" href="javascript:void(0);" aria-expanded="true"><i class="icon-user fa-fw"></i> <span class="hide-menu"> Quản lý tài khoản </span></a>
                 <ul aria-expanded="true" class="collapse">

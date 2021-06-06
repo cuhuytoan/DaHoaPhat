@@ -1,0 +1,497 @@
+﻿@page "/Admin/Product/Edit"
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+
+
+            <h3 class="box-title m-b-0">Cập nhật sản phẩm</h3>
+            <p class="text-muted m-b-30 font-13"> Cập nhật chi tiết sản phẩm </p>
+
+            <EditForm Model="product" OnValidSubmit="@PostProduct">
+                <DataAnnotationsValidator />
+
+                <div class="form-group row">
+                    <input type="hidden" class="form-control" @bind="product.Id">
+                    <div class="col-sm-8">
+                        <fieldset>
+                            <legend>
+                                <div class="row">
+                                    <div class="col-sm-8 text-left">
+                                        THÔNG TIN SẢN PHẨM
+                                    </div>
+                                    <div class="col-sm-4 text-right">
+                                        <a data-toggle="collapse" data-target="#productInfor" role="button" aria-expanded="true"><i class="fa fa-plus-square"></i></a>
+                                    </div>
+                                </div>
+                            </legend>
+                            <div class="collapse in" id="productInfor" aria-expanded="true">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Tên sản phẩm <span class="text-danger">(*)</span></label>
+                                    <div class="col-sm-10">
+                                        <InputText type="text" class="form-control" @bind-Value="product.Name" placeholder="Nhập tên sản phẩm" />
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.Name" /></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Mã vạch</label>
+                                    <div class="col-sm-10">
+                                        <InputText class="form-control" @bind-Value="product.BarCode" placeholder="Nhập mã vạch sản phẩm" />
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.BarCode" /></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Chủng loại <span class="text-danger">(*)</span></label>
+                                    <div class="col-sm-10">
+                                        @*<TelerikMultiSelect @bind-Value="@SelectedCateValue"
+                                                            Data="@lstProductCategory"
+                                                            ValueField="@nameof(ProductCategory.Id)"
+                                                            TextField="@nameof(ProductCategory.Name)"
+                                                            OnChange="@OnProductSelected"
+                                                            Placeholder="Chọn chủng loại ..."
+                                                            Width="100%">
+                                        </TelerikMultiSelect>*@
+                                        <TelerikComboBox @bind-Value="@SelectedCateValue"
+                                                         Data="@lstProductCategory"
+                                                         ValueField="@nameof(ProductCategory.Id)"
+                                                         TextField="@nameof(ProductCategory.Name)"
+                                                         Placeholder="Chọn loại sản phẩm ..."
+                                                          OnChange="@OnProductSelected"
+                                                         Width="100%">
+                                        </TelerikComboBox>
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.ProductCategoryIds" /></span>
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Loại sản phẩm <span class="text-danger">(*)</span></label>
+                                    <div class="col-sm-10">
+                                        <TelerikComboBox @bind-Value="@product.ProductTypeId"
+                                                         Data="@lstProductType"
+                                                         ValueField="@nameof(ProductType.Id)"
+                                                         TextField="@nameof(ProductType.Name)"
+                                                         Placeholder="Chọn loại sản phẩm ..."
+                                                         Width="100%">
+                                        </TelerikComboBox>
+
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.ProductTypeId" /></span>
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Hãng sản xuất <span class="text-danger">(*)</span></label>
+                                    <div class="col-sm-10">
+                                        <TelerikComboBox @bind-Value="@product.ProductManufactureId"
+                                                         Data="@lstProductManufactures"
+                                                         ValueField="@nameof(ProductManufacture.Id)"
+                                                         TextField="@nameof(ProductManufacture.Name)"
+                                                         Placeholder="Chọn hãng sản xuất ..."
+                                                         Width="100%">
+                                        </TelerikComboBox>
+
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.ProductManufactureId" /></span>
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Xuất xứ <span class="text-danger">(*)</span></label>
+                                    <div class="col-sm-10">
+                                        <TelerikComboBox @bind-Value="@product.CountryId"
+                                                         Data="@lstCountry"
+                                                         ValueField="@nameof(Country.Id)"
+                                                         TextField="@nameof(Country.Name)"
+                                                         Placeholder="Chọn xuất xứ ..."
+                                                         Width="100%">
+                                        </TelerikComboBox>
+
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.ProductCategoryIds" /></span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                        <fieldset>
+                            <legend>
+                                <div class="row">
+                                    <div class="col-sm-8 text-left">
+                                        THÔNG TIN GIÁ THÀNH
+                                    </div>
+                                    <div class="col-sm-4 text-right">
+                                        <a data-toggle="collapse" data-target="#productPriceInfor" role="button" aria-expanded="true"><i class="fa fa-plus-square"></i></a>
+                                    </div>
+                                </div>
+                            </legend>
+
+                            <div class="collapse in" id="productPriceInfor" aria-expanded="true">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Giá </label>
+                                    <div class="col-sm-10">
+                                        <TelerikNumericTextBox Decimals="0"  Format="C" class="form-control" @bind-Value="product.Price"  />
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.Price" /></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Giá cũ</label>
+                                    <div class="col-sm-10">
+                                        <TelerikNumericTextBox Decimals="0"  Format="C" class="form-control" @bind-Value="product.PriceOld"  />
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.PriceOld" /></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Giảm giá bằng tiền</label>
+                                    <div class="col-sm-10">
+                                        <TelerikNumericTextBox  Decimals="0" Format="C" class="form-control" @bind-Value="product.Discount"  />
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.Discount" /></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Giảm giá bằng %</label>
+                                    <div class="col-sm-10">
+                                        <TelerikNumericTextBox Decimals="0"  Min="0" Max="100"  class="form-control" @bind-Value="product.DiscountRate"  />
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.DiscountRate" /></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                        <fieldset>
+                            <legend>
+                                <div class="row">
+                                    <div class="col-sm-8 text-left">
+                                        THÔNG TIN KHỐI LƯỢNG
+                                    </div>
+                                    <div class="col-sm-4 text-right">
+                                        <a data-toggle="collapse" data-target="#productWeightInfor" role="button" aria-expanded="false"><i class="fa fa-plus-square"></i></a>
+                                    </div>
+                                </div>
+                            </legend>
+                            <div class="collapse" id="productWeightInfor">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Khối lượng </label>
+                                    <div class="col-sm-10">
+                                        <InputNumber class="form-control" @bind-Value="product.AmountDefault" placeholder="Nhập khối lượng sản phẩm..." />
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.AmountDefault" /></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Đơn vị tính</label>
+                                    <div class="col-sm-10">
+                                        <TelerikComboBox @bind-Value="product.UnitId"
+                                                         Data="@lstUnit"
+                                                         ValueField="@nameof(Unit.Id)"
+                                                         TextField="@nameof(Unit.Name)"
+                                                         Placeholder="Chọn đơn vị ..."
+                                                         Width="100%">
+                                        </TelerikComboBox>
+
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.ProductCategoryIds" /></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                        <fieldset>
+                            <legend>
+                                <div class="row">
+                                    <div class="col-sm-8 text-left">
+                                        THỜI HẠN SỬ DỤNG - BẢO HÀNH
+                                    </div>
+                                    <div class="col-sm-4 text-right">
+                                        <a data-toggle="collapse" data-target="#productWarantytInfor" role="button" aria-expanded="false"><i class="fa fa-plus-square"></i></a>
+                                    </div>
+                                </div>
+                            </legend>
+                            <div class="collapse" id="productWarantytInfor">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Hạn sử dụng </label>
+                                    <div class="col-sm-10">
+                                        <InputText class="form-control" @bind-Value="product.ExpiryDisplay" placeholder="Nhập hạn sử dụng để hiển thị trên thông tin sản phẩm..." />
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.ExpiryDisplay" /></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Hạn sử dụng theo ngày </label>
+                                    <div class="col-sm-10">
+                                        <InputNumber class="form-control" @bind-Value="product.ExpiryByDay" placeholder="Nhập hạn sử dụng (tính hạn sử dụng khi xác thực)..." />
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.ExpiryByDay" /></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Thời hạn bảo hành </label>
+                                    <div class="col-sm-10">
+                                        <InputText class="form-control" @bind-Value="product.WarrantyDisplay" placeholder="Nhập hạn sử dụng để hiển thị trên thông tin sản phẩm..." />
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.WarrantyDisplay" /></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Thời hạn bảo thành theo tháng </label>
+                                    <div class="col-sm-10">
+                                        <InputNumber class="form-control" @bind-Value="product.WarrantyByMonth" placeholder="Nhập hạn sử dụng (dùng để kích hoạt bảo hành)..." />
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.WarrantyByMonth" /></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </fieldset>
+                        <fieldset>
+                            <legend>
+                                <div class="row">
+                                    <div class="col-sm-8 text-left">
+                                        THÔNG TIN HIỂN THỊ
+                                    </div>
+                                    <div class="col-sm-4 text-right">
+                                        <a data-toggle="collapse" data-target="#productDisplayInfor" role="button" aria-expanded="true"><i class="fa fa-plus-square"></i></a>
+                                    </div>
+                                </div>
+                            </legend>
+                            <div class="collapse in" id="productDisplayInfor" aria-expanded="true">
+                                <div class="form-group row">
+                                    <div class="col-sm-12" style="display:flex;justify-content:space-evenly">
+                                        <div class="col-sm-3 form-check">
+                                            <input class="form-check-input" type="checkbox" @bind="product.IsAuthor" />
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Hàng chính hãng
+                                            </label>
+                                            <span class="text-danger m-t-10"><ValidationMessage For="() => product.IsAuthor" /></span>
+                                        </div>
+                                        <div class="col-sm-3 form-check">
+                                            <input class="form-check-input" type="checkbox" @bind="product.IsBestSale" />
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Hàng bán chạy
+                                            </label>
+                                            <span class="text-danger m-t-10"><ValidationMessage For="() => product.IsBestSale" /></span>
+                                        </div>
+                                        <div class="col-sm-3 form-check">
+                                            <input class="form-check-input" type="checkbox" @bind="product.IsNew" />
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Hàng mới về
+                                            </label>
+                                            <span class="text-danger m-t-10"><ValidationMessage For="() => product.IsNew" /></span>
+                                        </div>
+                                        <div class="col-sm-3 form-check">
+                                            <input class="form-check-input" type="checkbox" @bind="product.IsComming" />
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Hàng sắp về
+                                            </label>
+                                            <span class="text-danger m-t-10"><ValidationMessage For="() => product.IsComming" /></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12" style="display:flex;justify-content:space-evenly">
+                                        <div class="col-sm-3 form-check">
+                                            <input class="form-check-input" type="checkbox" @bind="product.IsSecondHand" />
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Hàng cũ
+                                            </label>
+                                            <span class="text-danger m-t-10"><ValidationMessage For="() => product.IsSecondHand" /></span>
+                                        </div>
+                                        <div class="col-sm-3 form-check">
+                                            <input class="form-check-input" type="checkbox" @bind="product.IsSaleOff" />
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Hàng giảm giá
+                                            </label>
+                                            <span class="text-danger m-t-10"><ValidationMessage For="() => product.IsSaleOff" /></span>
+                                        </div>
+                                        <div class="col-sm-3 form-check">
+                                            <input class="form-check-input" type="checkbox" @bind="product.IsOutStock" />
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Hết hàng
+                                            </label>
+                                            <span class="text-danger m-t-10"><ValidationMessage For="() => product.IsOutStock" /></span>
+                                        </div>
+                                        <div class="col-sm-3 form-check">
+                                            <input class="form-check-input" type="checkbox" @bind="product.IsDiscontinue" />
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Ngừng kinh doanh
+                                            </label>
+                                            <span class="text-danger m-t-10"><ValidationMessage For="() => product.IsDiscontinue" /></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Ngày giờ đăng</label>
+                                    <div class="col-sm-4">
+                                        <TelerikDateTimePicker @bind-Value="product.StartDate"></TelerikDateTimePicker>
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.StartDate" /></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                        <fieldset>
+                            <legend>
+                                <div class="row">
+                                    <div class="col-sm-8 text-left">
+                                        THÔNG TIN MÔ TẢ SẢN PHẨM
+                                    </div>
+                                    <div class="col-sm-4 text-right">
+                                        <a data-toggle="collapse" data-target="#productDesInfor" role="button" aria-expanded="false"><i class="fa fa-plus-square"></i></a>
+                                    </div>
+                                </div>
+                            </legend>
+                            <div class="collapse" id="productDesInfor">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Nội dung tóm tắt sản phẩm</label>
+                                    <div class="col-sm-10">
+                                        <textarea type="text" style="height: 150px;" class="form-control" @bind="product.Description" placeholder="Nhập nội dung tóm tắt"></textarea>
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.Description" /></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 sub-title">Nội dung chi tiết sản phẩm</label>
+                                    <div class="col-sm-10">
+                                        <TelerikEditor @bind-Value="product.Content"
+                                                       Tools="@Tools"
+                                                       Height="500px">
+                                            <EditorCustomTools>
+                                                <EditorCustomTool Name="ImportImage">
+                                                    <a href="javascript:void(0);" @onclick="(() => OnCropImage(false))"><i class="fa fa-upload">Thêm ảnh</i></a>
+                                                </EditorCustomTool>
+                                            </EditorCustomTools>
+                                        </TelerikEditor>
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.Content" /></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 sub-title">Chứng chỉ đạt được </label>
+                                    <div class="col-sm-10">
+                                        <TelerikEditor @bind-Value="product.ProductCertificate"
+                                                       Tools="@Tools"
+                                                       Height="500px">
+                                        </TelerikEditor>
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.ProductCertificate" /></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 sub-title">Thông tin pháp lý </label>
+                                    <div class="col-sm-10">
+                                        <TelerikEditor @bind-Value="product.LegalInfo"
+                                                       Tools="@Tools"
+                                                       Height="500px">
+                                        </TelerikEditor>
+                                        <span class="text-danger m-t-10"><ValidationMessage For="() => product.ProductCertificate" /></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                        <fieldset>
+                            <legend>
+                                <div class="row">
+                                    <div class="col-sm-8 text-left">
+                                        CẤU HÌNH THẺ META HỖ TRỢ SEO
+                                    </div>
+                                    <div class="col-sm-4 text-right">
+                                        <a data-toggle="collapse" data-target="#productSEOInfor" role="button" aria-expanded="false"><i class="fa fa-plus-square"></i></a>
+                                    </div>
+                                </div>
+                            </legend>
+                            <div class="collapse" id="productSEOInfor">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Meta Title</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" @bind="product.MetaTitle" placeholder="Nhập meta title">
+                                        <span asp-validation-for="product.MetaTitle" class="text-danger m-t-10"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Meta Description</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" @bind="product.MetaDescription" placeholder="Nhập meta description">
+                                        <span asp-validation-for="product.MetaDescription" class="text-danger m-t-10"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Meta keyword</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" @bind="product.MetaKeywords" placeholder="Nhập meta keyword">
+                                        <span asp-validation-for="product.MetaKeywords" class="text-danger m-t-10"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group row">
+                            <div class="col-md-12" id="uploadImg">
+                                <a @onclick="(() => OnCropImage(true))">
+                                    @{
+                                        if (product.Image != null)
+                                        {
+                                            <img src="/data/product/mainimages/original/@product.Image" />
+                                        }
+                                        else if (@imageDataUrls != null && imageDataUrls.Count > 0)
+                                        {
+                                            foreach (var img in @imageDataUrls)
+                                            {
+                                                <img src="@img" />
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <div class="btn btn-primary" style="border: 2px solid rgba(103, 192, 103, 0.75);border-radius: 40px;">
+                                                <i class="fa fa-upload"> </i>Upload
+                                            </div>
+
+                                        }
+                                    }
+                                </a>
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12" id="uploadSubImg" style="display:flex;flex-wrap:wrap;">
+                                @if (lstProductPicture.Count > 0)
+                                {
+                                    foreach (var item in lstProductPicture)
+                                    {
+                                        <div class="image-area">
+                                            <img src="/data/productpicture/mainimages/original/@item.Image" />
+                                            <a class="remove-image" href="javascript:void(0);" @onclick="() => OnDeleteSubImage(true,null,item)" style="display: inline;">&#215;</a>
+                                        </div>
+
+                                    }
+                                }
+                                @if (lstSubImageData.Count > 0)
+                                {
+                                    @foreach (var item in lstSubImageData)
+                                    {
+                                        <div class="image-area">
+                                            <img src="@item" />
+                                            <a class="remove-image" href="javascript:void(0);" @onclick="() => OnDeleteSubImage(false,item,null)" style="display: inline;">&#215;</a>
+                                        </div>
+                                    }
+                                }
+
+                                <div class="image-area button-wrapper">
+                                    <span class="labelSubImg">
+                                        <i class="fa fa-upload"></i>
+                                    </span>
+                                    <InputFile id="upload" OnChange="@InsertSubImage" text="Chọn ảnh" accept="image/png,image/gif,image/jpeg" multiple />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row" style="display:flex;justify-content:center">                    
+                    <button type="submit" @onclick="@(() => postType = 1)" class="btn btn-mat btn-success  m-r-10"><i class="fa fa-newspaper-o"></i>Gửi đăng</button>
+                    <a href="/Product" class="btn btn-mat btn-warning  m-r-10"><i class="fa fa-times-circle"></i>Hủy bỏ</a>
+                </div>
+
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+<ImageCropper @ref="imageCropperModal" ConfirmationCropChanged="ConfirmImageCropper" />

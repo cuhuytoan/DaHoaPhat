@@ -9,8 +9,8 @@
             position: relative;
             border: 2px solid #FFC107;
             border-radius: 50%;
-            width: 110px;
-            height: 110px;
+            width: 220px;
+            height: 220px;
             display: inline-block;
         }
 
@@ -20,19 +20,12 @@
         width: 100%;
         height: 100%;
         vertical-align: middle;
-        display: flex;
     }
 
-    input.changepicture {
-        position: absolute;
-        top: 76%;
-        right: 7%;
-        width: 24px;
-        height: 24px;
-        background: url(/assets/images/camera.png) no-repeat 52% 47% #fff;
-        border-radius: 50%;
-        box-shadow: 2px 2px 6px rgb(0 0 0 / 10%);
-    }
+        .profile-img img {
+            width: 100%;
+            min-height: 220px;
+        }
 </style>
 <div class="row">
     <div class="col-sm-12">
@@ -42,47 +35,40 @@
             <EditForm Model="userInfo" OnValidSubmit="@PostUserInfo">
                 <DataAnnotationsValidator />
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                         <div class="profile-image pr-3">
                             <div class="image mt-4">
-                                <div class="profile-img">
-                                    @{
-                                        if (!String.IsNullOrEmpty(userInfo.AvatarUrl))
-                                        {
-                                            <img src="/data/user/mainimages/original/@userInfo.AvatarUrl" />
-                                        }
-                                        else
-                                        {
-                                            if (@imageDataUrls.Count == 0)
+                                <a @onclick="(() => OnCropImage())">
+                                    <div class="profile-img">
+
+                                        @{
+                                            if (userInfo.AvatarUrl != null)
                                             {
-                                                <img src="/data/user/mainimages/original/noimages.png" />
+                                                <img class="image-preview-main-db" src="/data/user/mainimages/original/@userInfo.AvatarUrl" />
                                             }
-                                            else
+                                            else if (@imageDataUrls != null && imageDataUrls.Count > 0)
                                             {
                                                 foreach (var img in @imageDataUrls)
                                                 {
-                                                    <img src="@img" />
+                                                    <img class="image-preview-main-db" src="@img" />
                                                 }
                                             }
-
+                                            else
+                                            {
+                                    <img class="image-preview-main-db" src="/data/user/mainimages/original/noimages.png" />
+                                            }
                                         }
-                                    }
-                                    <img src="/data/user/mainimages/original/@(String.IsNullOrEmpty(userInfo.AvatarUrl) ? "noimages.png" : userInfo.AvatarUrl)" />
-                                </div>
-
-                                <div class="dropArea" style="margin-top:10px;">
-                                    <i class="fa fa-upload">Tải ảnh đại diện</i>
-                                    <InputFile OnChange="@OnInputFileChange" accept="image/png,image/gif,image/jpeg" />
-                                </div>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-9" style="margin-left: auto; margin-right: auto;">
+                    <div class="col-sm-10" style="margin-left: auto; margin-right: auto;">
                         <h4 class="sub-title">Thông tin bắt buộc</h4>
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Tên đăng nhập</label>
                             <div class="col-sm-9">
-                                <b>@user.Identity.Name</b>
+                                <b>@globalModel.user.Identity.Name</b>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -101,6 +87,7 @@
                                 <span class="text-danger"><ValidationMessage For="() =>userInfo.FullName" /></span>
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Giới tính</label>
                             <div class="col-sm-9">
@@ -116,7 +103,58 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Phòng ban</label>
+                            <div class="col-sm-9">
+                                <TelerikComboBox @bind-Value="@userInfo.DepartmentId"
+                                                 Data="@lstDepartment" Placeholder="Chọn phòng ban ..."
+                                                 ValueField="@nameof(Department.Id)" TextField="@nameof(Department.Name)"
+                                                 Id="department" PopupHeight="auto" Width="100%"
+                                                 Filterable="true">
+                                </TelerikComboBox>
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.DepartmentId" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Địa chỉ</label>
+                            <div class="col-sm-9 col-12">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <TelerikComboBox @bind-Value="@userInfo.LocationId"
+                                                         Data="@lstLocation" Placeholder="Chọn tỉnh thành ..."
+                                                         ValueField="@nameof(Location.Id)" TextField="@nameof(Location.Name)"
+                                                         Id="location" PopupHeight="auto" Width="100%"
+                                                         Filterable="true"
+                                                         OnChange="@LocationSelected">
+                                        </TelerikComboBox>
+                                        <span class="text-danger"><ValidationMessage For="() =>userInfo.LocationId" /></span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <TelerikComboBox @bind-Value="@userInfo.DistrictId"
+                                                         Data="@lstDistrict" Placeholder="Chọn quận huyện ..."
+                                                         ValueField="@nameof(District.Id)" TextField="@nameof(District.Name)"
+                                                         Id="district" PopupHeight="auto" Width="100%"
+                                                         Filterable="true"
+                                                         Enabled="@(userInfo.LocationId >0)"
+                                                         OnChange="@DistrictSelected">
+                                        </TelerikComboBox>
+                                        <span class="text-danger"><ValidationMessage For="() =>userInfo.DistrictId" /></span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <TelerikComboBox @bind-Value="@userInfo.WardId"
+                                                         Data="@lstWard" Placeholder="Chọn phường xã ..."
+                                                         ValueField="@nameof(Ward.Id)" TextField="@nameof(Ward.Name)"
+                                                         Id="ward" PopupHeight="auto" Width="100%"
+                                                         Filterable="true"
+                                                         Enabled="@(userInfo.DistrictId >0)">
+                                        </TelerikComboBox>
+                                        <span class="text-danger"><ValidationMessage For="() =>userInfo.WardId" /></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Địa chỉ chi tiết</label>
                             <div class="col-sm-9">
                                 <InputText @bind-Value="userInfo.Address" class="form-control" />
                                 <span class="text-danger"><ValidationMessage For="() =>userInfo.Address" /></span>
@@ -137,14 +175,25 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Tài khoản ngân hàng</label>
+                            <label class="col-sm-3 col-form-label">Ngân hàng</label>
+                            <div class="col-sm-9">
+                                <TelerikComboBox @bind-Value="@userInfo.BankId"
+                                                 Data="@lstBank" Placeholder="Chọn ngân hàng ..."
+                                                 ValueField="@nameof(Bank.Id)" TextField="@nameof(Bank.Name)"
+                                                 Id="bank" PopupHeight="auto" Width="100%"
+                                                 Filterable="true">
+                                </TelerikComboBox>
+                                <span class="text-danger"><ValidationMessage For="() =>userInfo.BankId" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Số Tài khoản</label>
                             <div class="col-sm-9">
                                 <InputText @bind-Value="userInfo.BankAcc" class="form-control" />
                                 <span class="text-danger"><ValidationMessage For="() =>userInfo.BankAcc" /></span>
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="row">
                     <div class="col-sm-12" style="display:inline-block;text-align:center">
@@ -156,3 +205,5 @@
         </div>
     </div>
 </div>
+
+<ImageCropper @ref="imageCropperModal" ConfirmationCropChanged="ConfirmImageCropper" />

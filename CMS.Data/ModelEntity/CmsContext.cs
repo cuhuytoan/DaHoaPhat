@@ -22,7 +22,9 @@ namespace CMS.Data.ModelEntity
         public virtual DbSet<ArticleBlockArticle> ArticleBlockArticle { get; set; }
         public virtual DbSet<ArticleCategory> ArticleCategory { get; set; }
         public virtual DbSet<ArticleCategoryArticle> ArticleCategoryArticle { get; set; }
+        public virtual DbSet<ArticleCategoryAssign> ArticleCategoryAssign { get; set; }
         public virtual DbSet<ArticleComment> ArticleComment { get; set; }
+        public virtual DbSet<ArticleCommentStaff> ArticleCommentStaff { get; set; }
         public virtual DbSet<ArticleRelationArticle> ArticleRelationArticle { get; set; }
         public virtual DbSet<ArticleStatus> ArticleStatus { get; set; }
         public virtual DbSet<ArticleTop> ArticleTop { get; set; }
@@ -41,13 +43,34 @@ namespace CMS.Data.ModelEntity
         public virtual DbSet<DepartmentMan> DepartmentMan { get; set; }
         public virtual DbSet<District> District { get; set; }
         public virtual DbSet<Location> Location { get; set; }
+        public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<ProductAttachFile> ProductAttachFile { get; set; }
+        public virtual DbSet<ProductBlock> ProductBlock { get; set; }
+        public virtual DbSet<ProductBlockProduct> ProductBlockProduct { get; set; }
         public virtual DbSet<ProductBrand> ProductBrand { get; set; }
         public virtual DbSet<ProductBrandCategory> ProductBrandCategory { get; set; }
         public virtual DbSet<ProductBrandModelManagement> ProductBrandModelManagement { get; set; }
         public virtual DbSet<ProductBrandQrcodeCreateType> ProductBrandQrcodeCreateType { get; set; }
+        public virtual DbSet<ProductBrandStatus> ProductBrandStatus { get; set; }
         public virtual DbSet<ProductBrandType> ProductBrandType { get; set; }
+        public virtual DbSet<ProductCategory> ProductCategory { get; set; }
+        public virtual DbSet<ProductCategoryAssign> ProductCategoryAssign { get; set; }
+        public virtual DbSet<ProductCategoryProduct> ProductCategoryProduct { get; set; }
+        public virtual DbSet<ProductComment> ProductComment { get; set; }
+        public virtual DbSet<ProductCommentStaff> ProductCommentStaff { get; set; }
+        public virtual DbSet<ProductManufacture> ProductManufacture { get; set; }
+        public virtual DbSet<ProductPicture> ProductPicture { get; set; }
+        public virtual DbSet<ProductProperty> ProductProperty { get; set; }
+        public virtual DbSet<ProductPropertyCategory> ProductPropertyCategory { get; set; }
+        public virtual DbSet<ProductPropertyType> ProductPropertyType { get; set; }
+        public virtual DbSet<ProductPropertyValue> ProductPropertyValue { get; set; }
+        public virtual DbSet<ProductRelationProduct> ProductRelationProduct { get; set; }
+        public virtual DbSet<ProductStatus> ProductStatus { get; set; }
+        public virtual DbSet<ProductTop> ProductTop { get; set; }
+        public virtual DbSet<ProductType> ProductType { get; set; }
         public virtual DbSet<ReplaceChar> ReplaceChar { get; set; }
         public virtual DbSet<Setting> Setting { get; set; }
+        public virtual DbSet<Unit> Unit { get; set; }
         public virtual DbSet<UserNotify> UserNotify { get; set; }
         public virtual DbSet<Ward> Ward { get; set; }
 
@@ -85,6 +108,161 @@ namespace CMS.Data.ModelEntity
                 entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
             });
 
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.Property(e => e.Id).HasComment("Id tự tăng");
+
+                entity.Property(e => e.Active).HasComment("Hoạt động");
+
+                entity.Property(e => e.AmountDefault).HasComment("Khối lượng");
+
+                entity.Property(e => e.ApproveBy).HasComment("Người duyệt");
+
+                entity.Property(e => e.ApproveDate).HasComment("Thời gian duyệt");
+
+                entity.Property(e => e.Approved).HasComment("Trạng thái duyệt");
+
+                entity.Property(e => e.BannerImage).HasComment("(chưa dùng)");
+
+                entity.Property(e => e.BarCode).HasComment("Mã vạch sản phẩm");
+
+                entity.Property(e => e.CanComment).HasComment("Cho phép comment");
+
+                entity.Property(e => e.CanCopy).HasComment("Cho phép copy trên giao diện người dùng");
+
+                entity.Property(e => e.CanDelete).HasComment("Cho phép xóa");
+
+                entity.Property(e => e.CheckBy).HasComment("Người Kiểm tra");
+
+                entity.Property(e => e.CheckDate).HasComment("Thời gian kiểm tra");
+
+                entity.Property(e => e.Checked).HasComment("Trạng thái kiểm tra");
+
+                entity.Property(e => e.Content).HasComment("Mô tả chi tiết sản phẩm");
+
+                entity.Property(e => e.Counter).HasComment("Số lượt xem");
+
+                entity.Property(e => e.CountryId).HasComment("Xuất xứ");
+
+                entity.Property(e => e.CreateBy).HasComment("Người tạo");
+
+                entity.Property(e => e.CreateDate).HasComment("Thời gian tạo");
+
+                entity.Property(e => e.Description).HasComment("Mô tả tóm lược sản phẩm");
+
+                entity.Property(e => e.Discount)
+                    .HasDefaultValueSql("((0))")
+                    .HasComment("Giảm giá (tính bằng tiền)");
+
+                entity.Property(e => e.DiscountRate)
+                    .HasDefaultValueSql("((0))")
+                    .HasComment("Giảm giá (tính bằng %)");
+
+                entity.Property(e => e.DocumentRefer).HasComment("Tài liệu tham khảo");
+
+                entity.Property(e => e.EndDate).HasComment("Ngày kết thúc đăng +100 năm");
+
+                entity.Property(e => e.ExpiryByDay).HasComment("Hạn sử dụng tính theo ngày");
+
+                entity.Property(e => e.ExpiryDisplay).HasComment("Hạn sử dụng hiển thị trên web");
+
+                entity.Property(e => e.Image).HasComment("Tên file ảnh đại diện chính");
+
+                entity.Property(e => e.ImageDescription).HasComment("(chưa dùng)");
+
+                entity.Property(e => e.IsAuthor)
+                    .HasDefaultValueSql("((0))")
+                    .HasComment("Hàng chính hãng");
+
+                entity.Property(e => e.IsBestSale)
+                    .HasDefaultValueSql("((0))")
+                    .HasComment("Hàng bán chạy");
+
+                entity.Property(e => e.IsComming)
+                    .HasDefaultValueSql("((0))")
+                    .HasComment("Hàng sắp về");
+
+                entity.Property(e => e.IsDiscontinue)
+                    .HasDefaultValueSql("((0))")
+                    .HasComment("Ngừng kinh doanh");
+
+                entity.Property(e => e.IsNew)
+                    .HasDefaultValueSql("((0))")
+                    .HasComment("Hàng mới về");
+
+                entity.Property(e => e.IsOutStock)
+                    .HasDefaultValueSql("((0))")
+                    .HasComment("Hết hàng");
+
+                entity.Property(e => e.IsSaleOff)
+                    .HasDefaultValueSql("((0))")
+                    .HasComment("Hàng giảm giá");
+
+                entity.Property(e => e.IsSecondHand)
+                    .HasDefaultValueSql("((0))")
+                    .HasComment("Hàng cũ");
+
+                entity.Property(e => e.LastEditBy).HasComment("Người chỉnh sửa cuối cùng");
+
+                entity.Property(e => e.LastEditDate).HasComment("Thời gian chỉnh sửa cuối cùng");
+
+                entity.Property(e => e.LegalInfo).HasComment("Thông tin pháp lý");
+
+                entity.Property(e => e.MetaDescription).HasComment("Thẻ SEO");
+
+                entity.Property(e => e.MetaKeywords).HasComment("Thẻ SEO");
+
+                entity.Property(e => e.MetaTitle).HasComment("Thẻ SEO");
+
+                entity.Property(e => e.Name).HasComment("Tên sản phẩm");
+
+                entity.Property(e => e.Price)
+                    .HasDefaultValueSql("((0))")
+                    .HasComment("Giá");
+
+                entity.Property(e => e.PriceOld)
+                    .HasDefaultValueSql("((0))")
+                    .HasComment("Giá cũ (để mờ hoặc gạch ngang)");
+
+                entity.Property(e => e.ProductBrandId).HasComment("Doanh nghiệp");
+
+                entity.Property(e => e.ProductCategoryIds).HasComment("Chủng loại hàng hóa");
+
+                entity.Property(e => e.ProductCertificate).HasComment("Các chứng chỉ đạt được");
+
+                entity.Property(e => e.ProductManufactureId).HasComment("Hãng sản xuất");
+
+                entity.Property(e => e.ProductStatusId).HasComment("Trạng thái sản phẩm");
+
+                entity.Property(e => e.ProductTypeId).HasComment("Kiểu sản phẩm");
+
+                entity.Property(e => e.QrcodePublic).HasComment("Mã QRCode sản phẩm");
+
+                entity.Property(e => e.Rate).HasComment("Điểm đánh giá");
+
+                entity.Property(e => e.SellCount)
+                    .HasDefaultValueSql("((0))")
+                    .HasComment("Số lượt bán");
+
+                entity.Property(e => e.Specification).HasComment("Thông số kỹ thuật");
+
+                entity.Property(e => e.StartDate).HasComment("Ngày bắt đầu đăng");
+
+                entity.Property(e => e.SubTitle).HasComment("Tiêu đề phụ (chưa dùng)");
+
+                entity.Property(e => e.Tags).HasComment("Tag (cách nhau dấu ,)");
+
+                entity.Property(e => e.UnitId).HasComment("Đơn vị tính");
+
+                entity.Property(e => e.Url).HasComment("Đường dẫn");
+
+                entity.Property(e => e.WarrantyByMonth)
+                    .HasDefaultValueSql("((0))")
+                    .HasComment("Thời gian bảo hành tính theo tháng");
+
+                entity.Property(e => e.WarrantyDisplay).HasComment("Thời gian bảo hành hiển thị trên web");
+            });
+
             modelBuilder.Entity<ProductBrand>(entity =>
             {
                 entity.Property(e => e.HasQrcode).HasDefaultValueSql("((0))");
@@ -92,6 +270,62 @@ namespace CMS.Data.ModelEntity
                 entity.Property(e => e.SellCount).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.ViewCount).HasDefaultValueSql("((0))");
+            });
+
+            modelBuilder.Entity<ProductBrandStatus>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+            });
+
+            modelBuilder.Entity<ProductPicture>(entity =>
+            {
+                entity.Property(e => e.CreateBy).HasComment("Người tạo");
+
+                entity.Property(e => e.CreateDate).HasComment("Thời gian tạo");
+
+                entity.Property(e => e.Image).HasComment("Tên file ảnh đại diện chính");
+
+                entity.Property(e => e.LastEditBy).HasComment("Người chỉnh sửa cuối cùng");
+
+                entity.Property(e => e.LastEditDate).HasComment("Thời gian chỉnh sửa cuối cùng");
+            });
+
+            modelBuilder.Entity<ProductProperty>(entity =>
+            {
+                entity.Property(e => e.CreateBy).HasComment("Người tạo");
+
+                entity.Property(e => e.CreateDate).HasComment("Thời gian tạo");
+
+                entity.Property(e => e.LastEditBy).HasComment("Người chỉnh sửa cuối cùng");
+
+                entity.Property(e => e.LastEditDate).HasComment("Thời gian chỉnh sửa cuối cùng");
+            });
+
+            modelBuilder.Entity<ProductPropertyCategory>(entity =>
+            {
+                entity.Property(e => e.CreateBy).HasComment("Người tạo");
+
+                entity.Property(e => e.CreateDate).HasComment("Thời gian tạo");
+
+                entity.Property(e => e.LastEditBy).HasComment("Người chỉnh sửa cuối cùng");
+
+                entity.Property(e => e.LastEditDate).HasComment("Thời gian chỉnh sửa cuối cùng");
+            });
+
+            modelBuilder.Entity<ProductPropertyValue>(entity =>
+            {
+                entity.Property(e => e.CreateBy).HasComment("Người tạo");
+
+                entity.Property(e => e.CreateDate).HasComment("Thời gian tạo");
+
+                entity.Property(e => e.LastEditBy).HasComment("Người chỉnh sửa cuối cùng");
+
+                entity.Property(e => e.LastEditDate).HasComment("Thời gian chỉnh sửa cuối cùng");
+            });
+
+            modelBuilder.Entity<ProductStatus>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<Setting>(entity =>

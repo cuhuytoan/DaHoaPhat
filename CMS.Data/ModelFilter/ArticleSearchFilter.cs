@@ -16,7 +16,8 @@ namespace CMS.Data.ModelFilter
         public DateTime ToDate { get; set; }
         public bool? Efficiency { get; set; }
         public bool? Active { get; set; }
-        public Guid? CreateBy { get; set; }
+        public string AssignBy { get; set; }
+        public string CreateBy { get; set; }
         public int? PageSize = 10;
         public int? CurrentPage = 1;
         public int StartIndex { get; set; }

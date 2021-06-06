@@ -15,6 +15,8 @@ namespace CMS.Data.ModelEntity
         public int Id { get; set; }
         [StringLength(500)]
         public string Name { get; set; }
+        [StringLength(50)]
+        public string PhoneCode { get; set; }
         public int? Sort { get; set; }
     }
 }

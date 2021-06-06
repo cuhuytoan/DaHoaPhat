@@ -12,54 +12,57 @@ using System.Resources;
 using System.Text;
 using System.Text.RegularExpressions;
 
-
 namespace CMS.Common
 {
     public class Utils
     {
-        public static Dictionary<int, string> LocationDictionary = new Dictionary<int, string> { { -1, "Tất cả tỉnh thành" }, { 1, "An Giang" }, { 2, "Bà Rịa - Vũng Tàu" }, { 3, "Bắc Giang" }, { 4, "Bắc Kạn" }, { 5, "Bạc Liêu" }, { 6, "Bắc Ninh" }, { 7, "Bến Tre" }, { 8, "Bình Định" }, { 9, "Bình Dương" }, { 10, "Bình Phước" }, { 11, "Bình Thuận" }, { 12, "Cà Mau" }, { 13, "Cao Bằng" }, { 14, "Đắk Lắk" }, { 15, "Đắk Nông" }, { 16, "Điện Biên" }, { 17, "Đồng Nai" }, { 18, "Đồng Tháp" }, { 19, "Gia Lai" }, { 20, "Hà Giang" }, { 21, "Hà Nam" }, { 22, "Hà Tĩnh" }, { 23, "Hải Dương" }, { 24, "Hậu Giang" }, { 25, "Hòa Bình" }, { 26, "Hưng Yên" }, { 27, "Khánh Hòa" }, { 28, "Kiên Giang" }, { 29, "Kon Tum" }, { 30, "Lai Châu" }, { 31, "Lâm Đồng" }, { 32, "Lạng Sơn" }, { 33, "Lào Cai" }, { 34, "Long An" }, { 35, "Nam Định" }, { 36, "Nghệ An" }, { 37, "Ninh Bình" }, { 38, "Ninh Thuận" }, { 39, "Phú Thọ" }, { 40, "Quảng Bình" }, { 41, "Quảng Nam" }, { 42, "Quảng Ngãi" }, { 43, "Quảng Ninh" }, { 44, "Quảng Trị" }, { 45, "Sóc Trăng" }, { 46, "Sơn La" }, { 47, "Tây Ninh" }, { 48, "Thái Bình" }, { 49, "Thái Nguyên" }, { 50, "Thanh Hóa" }, { 51, "Thừa Thiên Huế" }, { 52, "Tiền Giang" }, { 53, "Trà Vinh" }, { 54, "Tuyên Quang" }, { 55, "Vĩnh Long" }, { 56, "Vĩnh Phúc" }, { 57, "Yên Bái" }, { 58, "Phú Yên" }, { 59, "Cần Thơ" }, { 60, "Đà Nẵng" }, { 61, "Hải Phòng" }, { 62, "Hà Nội" }, { 63, "TP HCM" } };
-        public static Dictionary<string, string> MetaSettings = new Dictionary<string, string>() { };
-        private static Random random = new Random();
-        private static readonly Regex NonExplicitLines = new Regex("\r|\n", RegexOptions.Multiline | RegexOptions.Compiled);
-        private static readonly Regex DivEndings = new Regex("</div>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static readonly Regex LineBreaks = new Regex("</br\\s*>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        private static readonly Regex Tags = new Regex("<[^>]*>", RegexOptions.Compiled);
+        private static Dictionary<int, string> locationDictionary = new() { { -1, "Tất cả tỉnh thành" }, { 1, "An Giang" }, { 2, "Bà Rịa - Vũng Tàu" }, { 3, "Bắc Giang" }, { 4, "Bắc Kạn" }, { 5, "Bạc Liêu" }, { 6, "Bắc Ninh" }, { 7, "Bến Tre" }, { 8, "Bình Định" }, { 9, "Bình Dương" }, { 10, "Bình Phước" }, { 11, "Bình Thuận" }, { 12, "Cà Mau" }, { 13, "Cao Bằng" }, { 14, "Đắk Lắk" }, { 15, "Đắk Nông" }, { 16, "Điện Biên" }, { 17, "Đồng Nai" }, { 18, "Đồng Tháp" }, { 19, "Gia Lai" }, { 20, "Hà Giang" }, { 21, "Hà Nam" }, { 22, "Hà Tĩnh" }, { 23, "Hải Dương" }, { 24, "Hậu Giang" }, { 25, "Hòa Bình" }, { 26, "Hưng Yên" }, { 27, "Khánh Hòa" }, { 28, "Kiên Giang" }, { 29, "Kon Tum" }, { 30, "Lai Châu" }, { 31, "Lâm Đồng" }, { 32, "Lạng Sơn" }, { 33, "Lào Cai" }, { 34, "Long An" }, { 35, "Nam Định" }, { 36, "Nghệ An" }, { 37, "Ninh Bình" }, { 38, "Ninh Thuận" }, { 39, "Phú Thọ" }, { 40, "Quảng Bình" }, { 41, "Quảng Nam" }, { 42, "Quảng Ngãi" }, { 43, "Quảng Ninh" }, { 44, "Quảng Trị" }, { 45, "Sóc Trăng" }, { 46, "Sơn La" }, { 47, "Tây Ninh" }, { 48, "Thái Bình" }, { 49, "Thái Nguyên" }, { 50, "Thanh Hóa" }, { 51, "Thừa Thiên Huế" }, { 52, "Tiền Giang" }, { 53, "Trà Vinh" }, { 54, "Tuyên Quang" }, { 55, "Vĩnh Long" }, { 56, "Vĩnh Phúc" }, { 57, "Yên Bái" }, { 58, "Phú Yên" }, { 59, "Cần Thơ" }, { 60, "Đà Nẵng" }, { 61, "Hải Phòng" }, { 62, "Hà Nội" }, { 63, "TP HCM" } };
+        private static Dictionary<string, string> metaSettings = new() { };
+        private static readonly Random random = new();
+        private static readonly Regex NonExplicitLines = new("\r|\n", RegexOptions.Multiline | RegexOptions.Compiled);
+        private static readonly Regex DivEndings = new("</div>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex LineBreaks = new("</br\\s*>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex Tags = new("<[^>]*>", RegexOptions.Compiled);
 
-        private readonly IHostEnvironment _env;
-        public Utils(IHostEnvironment env)
+        
+
+        public Utils()
         {
-            _env = env;
+            
         }
 
         public static string GetResources(string ResourceName, string Key)
         {
-            ResourceManager Resources = new ResourceManager("Resources." + ResourceName, System.Reflection.Assembly.Load("App_GlobalResources"));
+            ResourceManager Resources = new("Resources." + ResourceName, System.Reflection.Assembly.Load("App_GlobalResources"));
             return Resources.GetString(Key);
         }
+
         public static string RandomString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
+              .Select(s => s[Random.Next(s.Length)]).ToArray());
         }
 
         public static string RandomNumber(int length)
         {
             const string chars = "0123456789";
             return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
+              .Select(s => s[Random.Next(s.Length)]).ToArray());
         }
-        public static string GetRandomText()
+
+        public static string GetRandomText(int len)
         {
-            StringBuilder randomText = new StringBuilder();
+            StringBuilder randomText = new();
             string alphabets = "2345679ABCEGHKMNPSXZabceghkmnpqstuvxz";
-            Random r = new Random();
-            for (int j = 0; j <= 2; j++)
+            Random r = new();
+            for (int j = 1; j <= 6; j++)
             {
                 randomText.Append(alphabets[r.Next(alphabets.Length)]);
             }
             return randomText.ToString();
         }
+
         public static string ShowNumber(object Number, int NumberDecimalDigits)
         {
             string NumberString = "0";
@@ -82,14 +85,27 @@ namespace CMS.Common
             }
         }
 
+        public static Dictionary<int, string> LocationDictionary { get => locationDictionary; set => locationDictionary = value; }
+        public static Dictionary<string, string> MetaSettings { get => metaSettings; set => metaSettings = value; }
+
+        public static Random Random => random;
+
+        public static Regex NonExplicitLines1 => NonExplicitLines;
+
+        public static Regex DivEndings1 => DivEndings;
+
+        public static Regex LineBreaks1 => LineBreaks;
+
+        public static Regex Tags1 => Tags;
+
+  
+
         public static void AddCounterWebsite()
         {
-
         }
 
         public static string CutText(string TextInput, int NumberCharacter)
         {
-            string Result = "";
             if (string.IsNullOrEmpty(TextInput)) return TextInput;
             TextInput = StripHTML(TextInput);
             TextInput = Regex.Replace(TextInput, @"\r\n?|\n|\t", " ");
@@ -102,9 +118,10 @@ namespace CMS.Common
             // Process
             TextInput = TextInput.Substring(0, NumberCharacter);
             int index = TextInput.LastIndexOfAny(new char[] { ' ' });
-            Result = TextInput.Substring(0, index);
+            string Result = TextInput.Substring(0, index);
             return Result;
         }
+
         public static string StripHTML(string input)
         {
             return Regex.Replace(input, "<.*?>", String.Empty);
@@ -121,8 +138,6 @@ namespace CMS.Common
                 return false;
         }
 
-
-
         public static string GetFileNameFromURL(string URL)
         {
             return URL.Substring(URL.LastIndexOf("/") + 1, URL.Length - URL.LastIndexOf("/") - 1);
@@ -131,7 +146,7 @@ namespace CMS.Common
         public static string GetFileNameNotExFromUrl(string Url)
         {
             string tmp = GetFileNameFromURL(Url);
-            return tmp.Substring(0, tmp.Length - 4);
+            return tmp[0..^4];
         }
 
         public static bool IsImageFile(string Extention)
@@ -175,14 +190,14 @@ namespace CMS.Common
                 DesWidth = (int)Math.Round(DesHeight * ratio);
             }
 
-            Bitmap DesImg = new System.Drawing.Bitmap(DesWidth, DesHeight, PixelFormat.Format24bppRgb);
+            Bitmap DesImg = new(DesWidth, DesHeight, PixelFormat.Format24bppRgb);
             DesImg.SetResolution(96, 96);
 
             Graphics GraphicImg = Graphics.FromImage(DesImg);
             GraphicImg.SmoothingMode = SmoothingMode.AntiAlias;
             GraphicImg.InterpolationMode = InterpolationMode.HighQualityBicubic;
             GraphicImg.PixelOffsetMode = PixelOffsetMode.HighQuality;
-            System.Drawing.Rectangle oRectangle = new Rectangle(0, 0, DesWidth, DesHeight);
+            System.Drawing.Rectangle oRectangle = new(0, 0, DesWidth, DesHeight);
             GraphicImg.DrawImage(OrgImg, oRectangle);
             OrgImg.Dispose();
             DesImg.Save(DesFileName, Format);
@@ -225,7 +240,6 @@ namespace CMS.Common
 
         public static string FormatDateTimeToShortDate(DateTime TimeInput)
         {
-            string Result = "";
             double DaySpan = (DateTime.Now - TimeInput).TotalDays;
             double HourSpan = (DateTime.Now - TimeInput).TotalHours;
             double MinuteSpan = (DateTime.Now - TimeInput).TotalMinutes;
@@ -242,9 +256,10 @@ namespace CMS.Common
             if (DaySpan < 2)
                 return "Hôm qua";
 
-            Result = String.Format("{0:dd/MM/yyyy}", TimeInput);
+            string Result = string.Format("{0:dd/MM/yyyy}", TimeInput);
             return Result;
         }
+
         public static int CheckTimeToRenew(DateTime dateTime)
         {
             int spaceMinutes = 0;
@@ -254,15 +269,14 @@ namespace CMS.Common
                 Int32 unixTimestampCurrent = (Int32)(DateTime.Now.Subtract(new DateTime(1970, 1, 1))).TotalMinutes;
                 spaceMinutes = (unixTimestampCurrent - unixTimestampInput);
 
-
                 return spaceMinutes;
             }
             catch
             {
-
                 return spaceMinutes;
             }
         }
+
         public static string ConvertTimeSpaceToString(DateTime dateTimeFrom, DateTime dateTimeEnd)
         {
             string res = "";
@@ -274,8 +288,6 @@ namespace CMS.Common
             res = String.Format("{0}h {1} phút", hours, minutes);
             return res;
         }
-
-
 
         public static string RenderPrice(object Price)
         {
@@ -290,6 +302,7 @@ namespace CMS.Common
             }
             return Result;
         }
+
         public static string RenderPriceRecruitment(object PriceFrom, object PriceTo)
         {
             string Result = "Thỏa thuận";
@@ -354,6 +367,7 @@ namespace CMS.Common
             }
             return Result;
         }
+
         public static bool IsEmail(string email)
         {
             try
@@ -368,6 +382,7 @@ namespace CMS.Common
                 return false;
             }
         }
+
         public static bool IsPhoneNumber(string number)
         {
             if (String.IsNullOrEmpty(number)) return false;
@@ -387,55 +402,56 @@ namespace CMS.Common
 
         public static List<string> PhoneList()
         {
-            List<string> lst = new List<string>();
-            //Viettel
-            lst.Add("032");
-            lst.Add("033");
-            lst.Add("034");
-            lst.Add("035");
-            lst.Add("036");
-            lst.Add("037");
-            lst.Add("038");
-            lst.Add("039");
-            lst.Add("086");
-            lst.Add("096");
-            lst.Add("097");
-            lst.Add("098");
-            //MobilePhone
-            lst.Add("070");
-            lst.Add("079");
-            lst.Add("077");
-            lst.Add("076");
-            lst.Add("078");
-            lst.Add("089");
-            lst.Add("090");
-            lst.Add("093");
-            //VinaPhone
-            lst.Add("083");
-            lst.Add("084");
-            lst.Add("085");
-            lst.Add("081");
-            lst.Add("082");
-            lst.Add("088");
-            lst.Add("091");
-            lst.Add("094");
-            //VietNamMobile
-            lst.Add("092");
-            lst.Add("056");
-            lst.Add("058");
-            //GPhone
-            lst.Add("099");
-            lst.Add("059");
+            List<string> lst = new List<string>
+            {
+                //Viettel
+                "032",
+                "033",
+                "034",
+                "035",
+                "036",
+                "037",
+                "038",
+                "039",
+                "086",
+                "096",
+                "097",
+                "098",
+                //MobilePhone
+                "070",
+                "079",
+                "077",
+                "076",
+                "078",
+                "089",
+                "090",
+                "093",
+                //VinaPhone
+                "083",
+                "084",
+                "085",
+                "081",
+                "082",
+                "088",
+                "091",
+                "094",
+                //VietNamMobile
+                "092",
+                "056",
+                "058",
+                //GPhone
+                "099",
+                "059"
+            };
             return lst;
-
         }
+
         public static bool IsEmailOrPhone(string input)
         {
             if (IsEmail(input)) return true;
             if (IsPhoneNumber(input)) return true;
             return false;
         }
-
 
         public static string Decode(string html)
         {
@@ -444,12 +460,13 @@ namespace CMS.Common
             var decoded = html.Trim();
             if (!HasTags(decoded))
                 return html;
-            decoded = NonExplicitLines.Replace(decoded, string.Empty);
-            decoded = DivEndings.Replace(decoded, Environment.NewLine);
-            decoded = LineBreaks.Replace(decoded, Environment.NewLine);
-            decoded = Tags.Replace(decoded, string.Empty).Trim();
+            decoded = NonExplicitLines1.Replace(decoded, string.Empty);
+            decoded = DivEndings1.Replace(decoded, Environment.NewLine);
+            decoded = LineBreaks1.Replace(decoded, Environment.NewLine);
+            decoded = Tags1.Replace(decoded, string.Empty).Trim();
             return WebUtility.HtmlDecode(decoded);
         }
+
         private static bool HasTags(string str)
         {
             return str.StartsWith("<") && str.EndsWith(">");
@@ -459,15 +476,12 @@ namespace CMS.Common
         {
             try
             {
-
                 if (System.IO.File.Exists(filePathTarget))
                     System.IO.File.Delete(filePathTarget);
                 System.IO.File.Move(filePathSource, filePathTarget);
-
             }
-            catch (Exception ex)
+            catch
             {
-                var res = ex;
             }
         }
 
@@ -496,17 +510,17 @@ namespace CMS.Common
                 DesWidth = (int)Math.Round(DesHeight * ratio);
             }
 
-            Bitmap DesImg = new System.Drawing.Bitmap(DesWidth, DesHeight, PixelFormat.Format24bppRgb);
+            Bitmap DesImg = new Bitmap(DesWidth, DesHeight, PixelFormat.Format24bppRgb);
             DesImg.SetResolution(96, 96);
 
             Graphics GraphicImg = Graphics.FromImage(DesImg);
             GraphicImg.SmoothingMode = SmoothingMode.AntiAlias;
             GraphicImg.InterpolationMode = InterpolationMode.HighQualityBicubic;
             GraphicImg.PixelOffsetMode = PixelOffsetMode.HighQuality;
-            System.Drawing.Rectangle oRectangle = new Rectangle(0, 0, DesWidth, DesHeight);
+            Rectangle oRectangle = new(0, 0, DesWidth, DesHeight);
             GraphicImg.DrawImage(OrgImg, oRectangle);
             OrgImg.Dispose();
-            MemoryStream memoryStream = new MemoryStream();
+            MemoryStream memoryStream = new();
             DesImg.Save(memoryStream, Format);
             return memoryStream;
         }
@@ -517,6 +531,7 @@ namespace CMS.Common
             img.Save(ms, format);
             return ms;
         }
+
         public static string RenderTimeSince(DateTime datetime)
         {
             const int SECOND = 1;
@@ -564,7 +579,6 @@ namespace CMS.Common
             }
         }
 
-
         public static int CountWords(string text)
         {
             int wordCount = 0, index = 0;
@@ -587,22 +601,37 @@ namespace CMS.Common
             }
             return wordCount;
         }
+
         public static string GetBase64Image(string base64File)
         {
-            Regex regex = new Regex(@"^[\w/\:.-]+;base64,");
+            Regex regex = new(@"^[\w/\:.-]+;base64,");
             base64File = regex.Replace(base64File, string.Empty);
             return base64File;
         }
+
         public static string GetBase64ImageMime(string base64File)
         {
             string mimeType = "";
-            
+
             Match match = Regex.Match(base64File, @"(?<=image\/)(.*?)(?=;)");
-            if(match.Success)
+            if (match.Success)
             {
-                mimeType =  match.Value;
-            }    
+                mimeType = match.Value;
+            }
             return mimeType;
+        }
+
+        public  static ImageCodecInfo GetEncoder(ImageFormat format)
+        {
+            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();
+            foreach (ImageCodecInfo codec in codecs)
+            {
+                if (codec.FormatID == format.Guid)
+                {
+                    return codec;
+                }
+            }
+            return null;
         }
     }
 }

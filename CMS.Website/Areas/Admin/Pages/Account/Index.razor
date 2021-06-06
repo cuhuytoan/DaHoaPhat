@@ -10,13 +10,13 @@
             <div class="form-group row" style="justify-content: left; margin-bottom: 10px;">
                 <div class="col-xs-12 col-sm-12 col-md-6">
                     <a class="btn btn-mat btn-success  m-r-10 m-b-10" style="color: #FFFFFF;" href="/Admin/Account/Edit"><i class="fa fa-plus-circle"></i>Thêm mới</a>
-                    
+
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-xs-12 col-sm-12 col-md-6">
                     <div>
-                        <TelerikDropDownList  Class="m-r-10 m-b-10" @bind-Value="roleSelected" Data="@lstRoles" DefaultText="Chọn nhóm quyền ..."
+                        <TelerikDropDownList Class="m-r-10 m-b-10" @bind-Value="roleSelected" Data="@lstRoles" DefaultText="Chọn nhóm quyền ..."
                                              ValueField="Id" TextField="Name" Width="100%">
                         </TelerikDropDownList>
                         <input class="form-control m-r-10 m-b-10" type="search" @bind="keyword" placeholder="Từ khóa tìm kiếm...">
@@ -34,7 +34,7 @@
                                 <thead>
                                     <tr>
                                         <th style="width:20px;">
-                                            <input type="checkbox" class="check" @onchange="args => OnCheckBoxChange(true,null,args.Value)" />                                            
+                                            <input type="checkbox" class="check" @onchange="args => OnCheckBoxChange(true,null,args.Value)" />
                                         </th>
                                         <th style="width:50px;">
                                         </th>
@@ -49,8 +49,6 @@
                                         </th>
                                         <th style="width:50px;">
                                             Trạng thái
-                                        </th>
-                                        <th style="width:50px;">
                                         </th>
                                         <th style="width:50px;">
                                         </th>
@@ -93,9 +91,12 @@
                                                     <a href="/Admin/Account/Edit?userId=@item.Id">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
-                                                    <a @onclick="(() => DeleteAccount(item.Id))">
-                                                        <i class="fa fa-trash"></i>
-                                                    </a>                                                    
+                                                    <a href="javascript:void(0);" @onclick="(() => OnShowSetPWD(item.UserName,true))">
+                                                        <i class="fa fa-key"></i>
+                                                    </a>
+                                                    <a href="javascript:void(0);" @onclick="(() => DeleteAccount(item.Id))">
+                                                        <i class="fa fa-trash" style="color:red"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         }
@@ -148,6 +149,61 @@
 
     </div>
 </div>
+
+@if (showSetPwdModal)
+{
+    <div class="modal show d-block" id="setPwdModal" tabindex="999" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cập nhật mật khẩu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        @onclick="() => OnShowSetPWD(String.Empty,false)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <EditForm Model="setPwdModel" OnValidSubmit="OnSetPwd">
+                    <DataAnnotationsValidator />
+                    <div class="modal-body">
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Tài khoản: </label>
+                            <div class="col-sm-8">
+                                <label>@setPwdModel.UserName</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Mật khẩu mới</label>
+                            <div class="col-sm-8">
+                                <InputText type="password" class="form-control" @bind-Value="setPwdModel.Password" placeholder="Nhập mật khẩu mới" />
+                                <span class="text-danger"><ValidationMessage For="() =>setPwdModel.Password" /></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Nhập lại Mật khẩu mới</label>
+                            <div class="col-sm-8">
+                                <InputText type="password" class="form-control" @bind-Value="setPwdModel.ConfirmPassword" placeholder="Xác nhận mật khẩu mới" />
+                                <span class="text-danger"><ValidationMessage For="() =>setPwdModel.ConfirmPassword" /></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal">
+                            Lưu
+                        </button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close"
+                            @onclick="() => OnShowSetPWD(String.Empty,false)">
+                            Đóng
+                        </button>
+                    </div>
+                </EditForm>
+
+            </div>
+        </div>
+    </div>
+}
 
 
 <ConfirmBase @ref="DeleteConfirmation" ConfirmationChanged="ConfirmDelete_Click"

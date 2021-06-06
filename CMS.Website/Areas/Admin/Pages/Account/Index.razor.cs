@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Blazored.Toast.Services;
+using CMS.Data.ModelDTO;
 using CMS.Data.ModelEntity;
 using CMS.Data.ModelFilter;
 using CMS.Website.Areas.Admin.Pages.Shared;
@@ -47,7 +48,7 @@ namespace CMS.Website.Areas.Admin.Pages.Account
         public ArticleSearchFilter modelFilter { get; set; }
         public string roleSelected { get; set; }
         List<AspNetRoles> lstRoles { get; set; }
-
+        protected SetPwdModel setPwdModel { get; set; } = new();
         [CascadingParameter]
         private Task<AuthenticationState> authenticationStateTask { get; set; }
         ClaimsPrincipal user;
@@ -55,15 +56,12 @@ namespace CMS.Website.Areas.Admin.Pages.Account
         List<string> lstAccountSelected { get; set; } = new List<string>();
         bool shouldRender { get; set; } = false;
         bool isCheck { get; set; }
+        bool showSetPwdModal { get; set; }
         #endregion
 
 
         #region LifeCycle
-        protected override async Task OnParametersSetAsync()
-        {
-
-
-        }
+      
         protected override void OnInitialized()
         {
             //Add for change location and seach not reload page
@@ -110,7 +108,7 @@ namespace CMS.Website.Areas.Admin.Pages.Account
         }
         protected async Task InitData()
         {
-
+            GetQueryStringValues();
             var modelFilter = new AccountSearchFilter();
             modelFilter.Keyword = keyword;
             var pRole = Guid.TryParse(roleSelected, out Guid role);
@@ -134,13 +132,11 @@ namespace CMS.Website.Areas.Admin.Pages.Account
 
         #region Event
 
-        protected async Task OnPostDemand(int postType)
-        {
+      
 
-        }
-
-
+#pragma warning disable CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         protected async Task DeleteAccount(string userId)
+#pragma warning restore CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         {
             if (userId == null) // Delete Demand
             {
@@ -178,6 +174,7 @@ namespace CMS.Website.Areas.Admin.Pages.Account
                 }
                 catch (Exception ex)
                 {
+                    Logger.LogError($"ConfirmDelete_Click: {ex.ToString()}");
                     toastService.ShowToast(ToastLevel.Warning, "Có lỗi trong quá trình thực thi", "Lỗi!");
                 }
                 StateHasChanged();
@@ -220,11 +217,47 @@ namespace CMS.Website.Areas.Admin.Pages.Account
             StateHasChanged();
 
         }
-        protected void HandleLocationChanged(object sender, LocationChangedEventArgs e)
+        protected async Task OnShowSetPWD(string userName,bool isShow)
         {
-            GetQueryStringValues();
-            StateHasChanged();
-            InitData();
+            if(isShow)
+            {
+                var selectedUser = await UserManager.FindByNameAsync(userName);
+                if (selectedUser != null)
+                {
+                    setPwdModel.UserName = userName;
+                    showSetPwdModal = isShow;
+                    StateHasChanged();
+                }
+            }
+            else
+            {
+                showSetPwdModal = isShow;
+                StateHasChanged();
+            }
+            
+        }
+        protected async Task OnSetPwd()
+        {
+            var selectedUser = await UserManager.FindByNameAsync(setPwdModel.UserName);
+            if(selectedUser !=null)
+            {
+                string token = await UserManager.GeneratePasswordResetTokenAsync(selectedUser);
+                var result = await UserManager.ResetPasswordAsync(selectedUser,token,  setPwdModel.Password);
+                if(result.Succeeded)
+                {
+                    toastService.ShowSuccess("Cập nhật mật khẩu thành công", "Thông báo");
+                    showSetPwdModal = false;
+                    StateHasChanged();
+                }
+                else
+                {
+                    toastService.ShowError("Có lỗi trong quá trình cập nhật mật khẩu", "Thông báo");
+                }
+            }    
+        }
+        protected async void HandleLocationChanged(object sender, LocationChangedEventArgs e)
+        {          
+            await InitData();
         }
         protected void GetQueryStringValues()
         {

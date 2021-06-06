@@ -14,15 +14,28 @@
                             <div class="form-group row">
                                 <div class="col-sm-8">
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Tên bài viết</label>
+                                        <label class="col-sm-2 col-form-label">Tên bài viết <span class="text-danger">(*)</span></label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" @bind="article.Name" placeholder="Nhập tên bài viết">
-                                            <span class="text-danger"><ValidationMessage For="() => article.Name" /></span>
+                                            <span class="text-danger m-t-10"><ValidationMessage For="() => article.Name" /></span>
+                                        </div>
+                                    </div>
+                                     <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Chuyên mục cấp 1 <span class="text-danger">(*)</span></label>
+                                        <div class="col-sm-10">
+                                           <TelerikComboBox @bind-Value="@userInfo.AspNetUserProfiles.LocationId"
+                                                         Data="@lstLocation" Placeholder="Chọn tỉnh thành ..."
+                                                         ValueField="@nameof(ArticleCategory.Id)" TextField="@nameof(ArticleCategory.Name)"
+                                                         Id="location" PopupHeight="auto" Width="100%"
+                                                         Filterable="true"
+                                                         OnChange="@LocationSelected">
+                                            </TelerikComboBox>
+
                                         </div>
                                     </div>
                                     @*Chuyên mục*@
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Chuyên mục</label>
+                                        <label class="col-sm-2 col-form-label">Chuyên mục cấp 2 <span class="text-danger">(*)</span></label>
                                         <div class="col-sm-10">
                                             <TelerikMultiSelect  @bind-Value="@SelectedCateValue"
                                                                 Data="@lstArticleCategory"         
@@ -33,7 +46,7 @@
                                                                  Width="100%">
                                             </TelerikMultiSelect>
 
-                                            <span class="text-danger"><ValidationMessage For="() => article.ArticleCategoryIds" /></span>
+                                            <span class="text-danger m-t-10"><ValidationMessage For="() => article.ArticleCategoryIds" /></span>
 
                                         </div>
                                     </div>
@@ -41,25 +54,25 @@
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Ngày giờ đăng</label>
                                         <div class="col-sm-4">
-                                            <TelerikDatePicker @bind-Value="article.StartDate"></TelerikDatePicker>
-                                            <span class="text-danger"><ValidationMessage For="() => article.StartDate" /></span>
+                                            <TelerikDateTimePicker @bind-Value="article.StartDate"></TelerikDateTimePicker>
+                                            <span class="text-danger m-t-10"><ValidationMessage For="() => article.StartDate" /></span>
                                         </div>
-                                        <label class="col-sm-3 col-form-label" style="text-align: right;">Ngày kết thúc</label>
+                                       @* <label class="col-sm-3 col-form-label" style="text-align: right;">Ngày kết thúc</label>
                                         <div class="col-sm-3">
                                             <div style="float: right">
                                                 <TelerikDatePicker @bind-Value="article.EndDate"></TelerikDatePicker>
-                                                <span class="text-danger"><ValidationMessage For="() => article.EndDate" /></span>
+                                                <span class="text-danger m-t-10"><ValidationMessage For="() => article.EndDate" /></span>
                                             </div>
-                                        </div>
+                                        </div>*@
                                     </div>
-                                    <div class="form-group row">
+                                  <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Nội dung tóm tắt</label>
                                         <div class="col-sm-10">
                                             <textarea type="text" style="height: 150px;" class="form-control" @bind="article.Description" placeholder="Nhập nội dung tóm tắt"></textarea>
-                                            <span class="text-danger"><ValidationMessage For="() => article.Description" /></span>
+                                            <span class="text-danger m-t-10"><ValidationMessage For="() => article.Description" /></span>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                     @* <div class="form-group row">
                                         <label class="col-sm-2 col-form-label"></label>
                                         <div class="col-sm-10">
                                             <input type="checkbox" name="chkTopArticleCategory" id="chkTopArticleCategory" @bind="chkTopArticleCategory" />
@@ -67,12 +80,12 @@
                                             <input type="checkbox" name="chkTopArticleCategoryParent" id="chkTopArticleCategoryParent" @bind="chkTopArticleCategoryParent" />
                                             <label>Bài tiêu biểu chuyên mục mẹ</label>
                                         </div>
-                                    </div>
+                                    </div>*@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group row">
                                         <div class="col-md-12" id="uploadImg">                                       
-                                            <a @onclick="(() => OnCropImage())">
+                                            <a @onclick="(() => OnCropImage(true))">
 
                                                 @{
                                                     if (article.Image != null)
@@ -88,7 +101,10 @@
                                                     }
                                                     else
                                                     {
-                                                        <i class="fa fa-upload">Tải ảnh đại diện</i>
+                                                        <div class="btn btn-primary" style="border: 2px solid rgba(103, 192, 103, 0.75);border-radius: 40px;">
+                                                            <i class="fa fa-upload"> </i>Upload
+                                                        </div>
+                                                        
                                                     }
                                                 }
 
@@ -102,28 +118,28 @@
                                 <div class="col-sm-12">
                                     <div class="form-group row">
                                         <div class="col-sm-12">
-                                            <h4 class="sub-title">Nội dung chi tiết bài viết </h4>
+                                            <h4 class="sub-title">Nội dung chi tiết bài viết <span class="text-danger">(*)</span></h4>
                                             <TelerikEditor @bind-Value="article.Content"
                                                            Tools="@Tools"
                                                            Height="880px">
                                                 <EditorCustomTools>
                                                     <EditorCustomTool Name="ImportImage">
-                                                        <InputFile Icon="star" OnChange="@InsertImageEditor" text="Chọn ảnh" accept="image/png,image/gif,image/jpeg" />
+                                                        <a href="javascript:void(0);" @onclick="(() => OnCropImage(false))"><i class="fa fa-upload">Thêm ảnh</i></a>
                                                     </EditorCustomTool>
                                                 </EditorCustomTools>
                                             </TelerikEditor>
-                                            <span class="text-primary"> Độ dài nội dung @(article.Content != null ?CMS.Common.Utils.CountWords(article.Content):0) từ</span>
-                                            <span class="text-danger"><ValidationMessage For="() => article.Content" /></span>
+                                            @*<span class="text-primary"> Độ dài nội dung @(article.Content != null ?CMS.Common.Utils.CountWords(article.Content):0) từ</span>*@
+                                            <span class="text-danger m-t-10"><ValidationMessage For="() => article.Content" /></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Tác giả</label>
+                                        <label class="col-sm-2 col-form-label">Tác giả <span class="text-danger">(*)</span></label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" @bind="article.Author" placeholder="VD: Nhóm PV">
-                                            <span asp-validation-for="article.Author" class="text-danger"></span>
+                                            <span class="text-danger m-t-10"><ValidationMessage For="() => article.Author" /></span>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                   @*                 <div class="form-group row">
                         <label class="col-sm-2 col-form-label">File đính kèm <span style="color:red">(pdf,docx)</span></label>
                         <div class="col-sm-10">
                             <TelerikUpload SaveUrl="@SaveUrl"
@@ -192,34 +208,34 @@
                                 </div>
                             </div>
                         </div>
-                    }
+                    }*@
                                     <h4 class="sub-title">Nội dung SEO</h4>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Tags</label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" @bind="article.Tags" placeholder="VD: kinh doanh, vật liệu xây dựng, sắt thép">
-                                            <span asp-validation-for="article.Tags" class="text-danger"></span>
+                                            <span class="text-danger m-t-10"><ValidationMessage For="() => article.Tags" /></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Meta Title</label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" @bind="article.MetaTitle" placeholder="Nhập meta title">
-                                            <span asp-validation-for="article.MetaTitle" class="text-danger"></span>
+                                            <span class="text-danger m-t-10"><ValidationMessage For="() => article.MetaTitle" /></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Meta Description</label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" @bind="article.MetaDescription" placeholder="Nhập meta description">
-                                            <span asp-validation-for="article.MetaDescription" class="text-danger"></span>
+                                            <span class="text-danger m-t-10"><ValidationMessage For="() => article.MetaDescription" /></span>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Meta keyword</label>
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" @bind="article.MetaKeywords" placeholder="Nhập meta keyword">
-                                            <span asp-validation-for="article.MetaKeywords" class="text-danger"></span>
+                                            <span class="text-danger m-t-10"><ValidationMessage For="() => article.MetaKeywords" /></span>
                                         </div>
                                     </div>
                                     <div class="form-group row" style="display:flex;justify-content:center">

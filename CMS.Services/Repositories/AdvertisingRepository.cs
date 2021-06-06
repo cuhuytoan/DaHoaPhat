@@ -13,40 +13,41 @@ using System.Threading.Tasks;
 
 namespace CMS.Services.Repositories
 {
-
     public interface IAdvertisingRepository : IRepositoryBase<Advertising>
     {
         Task<List<AdvertisingBlock>> AdvertisingBlockGetAll(bool isMobile);
+
         Task<AdvertisingBlock> AdvertisingBlockGetById(int AdvertisingBlockId);
+
         Task<int> AdvertisingInsert(Advertising model, string UserId, IHostingEnvironment _env);
+
         Task AdvertisingUpdate(Advertising model, string UserId, IEnumerable<IFormFile> mainimages, IHostingEnvironment _env);
+
         Task AdvertisingDelete(int AdvertisingId);
+
         Task AdvertisingActive(int AdvertisingId, bool Active);
+
         Task<List<Advertising>> AdvertisingGetByAdvertisingBlockId(int id);
     }
+
     public class AdvertisingRepository : RepositoryBase<Advertising>, IAdvertisingRepository
     {
-
         public AdvertisingRepository(CmsContext CmsDBContext) : base(CmsDBContext)
         {
-
         }
 
         public async Task<List<AdvertisingBlock>> AdvertisingBlockGetAll(bool isMobile)
         {
-
             return await CmsContext.AdvertisingBlock.Where(p => p.IsMobile == isMobile).ToListAsync();
         }
 
         public async Task<AdvertisingBlock> AdvertisingBlockGetById(int AdvertisingBlockId)
         {
-
             return await CmsContext.AdvertisingBlock.FirstOrDefaultAsync(p => p.Id == AdvertisingBlockId);
         }
 
         public async Task<int> AdvertisingInsert(Advertising model, string UserId, IHostingEnvironment _env)
         {
-
             model.Active = false;
             model.CreateBy = UserId;
             model.CreateDate = DateTime.Now;
@@ -60,7 +61,6 @@ namespace CMS.Services.Repositories
 
         public async Task AdvertisingUpdate(Advertising model, string UserId, IEnumerable<IFormFile> mainimages, IHostingEnvironment _env)
         {
-
             var items = CmsContext.Advertising.FirstOrDefault(p => p.Id == model.Id);
             if (items != null)
             {
@@ -85,7 +85,6 @@ namespace CMS.Services.Repositories
 
         public async Task AdvertisingDelete(int id)
         {
-
             try
             {
                 var items = CmsContext.Advertising.FirstOrDefault(p => p.Id == id);
@@ -97,13 +96,11 @@ namespace CMS.Services.Repositories
             }
             catch
             {
-
             }
         }
 
         public async Task AdvertisingActive(int id, bool Active)
         {
-
             var advertising = await CmsContext.Advertising.FirstOrDefaultAsync(p => p.Id == id);
             if (advertising != null)
             {
@@ -114,13 +111,11 @@ namespace CMS.Services.Repositories
 
         public async Task<List<Advertising>> AdvertisingGetByAdvertisingBlockId(int AdvertisingBlockId)
         {
-
             return await CmsContext.Advertising.Where(p => p.AdvertisingBlockId == AdvertisingBlockId).OrderBy(p => p.Sort).ToListAsync();
         }
 
         private async Task SaveImage(IEnumerable<IFormFile> files, int id, IHostingEnvironment _env)
         {
-
             if (files != null)
             {
                 foreach (var file in files)
@@ -150,9 +145,9 @@ namespace CMS.Services.Repositories
                 }
             }
         }
+
         private string CreateAdvertisingURL(int id)
         {
-
             try
             {
                 var currentArticle = CmsContext.Advertising.FirstOrDefault(p => p.Id == id);
@@ -160,7 +155,6 @@ namespace CMS.Services.Repositories
             }
             catch
             {
-
             }
             return "nourl";
         }

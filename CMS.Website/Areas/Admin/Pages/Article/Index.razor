@@ -5,193 +5,225 @@
     <div class="col-sm-12">
         <div class="white-box">
             <h3 class="box-title m-b-0">Danh sách bài viết</h3>
-            <p class="text-muted m-b-30 font-13"> Danh sách bài viết đã cập nhật </p>
+            <p class="text-muted m-b-30 font-13"> Danh sách @subTitle </p>
             <div class="form-group row" style="justify-content: left; margin-bottom: 10px;">
                 <div class="col-xs-12 col-sm-12 col-md-6">
-                    <a class="btn btn-mat btn-primary m-r-10 m-b-10" style="color: #FFFFFF;" href="/Admin/Article/Edit"><i class="fa fa-plus-circle"></i>Thêm mới</a>
-                    @if (globalModel.user != null && (globalModel.user.IsInRole("Quản trị hệ thống") || globalModel.user.IsInRole("Lãnh đạo tòa soạn") || globalModel.user.IsInRole("Thư ký tòa soạn")))
+                    @if (Repository.Permission.CanAddNewArticle(globalModel.user, globalModel.userId, ref outMessage))
                     {
-                        @*<a class="btn btn-mat btn-success m-r-10 m-b-10" style="color: #FFFFFF;" @onclick="@(() => OnPostDemand(2))"><i class="fa fa-play"></i>Duyệt phản biện</a>*@
-                        <a class="btn btn-mat btn-warning m-r-10 m-b-10" style="color: #FFFFFF;" @onclick="@(() => OnPostDemand(0))"><i class="fa fa-play-circle"></i>Hủy đăng</a>
-                        <a class="btn btn-mat btn-danger m-r-10 m-b-10" style="color: #FFFFFF;" @onclick="(() => DeleteArticle(null))"><i class="fa fa-trash"></i>Xóa bài</a>
+                        <a class="btn btn-mat btn-primary m-r-10 m-b-10" style="color: #FFFFFF;" href="/Admin/Article/Edit"><i class="fa fa-plus-circle"></i>Thêm mới</a>
                     }
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-6" style="display:flex;">
-                    <TelerikDropDownList Width="100%" Class="m-r-10 m-b-10" @bind-Value="articleCategorySelected" Data="@lstArticleCategory" DefaultText="Chọn chuyên mục ..."
-                                         ValueField="Id" TextField="Name" Id="ArticleCategory">
-                    </TelerikDropDownList>
-                    <TelerikDropDownList Width="100%" Class="m-r-10 m-b-10" @bind-Value="articleStatusSelected" Data="@lstArticleStatus" DefaultText="Chọn trạng thái ..."
-                                         ValueField="Id" TextField="Name" Id="ArticleStatus">
-                    </TelerikDropDownList>
-                </div>               
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-6 p-r-25">
-                    <input class="form-control m-r-10 m-b-10" type="search" @bind="keyword" placeholder="Từ khóa tìm kiếm..." />
-                    <a class="btn btn-mat btn-success m-r-10 m-b-10" href="Admin/Article?p=1&articleCategoryId=@articleCategorySelected&keyword=@keyword&articleStatusId=@articleStatusSelected " style="color: #FFFFFF;"><i class="fa fa-search"></i>Tìm kiếm</a>
+           
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-6" style="display:flex;">
+                        <TelerikDropDownList Width="100%" Class="m-r-10 m-b-10" @bind-Value="articleCategorySelected" Data="@lstArticleCategory" DefaultText="Chọn chuyên mục ..."
+                                             ValueField="Id" TextField="Name" Id="ArticleCategory">
+                        </TelerikDropDownList>
+                        <TelerikDropDownList Width="100%" Class="m-r-10 m-b-10" @bind-Value="articleStatusSelected" Data="@lstArticleStatus" DefaultText="Chọn trạng thái ..."
+                                             ValueField="Id" TextField="Name" Id="ArticleStatus" OnChange="() => OnChangeArticleStatus((int)articleStatusSelected)">
+                        </TelerikDropDownList>
+                    </div>
                 </div>
-            </div>
-            <hr />
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="white-box">
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th style="width:20px;">
-                                            <input type="checkbox" class="check" @onchange="args => OnCheckBoxChange(true,0,args.Value)" />
-                                        </th>
-                                        <th style="width:100px;">
-                                        </th>
-                                        <th>
-                                            Tiêu đề
-                                        </th>
-                                        <th>
-                                            Trạng thái
-                                        </th>
-                                        <th>
-                                            Lượt xem
-                                        </th>
-                                        <th>
-                                        </th>
-                                        <th>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if (lstArticle == null)
-                                    {
-                                        <p><em>Loading...</em></p>
-                                    }
-                                    else
-                                    {
-                                        @foreach (var item in lstArticle)
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-6 p-r-25">
+                        <input class="form-control m-r-10 m-b-10" type="search" @bind="keyword" placeholder="Từ khóa tìm kiếm..." />
+                        <a class="btn btn-mat btn-success m-r-10 m-b-10" href="Admin/Article?p=1&articleCategoryId=@articleCategorySelected&keyword=@keyword&articleStatusId=@articleStatusSelected " style="color: #FFFFFF;"><i class="fa fa-search"></i>Tìm kiếm</a>
+                    </div>
+                </div>
+                 @if (globalModel.user != null && (globalModel.user.IsInRole("Quản trị hệ thống") || globalModel.user.IsInRole("Lãnh đạo tòa soạn") || globalModel.user.IsInRole("Thư ký tòa soạn") || globalModel.user.IsInRole("Phụ trách chuyên mục")))
+            {
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-6" style="display:flex;">
+                       @* <fieldset>
+                            <legend>Cập nhật trạng thái</legend>*@
+                             <TelerikDropDownList Width="100%" Class="m-r-10 m-b-10" @bind-Value="setArticleStatusSelected" Data="@lstArticleStatus" DefaultText="Chọn trạng thái ..."
+                                             ValueField="Id" TextField="Name" Id="ArticleStatus">
+                        </TelerikDropDownList>
+                        <a class="btn btn-mat btn-success m-r-10 m-b-10" style="color: #FFFFFF;" @onclick="@(() => OnPostDemand((int)setArticleStatusSelected))"><i class="fa fa-play"></i>Cập nhật trạng thái</a>
+                        <a class="btn btn-mat btn-danger m-r-10 m-b-10" style="color: #FFFFFF;" @onclick="(() => DeleteArticle(null))"><i class="fa fa-trash"></i>Xóa bài</a>
+                       @* </fieldset>*@
+                    </div>
+                </div>
+            }
+                <hr />
+                <div class="row">
+                     <div class="col-xs-12 col-sm-12 col-md-12">
+                         <span>Đã tìm thấy @totalCount kết quả </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="white-box">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:20px;">
+                                                <input type="checkbox" class="check" @onchange="args => OnCheckBoxChange(true,0,args.Value)" />
+                                            </th>
+                                            <th style="width:100px;">
+                                            </th>
+                                            <th>
+                                                Tiêu đề
+                                            </th>
+                                            <th>
+                                                Trạng thái
+                                            </th>
+                                            <th>
+                                                Lượt xem
+                                            </th>
+                                            <th>
+                                            </th>
+                                            <th>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (lstArticle == null)
                                         {
-                                            bool Checked = false;
-                                            if (listArticleSelected.Contains(item.Id))
-                                            {
-                                                Checked = true;
-                                            }
-                                            <tr>
-                                                <td>
-                                                    <input type="checkbox" class="check" checked="@Checked" @onchange="args => OnCheckBoxChange(false,item.Id,args.Value)">
-                                                </td>
-                                                <td>
-                                                    <div class="item-image">
-                                                        <img src="/data/article/mainimages/small/@(@item.Image ?? "noimage.gif")" />
-                                                    </div>
 
-                                                </td>
-                                                <td>
-                                                    <div style="font-weight: 700;">
-                                                        <a href="/Admin/Article/Edit?articleId=@item.Id">
-                                                            @item.Name
-                                                        </a>
-                                                    </div>
-                                                    <div>
-                                                        Đăng bởi <b>@item.CreateByName</b> vào lúc
-                                                        <b>@item.CreateDate.Value.ToString("dd/MM/yyyy HH:mm")</b>
-                                                    </div>
-                                                    <div>
-                                                        Chuyên mục: <span style="font-weight: 700; color: #0094ff;">@item.ArticleCategoryName</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div style="margin-top: 20px;">
-                                                        @{
-                                                            string styleStatus = "badge-success";
-                                                            if (item.ArticleStatusId == 0)
-                                                            {
-                                                                styleStatus = "badge-info";
-                                                            }
-                                                            else if (item.ArticleStatusId == 1)
-                                                            {
-                                                                styleStatus = "badge-warning";
-                                                            }
-                                                        }
-                                                        <label class='label badge @styleStatus'> @item.StatusName</label>
-                                                    </div>
-                                                </td>
-                                                <td style="padding-top: 30px;">
-                                                    <label class="badge badge-warning">@item.Counter</label>
-                                                </td>
-                                                <td style="padding-top: 30px;">
-                                                    <a href="/Admin/Article/Preview?articleId=@item.Id">
-                                                        <i class="fa fa-eye" style="color: #0094ff;"></i>
-                                                    </a>
-                                                </td>
-                                                @if (item.ArticleStatusId == 2 || item.ArticleStatusId == 4)
+                                        }
+                                        else
+                                        {
+                                            @foreach (var item in lstArticle)
+                                            {
+                                                bool Checked = false;
+                                                if (listArticleSelected.Contains(item.Id))
                                                 {
+                                                    Checked = true;
+                                                }
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" class="check" checked="@Checked" @onchange="args => OnCheckBoxChange(false,item.Id,args.Value)">
+                                                    </td>
+                                                    <td>
+                                                        <div class="item-image">
+                                                            <img src="/data/article/mainimages/small/@(@item.Image ?? "noimage.gif")" />
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div style="font-weight: 700;">
+                                                            <a href="/Admin/Article/Edit?articleId=@item.Id">
+                                                                @item.Name
+                                                            </a>
+                                                        </div>
+                                                        <div>
+                                                            Đăng bởi <b>@item.CreateByName</b> vào lúc
+                                                            <b>@item.CreateDate.Value.ToString("dd/MM/yyyy HH:mm")</b>
+                                                        </div>
+                                                        <div>
+                                                            Chuyên mục: <span style="font-weight: 700; color: #0094ff;">@item.ArticleCategoryName</span>
+                                                        </div>
+                                                    </td>
                                                     <td>
                                                         <div style="margin-top: 20px;">
-                                                            @if (item.LastEditBy == globalModel.userId)
+                                                            @{
+                                                            string styleStatus = "badge-primary";
+                                                                if (item.ArticleStatusId == 0)
+                                                                {
+                                                                    styleStatus = "badge-danger";
+                                                                }
+                                                                else if (item.ArticleStatusId == 1)
+                                                                {
+                                                                    styleStatus = "badge-secondary";
+                                                                }
+                                                                else if (item.ArticleStatusId == 2)
+                                                                {
+                                                                    styleStatus = "badge-primary";
+                                                                }
+                                                                else if (item.ArticleStatusId == 3)
+                                                                {
+                                                                    styleStatus = "badge-warning";
+                                                                }
+                                                                else if (item.ArticleStatusId == 4)
+                                                                {
+                                                                    styleStatus = "badge-success";
+                                                                }
+                                                            }
+                                                            <label class='badge @styleStatus' style="text-transform :inherit; padding: 10px 10px;"> @item.StatusName</label>
+                                                        </div>
+                                                    </td>
+                                                    <td style="padding-top: 30px;">
+                                                        <label class="badge badge-warning">@item.Counter</label>
+                                                    </td>
+                                                    <td style="padding-top: 30px;">
+                                                        <a href="/Admin/Article/Preview?articleId=@item.Id">
+                                                            <i class="fa fa-eye" style="color: #0094ff;"></i>
+                                                        </a>
+                                                    </td>
+                                                  
+                                                    <td>
+                                                        <div style="margin-top: 20px;">
+                                                            @if (Repository.Permission.CanEditArticle(globalModel.user, globalModel.userId, item.Id, ref outMessage))
                                                             {
                                                                 <a href="/Admin/Article/Edit?articleId=@item.Id">
                                                                     <i class="fa fa-edit"></i>
                                                                 </a>
-                                                                <a @onclick="(() => DeleteArticle(item.Id))">
-                                                                    <i class="fa fa-trash"></i>
+                                                            }
+                                                            @if (Repository.Permission.CanDeleteArticle(globalModel.user, globalModel.userId, item.Id, ref outMessage))
+                                                            {
+                                                                <a href="javascript:void(0);" @onclick="(() => DeleteArticle(item.Id))">
+                                                                    <i class="fa fa-trash" style="color:red"></i>
                                                                 </a>
-
                                                             }
                                                         </div>
                                                     </td>
-                                                }
-                                            </tr>
+                                                   
+                                                </tr>
+                                            }
                                         }
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12">
-                                <div class="dataTables_paginate paging_simple_numbers" id="simpletable_paginate" style="float:right">
-                                    <ul class="pagination">
-                                        <li class="paginate_button page-item previous" id="simpletable_previous">
-                                            <a href="Admin/Article?p=1&articleCategoryId=@articleCategorySelected&keyword=@keyword&articleStatusId=@articleStatusSelected " aria-controls="simpletable" data-dt-idx="1" tabindex="0" class="page-link">
-                                                <i class="fa fa-fast-backward"></i>
-                                            </a>
-                                        </li>
-                                        <li class="paginate_button page-item previous" id="simpletable_previous">
-                                            <a href="Admin/Article?p=@(p > 1 ? p - 1 : 1)&articleCategoryId=@articleCategorySelected&keyword=@keyword&articleStatusId=@articleStatusSelected " aria-controls="simpletable" data-dt-idx="@(p-1)" tabindex="0" class="page-link">
-                                                <i class="fa fa-step-backward"></i>
-                                            </a>
-                                        </li>
-                                        @for (var i = 1; i <= totalPages; i++)
-                                        {
-
-                                            <li class="paginate_button page-item @(i == currentPage ? "active" : "") " style="@((i > currentPage + 2) || (i < currentPage -2) ? "display:none" : "" )">
-                                                <a href="Admin/Article?p=@i&articleCategoryId=@articleCategorySelected&keyword=@keyword&articleStatusId=@articleStatusSelected" aria-controls="simpletable" data-dt-idx="@i" tabindex="0" class="page-link">
-                                                    @i
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="pagination" style="float:left">
+                                     <span>Trang @(p ?? 1)  / @totalPages</span>
+                                     </div>
+                                    <div class="dataTables_paginate paging_simple_numbers" id="simpletable_paginate" style="float:right">
+                                      
+                                        <ul class="pagination">
+                                             
+                                            <li class="paginate_button page-item previous" id="simpletable_previous">
+                                                <a href="Admin/Article?p=1&articleCategoryId=@articleCategorySelected&keyword=@keyword&articleStatusId=@articleStatusSelected " aria-controls="simpletable" data-dt-idx="1" tabindex="0" class="page-link">
+                                                    <i class="fa fa-fast-backward"></i>
                                                 </a>
                                             </li>
-                                        }
-                                        <li class="paginate_button page-item next" id="simpletable_next">
-                                            <a href="Admin/Article?p=@(p == totalPages ? totalPages : p + 1)&articleCategoryId=@articleCategorySelected&keyword=@keyword&articleStatusId=@articleStatusSelected " aria-controls="simpletable" data-dt-idx="@(p+1)" tabindex="0" class="page-link">
-                                                <i class="fa fa-step-forward"></i>
-                                            </a>
-                                        </li>
-                                        <li class="paginate_button page-item next" id="simpletable_next">
-                                            <a href="Admin/Article?p=@totalPages&articleCategoryId=@articleCategorySelected&keyword=@keyword&articleStatusId=@articleStatusSelected" aria-controls="simpletable" data-dt-idx="@totalPages" tabindex="0" class="page-link">
-                                                <i class="fa fa-fast-forward"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                            <li class="paginate_button page-item previous" id="simpletable_previous">
+                                                <a href="Admin/Article?p=@(p > 1 ? p - 1 : 1)&articleCategoryId=@articleCategorySelected&keyword=@keyword&articleStatusId=@articleStatusSelected " aria-controls="simpletable" data-dt-idx="@(p-1)" tabindex="0" class="page-link">
+                                                    <i class="fa fa-step-backward"></i>
+                                                </a>
+                                            </li>
+                                            @for (var i = 1; i <= totalPages; i++)
+                                            {
+
+                                                <li class="paginate_button page-item @(i == currentPage ? "active" : "") " style="@((i > currentPage + 2) || (i < currentPage -2) ? "display:none" : "" )">
+                                                    <a href="Admin/Article?p=@i&articleCategoryId=@articleCategorySelected&keyword=@keyword&articleStatusId=@articleStatusSelected" aria-controls="simpletable" data-dt-idx="@i" tabindex="0" class="page-link">
+                                                        @i
+                                                    </a>
+                                                </li>
+                                            }
+                                            <li class="paginate_button page-item next" id="simpletable_next">
+                                                <a href="Admin/Article?p=@(p == totalPages ? totalPages : p + 1)&articleCategoryId=@articleCategorySelected&keyword=@keyword&articleStatusId=@articleStatusSelected " aria-controls="simpletable" data-dt-idx="@(p+1)" tabindex="0" class="page-link">
+                                                    <i class="fa fa-step-forward"></i>
+                                                </a>
+                                            </li>
+                                            <li class="paginate_button page-item next" id="simpletable_next">
+                                                <a href="Admin/Article?p=@totalPages&articleCategoryId=@articleCategorySelected&keyword=@keyword&articleStatusId=@articleStatusSelected" aria-controls="simpletable" data-dt-idx="@totalPages" tabindex="0" class="page-link">
+                                                    <i class="fa fa-fast-forward"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-        </div>
     </div>
 </div>
 
 <ConfirmBase @ref="DeleteConfirmation" ConfirmationChanged="ConfirmDelete_Click"
              ConfirmationMessage=@($"Bạn có chắc chắn muốn xóa?") ConfirmationTitle=@("Xác nhận xóa") />
-

@@ -3,32 +3,37 @@
         width: 100%;
         max-height: 550px;
     }
+
+    .btn-group {
+        margin-top: 5px;
+        width:85px;
+    }
 </style>
 @if (ShowConfirmation)
 {
 
-<div class="modal show d-block" id="exampleModal" tabindex="999" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa ảnh</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+    <div class="modal show d-block" id="exampleModal" tabindex="999" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa ảnh</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                         @onclick="() => OnConfirmationChange(false)">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-              
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
                     <div class="row">
                         <div class="col-md-9">
                             <!-- <h3>Demo:</h3> -->
-                            <div class="img-container" >
+                        <div class="img-container">
                                 <img style="max-height:500px; max-width:500px;" src="/assets/images/pictureCrop.jpg" alt="Picture">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <!-- <h3>Preview:</h3> -->
-                            <div class="docs-preview clearfix">
+                        <div class="docs-preview clearfix">
                                 <div class="img-preview preview-lg"></div>
                                 <div class="img-preview preview-md"></div>
                                 <div class="img-preview preview-sm"></div>
@@ -36,7 +41,7 @@
                             </div>
 
                             <!-- <h3>Data:</h3> -->
-                            <div class="docs-data">
+                        <div class="docs-data">
                                 <div class="input-group input-group-sm">
                                     <span class="input-group-prepend">
                                         <label class="input-group-text" for="dataX">X</label>
@@ -97,10 +102,11 @@
                             </div>
                         </div>
                     </div>
+                   
                     <div class="row" id="actions">
                         <div class="col-md-9 docs-buttons">
                             <!-- <h3>Toolbar:</h3> -->
-                            <div class="btn-group">
+                        <div class="btn-group">
                                 <button type="button" class="btn btn-primary" data-method="setDragMode" data-option="move" title="Move">
                                     <span class="docs-tooltip" data-toggle="tooltip" title="cropper.setDragMode(&quot;move&quot;)">
                                         <span class="fa fa-arrows-alt"></span>
@@ -137,6 +143,9 @@
                                         <span class="fa fa-arrow-right"></span>
                                     </span>
                                 </button>
+
+                            </div>
+                            <div class="btn-group">
                                 <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="-10" title="Move Up">
                                     <span class="docs-tooltip" data-toggle="tooltip" title="cropper.move(0, -10)">
                                         <span class="fa fa-arrow-up"></span>
@@ -188,6 +197,7 @@
                                 </button>
                             </div>
 
+
                             <div class="btn-group">
                                 <button type="button" class="btn btn-primary" data-method="disable" title="Disable">
                                     <span class="docs-tooltip" data-toggle="tooltip" title="cropper.disable()">
@@ -213,33 +223,33 @@
                                         <span class="fa fa-upload"></span>
                                     </span>
                                 </label>
-                                @*<button type="button" class="btn btn-primary" data-method="destroy" title="Destroy">
-                                    <span class="docs-tooltip" data-toggle="tooltip" title="cropper.destroy()">
-                                        <span class="fa fa-power-off"></span>
+                                @*<button type   ="button" class="btn btn-primary" data-method="destroy" title="Destroy">
+                                    <span class  ="docs-tooltip" data-toggle="tooltip" title="cropper.destroy()">
+                                    <span class  ="fa fa-power-off"></span>
                                     </span>
-                                </button>*@
+                                    </button>*@
                             </div>
 
                             <div class="btn-group btn-group-crop">
                                 <button type="button" class="btn btn-success" data-method="getCroppedCanvas" data-option="{ &quot;maxWidth&quot;: 4096, &quot;maxHeight&quot;: 4096 }">
                                     <span class="docs-tooltip" data-toggle="tooltip" title="cropper.getCroppedCanvas({ maxWidth: 600, maxHeight: 600 })">
-                                       Cắt ảnh
+                                        Cắt ảnh
                                     </span>
                                 </button>
-                                @*<button type="button" class="btn btn-success" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 500, &quot;height&quot;: 500 }">
-                                    <span class="docs-tooltip" data-toggle="tooltip" title="cropper.getCroppedCanvas({ width: 160, height: 90 })">
-                                        160&times;90
+                                @*<button type   ="button" class="btn btn-success" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 500, &quot;height&quot;: 500 }">
+                                    <span class  ="docs-tooltip" data-toggle="tooltip" title="cropper.getCroppedCanvas({ width: 160, height: 90 })">
+                                    160&times;90
                                     </span>
-                                </button>
-                                <button type="button" class="btn btn-success" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 320, &quot;height&quot;: 180 }">
-                                    <span class="docs-tooltip" data-toggle="tooltip" title="cropper.getCroppedCanvas({ width: 320, height: 180 })">
-                                        320&times;180
+                                    </button>
+                                    <button type ="button" class="btn btn-success" data-method="getCroppedCanvas" data-option="{ &quot;width&quot;: 320, &quot;height&quot;: 180 }">
+                                    <span class  ="docs-tooltip" data-toggle="tooltip" title="cropper.getCroppedCanvas({ width: 320, height: 180 })">
+                                    320&times;180
                                     </span>
-                                </button>*@
+                                    </button>*@
                             </div>
 
                             <!-- Show the cropped image in modal -->
-                            <div class="modal fade docs-cropped" id="getCroppedCanvasModal" role="dialog" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" tabindex="-1">
+                        <div class="modal fade docs-cropped" id="getCroppedCanvasModal" role="dialog" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" tabindex="-1">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -257,57 +267,57 @@
                                 </div>
                             </div><!-- /.modal -->
 
-                        </div><!-- /.docs-buttons -->
+                    </div><!-- /.docs-buttons -->
 
-                        <div class="col-md-3 docs-toggles">                         
+                    <div class="col-md-3 docs-toggles">
                             <div class="btn-group d-flex flex-nowrap" data-toggle="buttons">
-                                <label class="btn btn-primary active">
-                                    <input type="radio" class="sr-only" id="aspectRatio1" name="aspectRatio" value="1.7777777777777777">
-                                    <span class="docs-tooltip" data-toggle="tooltip" title="aspectRatio: 16 / 9">
-                                        16:9
+                                @* <label class  ="btn btn-primary active">
+                                    <input type  ="radio" class="sr-only" id="aspectRatio1" name="aspectRatio" value="1.7777777777777777">
+                                    <span class  ="docs-tooltip" data-toggle="tooltip" title="aspectRatio: 16 / 9">
+                                    16:9
                                     </span>
-                                </label>
-                                <label class="btn btn-primary">
+                                    </label>*@
+                                <label class="btn btn-primary active">
                                     <input type="radio" class="sr-only" id="aspectRatio2" name="aspectRatio" value="1.3333333333333333">
                                     <span class="docs-tooltip" data-toggle="tooltip" title="aspectRatio: 4 / 3">
                                         4:3
                                     </span>
                                 </label>
-                                <label class="btn btn-primary">
-                                    <input type="radio" class="sr-only" id="aspectRatio3" name="aspectRatio" value="1">
-                                    <span class="docs-tooltip" data-toggle="tooltip" title="aspectRatio: 1 / 1">
-                                        1:1
+                                @* <label class  ="btn btn-primary">
+                                    <input type  ="radio" class="sr-only" id="aspectRatio3" name="aspectRatio" value="1">
+                                    <span class  ="docs-tooltip" data-toggle="tooltip" title="aspectRatio: 1 / 1">
+                                    1:1
                                     </span>
-                                </label>
-                                <label class="btn btn-primary">
-                                    <input type="radio" class="sr-only" id="aspectRatio4" name="aspectRatio" value="0.6666666666666666">
-                                    <span class="docs-tooltip" data-toggle="tooltip" title="aspectRatio: 2 / 3">
-                                        2:3
+                                    </label>
+                                    <label class ="btn btn-primary">
+                                    <input type  ="radio" class="sr-only" id="aspectRatio4" name="aspectRatio" value="0.6666666666666666">
+                                    <span class  ="docs-tooltip" data-toggle="tooltip" title="aspectRatio: 2 / 3">
+                                    2:3
                                     </span>
-                                </label>
-                                <label class="btn btn-primary">
-                                    <input type="radio" class="sr-only" id="aspectRatio5" name="aspectRatio" value="NaN">
-                                    <span class="docs-tooltip" data-toggle="tooltip" title="aspectRatio: NaN">
-                                        Tự do
+                                    </label>
+                                    <label class ="btn btn-primary">
+                                    <input type  ="radio" class="sr-only" id="aspectRatio5" name="aspectRatio" value="NaN">
+                                    <span class  ="docs-tooltip" data-toggle="tooltip" title="aspectRatio: NaN">
+                                    Tự do
                                     </span>
-                                </label>
+                                    </label>*@
                             </div>
 
                         </div>
-    <!-- /.docs-toggles -->
-                    </div>
-                
-            </div>
-            <div class="modal-footer">            
-                <button type="button" class="btn btn-danger"
+                        <!-- /.docs-toggles -->
+                </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger"
                         @onclick="() => OnConfirmationChange(false)">
-                    Hủy bỏ
-                </button>
+                        Hủy bỏ
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-                }
+}
 
 
 

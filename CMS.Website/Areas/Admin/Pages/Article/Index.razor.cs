@@ -3,45 +3,49 @@ using Blazored.Toast.Services;
 using CMS.Data.ModelDTO;
 using CMS.Data.ModelEntity;
 using CMS.Data.ModelFilter;
-using CMS.Website.Areas.Admin.Pages.Shared;
 using CMS.Website.Areas.Admin.Pages.Shared.Components;
 using CMS.Website.Logging;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.AspNetCore.WebUtilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace CMS.Website.Areas.Admin.Pages.Article
 {
     public partial class Index : IDisposable
     {
-        #region Inject   
-        [Inject]
-        IMapper Mapper { get; set; }
-        [Inject]
-        ILoggerManager Logger { get; set; }
-        [Inject]
-        UserManager<IdentityUser> UserManager { get; set; }
-        #endregion
+        #region Inject
 
+        [Inject]
+        private IMapper Mapper { get; set; }
+
+        [Inject]
+        private ILoggerManager Logger { get; set; }
+
+        [Inject]
+        private UserManager<IdentityUser> UserManager { get; set; }
+
+        #endregion Inject
 
         #region Parameter
+
         [Parameter]
         public string keyword { get; set; }
+
         [Parameter]
         public int? articleCategoryId { get; set; }
+
         [Parameter]
         public int? p { get; set; }
-        #endregion
+
+        #endregion Parameter
 
         #region Model
+
         private List<SpArticleSearchResult> lstArticle;
         public int currentPage { get; set; }
         public int totalCount { get; set; }
@@ -50,25 +54,24 @@ namespace CMS.Website.Areas.Admin.Pages.Article
         public ArticleSearchFilter modelFilter { get; set; }
         public int? articleCategorySelected { get; set; }
         public int? articleStatusSelected { get; set; }
-        List<ArticleCategory> lstArticleCategory { get; set; }
-        List<ArticleStatus> lstArticleStatus { get; set; }
-
-        //[CascadingParameter]
-        //private Task<AuthenticationState> authenticationStateTask { get; set; }
+        public int? setArticleStatusSelected { get; set; }
+        private List<ArticleCategory> lstArticleCategory { get; set; }
+        private List<ArticleStatus> lstArticleStatus { get; set; }
+        private string subTitle { get; set; } = "bài viết đã cập nhật";
+        public string outMessage = "";
+    
         [CascadingParameter]
         protected GlobalModel globalModel { get; set; }
+
         protected ConfirmBase DeleteConfirmation { get; set; }
-        List<int> listArticleSelected { get; set; } = new List<int>();
-        bool _forceRerender;
-        bool isCheck { get; set; }
-        #endregion
+        private List<int> listArticleSelected { get; set; } = new List<int>();
+        private bool _forceRerender;
+        private bool isCheck { get; set; }
+
+        #endregion Model
 
         #region LifeCycle
 
-        protected override async Task OnParametersSetAsync()
-        {
-
-        }
         protected override void OnInitialized()
         {
             //Add for change location and seach not reload page
@@ -97,29 +100,48 @@ namespace CMS.Website.Areas.Admin.Pages.Article
         {
             NavigationManager.LocationChanged -= HandleLocationChanged;
             GC.SuppressFinalize(this);
-
         }
 
-        #endregion
-
+        #endregion LifeCycle
 
         #region Init
+
         protected async Task InitControl()
         {
             //Binding Category
-            var lstArticleCate = await Repository.ArticleCategory.GetArticleCategoryById(null);
-            if (lstArticleCate != null)
+            if(globalModel.user.IsInRole("Phụ trách chuyên mục"))
             {
-                lstArticleCategory = lstArticleCate.Select(x => new ArticleCategory { Id = x.Id, Name = x.Name }).ToList();
+                var lstArticleCate = await Repository.ArticleCategory.GetArticleCategoryByUserId(globalModel.userId);
+                if (lstArticleCate != null)
+                {
+                    lstArticleCategory = lstArticleCate.Select(x => new ArticleCategory { Id = x.Id, Name = x.Name }).ToList();
+                }
+                //Binding Status
+                var lstStatus = await Repository.Article.GetLstArticleStatusByUserId(globalModel.userId);
+                if (lstStatus != null)
+                {
+                    lstArticleStatus = lstStatus.Select(x => new ArticleStatus { Id = x.Id, Name = x.Name }).ToList();
+                }
             }
-            //Binding Status
-            var lstStatus = await Repository.Article.GetLstArticleStatus();
-            if (lstStatus != null)
+        
+            else
             {
-                lstArticleStatus = lstStatus.Select(x => new ArticleStatus { Id = x.Id, Name = x.Name }).ToList();
+                var lstArticleCate = await Repository.ArticleCategory.GetArticleCategoryById(null);
+                if (lstArticleCate != null)
+                {
+                    lstArticleCategory = lstArticleCate.Select(x => new ArticleCategory { Id = x.Id, Name = x.Name }).ToList();
+                }
+                //Binding Status
+                var lstStatus = await Repository.Article.GetLstArticleStatus();
+                if (lstStatus != null)
+                {
+                    lstArticleStatus = lstStatus.Select(x => new ArticleStatus { Id = x.Id, Name = x.Name }).ToList();
+                }
             }
-
+            
+           
         }
+
         protected async Task InitData()
         {
             Logger.LogDebug("Init");
@@ -131,22 +153,25 @@ namespace CMS.Website.Areas.Admin.Pages.Article
             modelFilter.ArticleStatusId = articleStatusSelected;
             modelFilter.FromDate = DateTime.Now.AddYears(-10);
             modelFilter.ToDate = DateTime.Now;
-            if (globalModel.user.IsInRole("Cộng tác viên"))
+            if (globalModel.user.IsInRole("Cộng tác viên") )
             {
-                modelFilter.CreateBy = Guid.Parse(globalModel.userId);
+                modelFilter.CreateBy = globalModel.userId;
+            }
+            if (globalModel.user.IsInRole("Phụ trách chuyên mục"))
+            {
+                modelFilter.AssignBy = globalModel.userId;
             }
             var result = await Repository.Article.ArticleSearchWithPaging(modelFilter);
 
             lstArticle = result.Items;
             totalCount = result.TotalSize;
 
-            //Init Selected 
+            //Init Selected
             listArticleSelected.Clear();
             StateHasChanged();
         }
 
-        #endregion
-
+        #endregion Init
 
         #region Event
 
@@ -163,33 +188,25 @@ namespace CMS.Website.Areas.Admin.Pages.Article
                 {
                     foreach (var item in listArticleSelected)
                     {
-                        await Repository.Article.ArticleUpdateStatusType(item, postType);
+                        await Repository.Article.ArticleUpdateStatusType(globalModel.userId,item, postType);
                     }
-                    if (postType == 1)
-                    {
-                        toastService.ShowToast(ToastLevel.Success, "Duyệt đăng thành công", "Thành công!");
-
-                    }
-                    else
-                    {
-                        toastService.ShowToast(ToastLevel.Success, "Hủy đăng thành công", "Thành công!");
-                    }
-
+                    
+                    toastService.ShowToast(ToastLevel.Success, "Cập nhật thành công", "Thành công!");
+                   
                 }
-                catch (Exception ex)
+                catch(Exception ex)
                 {
-                    toastService.ShowToast(ToastLevel.Warning, "Có lỗi trong quá trình thực thi", "Lỗi!");
+                    toastService.ShowToast(ToastLevel.Warning, $"Có lỗi trong quá trình thực thi {ex.ToString()}", "Lỗi!");
                 }
                 _forceRerender = true;
                 StateHasChanged();
-                InitData();
-
+                await InitData();
             }
         }
 
-
-        protected async Task DeleteArticle(int? articleId)
+        protected void DeleteArticle(int? articleId)
         {
+            
             if (articleId == null) // Delete Demand
             {
                 if (listArticleSelected.Count == 0)
@@ -202,9 +219,17 @@ namespace CMS.Website.Areas.Admin.Pages.Article
             {
                 listArticleSelected.Clear();
                 listArticleSelected.Add((int)articleId);
+                if (!Repository.Permission.CanDeleteArticle(globalModel.user, globalModel.userId, (int)articleId, ref outMessage))
+                {
+                    toastService.ShowError(outMessage, "Thông báo");
+                    return;
+                }    
+            
             }
+
             DeleteConfirmation.Show();
         }
+
         protected async Task ConfirmDelete_Click(bool deleteConfirmed)
         {
             if (deleteConfirmed)
@@ -217,7 +242,7 @@ namespace CMS.Website.Areas.Admin.Pages.Article
                     }
                     toastService.ShowToast(ToastLevel.Success, "Xóa bài viết thành công", "Thành công");
                 }
-                catch (Exception ex)
+                catch
                 {
                     toastService.ShowToast(ToastLevel.Warning, "Có lỗi trong quá trình thực thi", "Lỗi!");
                 }
@@ -259,15 +284,15 @@ namespace CMS.Website.Areas.Admin.Pages.Article
                 }
             }
             StateHasChanged();
-
         }
 
-        protected void HandleLocationChanged(object sender, LocationChangedEventArgs e)
+        protected async void HandleLocationChanged(object sender, LocationChangedEventArgs e)
         {
             GetQueryStringValues();
             StateHasChanged();
-            InitData();
+            await InitData();
         }
+
         protected void GetQueryStringValues()
         {
             var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
@@ -288,6 +313,8 @@ namespace CMS.Website.Areas.Admin.Pages.Article
                 if (Int32.TryParse(_articleStatusId, out int res))
                 {
                     this.articleStatusSelected = res;
+                    subTitle = lstArticleStatus.Where(x => x.Id == articleStatusSelected).First()?.Name;
+                    StateHasChanged();
                 }
             }
             if (queryStrings.TryGetValue("p", out var _p))
@@ -296,8 +323,11 @@ namespace CMS.Website.Areas.Admin.Pages.Article
                 this.p = Convert.ToInt32(_p);
             }
         }
-        #endregion
-
-
+        private void OnChangeArticleStatus(int artStatusId)
+        {
+            subTitle = lstArticleStatus.Where(x => x.Id == artStatusId).First()?.Name;
+            StateHasChanged();
+        }
+        #endregion Event
     }
 }

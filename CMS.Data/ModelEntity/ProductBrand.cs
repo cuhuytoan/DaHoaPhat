@@ -18,6 +18,8 @@ namespace CMS.Data.ModelEntity
         public int? DepartmentManId { get; set; }
         [Column("ProductBrandModelManagement_ID")]
         public int? ProductBrandModelManagementId { get; set; }
+        public int? ProductBrandStatusId { get; set; }
+        public int? CountryId { get; set; }
         public int? LocationId { get; set; }
         public int? DistrictId { get; set; }
         public int? WardId { get; set; }
@@ -107,17 +109,15 @@ namespace CMS.Data.ModelEntity
         public string LastEditBy { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? LastEditDate { get; set; }
+        public int? Checked { get; set; }
         [StringLength(450)]
-        public string VerifyApproveBy { get; set; }
+        public string CheckBy { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime? VerifyApproveDate { get; set; }
+        public DateTime? CheckDate { get; set; }
+        public int? Approved { get; set; }
         [StringLength(450)]
-        public string CheckApproveBy { get; set; }
+        public string ApproveBy { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime? CheckApproveDate { get; set; }
-        [StringLength(450)]
-        public string AdminApproveBy { get; set; }
-        [Column(TypeName = "datetime")]
-        public DateTime? AdminApproveDate { get; set; }
+        public DateTime? ApproveDate { get; set; }
     }
 }

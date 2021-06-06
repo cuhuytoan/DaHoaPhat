@@ -11,13 +11,14 @@ namespace CMS.Services.Repositories
     public interface IUserNotiRepository : IRepositoryBase<UserNotify>
     {
         Task<VirtualizeResponse<SpUserNotifySearchResult>> GetAllNoti(int? UserNotifyTypeId, string AspNetUsersId, bool? Readed, int PageSize, int CurrentPage);
+
         Task<int> UserNotiCreateNew(UserNotify model);
     }
+
     public class UserNotiRepository : RepositoryBase<UserNotify>, IUserNotiRepository
     {
         public UserNotiRepository(CmsContext CmsDBContext) : base(CmsDBContext)
         {
-
         }
 
         public async Task<VirtualizeResponse<SpUserNotifySearchResult>> GetAllNoti(int? UserNotifyTypeId, string AspNetUsersId, bool? Readed, int PageSize, int CurrentPage)

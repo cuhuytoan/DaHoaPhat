@@ -23,6 +23,7 @@ namespace CMS.Data.ModelDTO
         public DateTime? LastEditedDate { get; set; }
         public bool? hasChildren { get; set; }
     }
+
     public class ArticleMenuDTO
     {
         public ArticleCategoryDTO MainMenu { get; set; }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
-
 namespace CMS.Website.Areas.Admin.Pages.Shared.Components
 {
     public partial class ConfirmBase
@@ -14,7 +13,7 @@ namespace CMS.Website.Areas.Admin.Pages.Shared.Components
         [Parameter]
         public string ConfirmationMessage { get; set; } = "Bạn có chắc chắn muốn xóa ?";
 
-        public void Show()
+        public async Task Show()
         {
             ShowConfirmation = true;
             StateHasChanged();
@@ -29,5 +28,4 @@ namespace CMS.Website.Areas.Admin.Pages.Shared.Components
             await ConfirmationChanged.InvokeAsync(value);
         }
     }
-
 }

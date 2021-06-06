@@ -4,12 +4,11 @@ using System.Globalization;
 
 namespace CMS.Data.ValidationCustomize
 {
-
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
-    sealed class MinWordsAttribute : ValidationAttribute
+    internal sealed class MinWordsAttribute : ValidationAttribute
     {
         // Internal field to hold the MinWords value.
-        readonly int _MinWords;
+        private readonly int _MinWords;
 
         public int MinWords
         {
@@ -20,16 +19,20 @@ namespace CMS.Data.ValidationCustomize
         {
             _MinWords = MinWords;
         }
+
         public override bool IsValid(object value)
         {
             var inputText = (String)value;
             bool result = true;
+#pragma warning disable CS0472 // The result of the expression is always 'true' since a value of type 'int' is never equal to 'null' of type 'int?'
             if (this.MinWords != null)
+#pragma warning restore CS0472 // The result of the expression is always 'true' since a value of type 'int' is never equal to 'null' of type 'int?'
             {
                 result = MatchesMinCountWord(this.MinWords, inputText);
             }
             return result;
         }
+
         internal bool MatchesMinCountWord(int MinWords, string inputText)
         {
             var wordCount = CMS.Common.Utils.CountWords(inputText);

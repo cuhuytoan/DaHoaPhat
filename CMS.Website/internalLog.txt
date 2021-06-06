@@ -2289,3 +2289,133 @@ File name: 'NLog.Web.AspNetCore, Culture=neutral, PublicKeyToken=null'
 2021-05-18 20:25:22.7722 Info Validating config: TargetNames=alldata, otherFile-web, ConfigItems=43, FilePath=D:\ToanCH\Project\CMS\CMS.Website\bin\Debug\net5.0\NLog.config
 2021-05-18 20:25:22.8006 Info Configuration initialized.
 2021-05-18 20:25:22.8006 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.8.12686. Product version: 4.7.8+1a738710a3e2974972abafd94d9df40f6b58035f. GlobalAssemblyCache: False
+2021-06-06 15:12:08.8407 Info Auto loading assembly file: D:\Project\DaHoaPhat\CMS.Website\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-06-06 15:12:08.8407 Info Loading assembly file: D:\Project\DaHoaPhat\CMS.Website\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+2021-06-06 15:12:10.0827 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.1.1487. Product version: 1.7.1+d96c28dcde7476268e67387aecfb6e673b4a423d. GlobalAssemblyCache: False
+2021-06-06 15:12:10.1179 Info Auto loading assembly file: D:\Project\DaHoaPhat\CMS.Website\bin\Debug\net5.0\NLog.Extensions.Logging.dll succeeded!
+2021-06-06 15:12:10.1202 Info Message Template Auto Format enabled
+2021-06-06 15:12:10.1202 Info Loading assembly: NLog.Web.AspNetCore
+2021-06-06 15:12:10.2547 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Error loading extensions: NLog.Web.AspNetCore
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'NLog.Web.AspNetCore, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+File name: 'NLog.Web.AspNetCore, Culture=neutral, PublicKeyToken=null'
+   at System.Reflection.RuntimeAssembly.InternalLoad(ObjectHandleOnStack assemblyName, ObjectHandleOnStack requestingAssembly, StackCrawlMarkHandle stackMark, Boolean throwOnFileNotFound, ObjectHandleOnStack assemblyLoadContext, ObjectHandleOnStack retAssembly)
+   at System.Reflection.RuntimeAssembly.InternalLoad(AssemblyName assemblyName, RuntimeAssembly requestingAssembly, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, AssemblyLoadContext assemblyLoadContext)
+   at System.Reflection.Assembly.Load(String assemblyString)
+   at NLog.Internal.AssemblyHelpers.LoadFromName(String assemblyName)
+   at NLog.Config.LoggingConfigurationParser.ParseExtensionWithAssembly(String assemblyName, String prefix)
+   --- End of inner exception stack trace ---
+2021-06-06 15:12:11.5551 Info Adding target FileTarget(Name=alldata)
+2021-06-06 15:12:11.5564 Error Error parsing layout aspnet-request-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-request-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2021-06-06 15:12:11.5564 Error Error parsing layout aspnet-mvc-action will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-mvc-action'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2021-06-06 15:12:11.5564 Info Adding target FileTarget(Name=otherFile-web)
+2021-06-06 15:12:11.6062 Info Validating config: TargetNames=alldata, otherFile-web, ConfigItems=43, FilePath=D:\Project\DaHoaPhat\CMS.Website\bin\Debug\net5.0\NLog.config
+2021-06-06 15:12:11.6368 Info Configuration initialized.
+2021-06-06 15:12:11.6368 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.8.12686. Product version: 4.7.8+1a738710a3e2974972abafd94d9df40f6b58035f. GlobalAssemblyCache: False
+2021-06-06 15:53:43.6614 Info Auto loading assembly file: D:\Project\DaHoaPhat\CMS.Website\bin\Debug\net6.0\NLog.Extensions.Logging.dll
+2021-06-06 15:53:43.6614 Info Loading assembly file: D:\Project\DaHoaPhat\CMS.Website\bin\Debug\net6.0\NLog.Extensions.Logging.dll
+2021-06-06 15:53:43.6840 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.2.1548. Product version: 1.7.2+4bd1909dde91279dbdea4d1c38ff6a09de78f531. GlobalAssemblyCache: False
+2021-06-06 15:53:43.6840 Info Auto loading assembly file: D:\Project\DaHoaPhat\CMS.Website\bin\Debug\net6.0\NLog.Extensions.Logging.dll succeeded!
+2021-06-06 15:53:43.6840 Info Message Template Auto Format enabled
+2021-06-06 15:53:43.6921 Info Loading assembly: NLog.Web.AspNetCore
+2021-06-06 15:53:43.6921 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Error loading extensions: NLog.Web.AspNetCore
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'NLog.Web.AspNetCore, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+File name: 'NLog.Web.AspNetCore, Culture=neutral, PublicKeyToken=null'
+   at System.Reflection.RuntimeAssembly.InternalLoad(ObjectHandleOnStack assemblyName, ObjectHandleOnStack requestingAssembly, StackCrawlMarkHandle stackMark, Boolean throwOnFileNotFound, ObjectHandleOnStack assemblyLoadContext, ObjectHandleOnStack retAssembly) in System.Private.CoreLib.dll:token 0x6004dbd+0x8
+   at System.Reflection.RuntimeAssembly.InternalLoad(AssemblyName assemblyName, RuntimeAssembly requestingAssembly, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, AssemblyLoadContext assemblyLoadContext) in System.Private.CoreLib.dll:token 0x6004dbc+0x16
+   at System.Reflection.Assembly.Load(String assemblyString) in System.Private.CoreLib.dll:token 0x6004bb1+0x0
+   at NLog.Internal.AssemblyHelpers.LoadFromName(String assemblyName) in NLog.dll:token 0x6000dde+0xb
+   at NLog.Config.LoggingConfigurationParser.ParseExtensionWithAssembly(String assemblyName, String prefix) in NLog.dll:token 0x600120c+0x0
+   --- End of inner exception stack trace ---
+2021-06-06 15:53:43.7976 Info Adding target FileTarget(Name=alldata)
+2021-06-06 15:53:43.8110 Error Error parsing layout aspnet-request-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-request-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName) in NLog.dll:token 0x6001174+0x5e
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions) in NLog.dll:token 0x6000a41+0x0
+2021-06-06 15:53:43.8110 Error Error parsing layout aspnet-mvc-action will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-mvc-action'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName) in NLog.dll:token 0x6001174+0x5e
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions) in NLog.dll:token 0x6000a41+0x0
+2021-06-06 15:53:43.8144 Info Adding target FileTarget(Name=otherFile-web)
+2021-06-06 15:53:43.8598 Info Validating config: TargetNames=alldata, otherFile-web, ConfigItems=43, FilePath=D:\Project\DaHoaPhat\CMS.Website\bin\Debug\net6.0\NLog.config
+2021-06-06 15:53:43.8819 Info Configuration initialized.
+2021-06-06 15:53:43.8819 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.9.12899. Product version: 4.7.9+e8712e62842e2d74d60fdf37cf74d743750e5ca2. GlobalAssemblyCache: False
+2021-06-06 16:02:10.9147 Info Auto loading assembly file: D:\Project\DaHoaPhat\CMS.Website\bin\Debug\net6.0\NLog.Extensions.Logging.dll
+2021-06-06 16:02:10.9147 Info Loading assembly file: D:\Project\DaHoaPhat\CMS.Website\bin\Debug\net6.0\NLog.Extensions.Logging.dll
+2021-06-06 16:02:10.9508 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.2.1548. Product version: 1.7.2+4bd1909dde91279dbdea4d1c38ff6a09de78f531. GlobalAssemblyCache: False
+2021-06-06 16:02:10.9508 Info Auto loading assembly file: D:\Project\DaHoaPhat\CMS.Website\bin\Debug\net6.0\NLog.Extensions.Logging.dll succeeded!
+2021-06-06 16:02:10.9508 Info Message Template Auto Format enabled
+2021-06-06 16:02:10.9587 Info Loading assembly: NLog.Web.AspNetCore
+2021-06-06 16:02:10.9587 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Error loading extensions: NLog.Web.AspNetCore
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'NLog.Web.AspNetCore, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+File name: 'NLog.Web.AspNetCore, Culture=neutral, PublicKeyToken=null'
+   at System.Reflection.RuntimeAssembly.InternalLoad(ObjectHandleOnStack assemblyName, ObjectHandleOnStack requestingAssembly, StackCrawlMarkHandle stackMark, Boolean throwOnFileNotFound, ObjectHandleOnStack assemblyLoadContext, ObjectHandleOnStack retAssembly) in System.Private.CoreLib.dll:token 0x6004dbd+0x8
+   at System.Reflection.RuntimeAssembly.InternalLoad(AssemblyName assemblyName, RuntimeAssembly requestingAssembly, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, AssemblyLoadContext assemblyLoadContext) in System.Private.CoreLib.dll:token 0x6004dbc+0x16
+   at System.Reflection.Assembly.Load(String assemblyString) in System.Private.CoreLib.dll:token 0x6004bb1+0x0
+   at NLog.Internal.AssemblyHelpers.LoadFromName(String assemblyName) in NLog.dll:token 0x6000dde+0xb
+   at NLog.Config.LoggingConfigurationParser.ParseExtensionWithAssembly(String assemblyName, String prefix) in NLog.dll:token 0x600120c+0x0
+   --- End of inner exception stack trace ---
+2021-06-06 16:02:11.0193 Info Adding target FileTarget(Name=alldata)
+2021-06-06 16:02:11.0193 Error Error parsing layout aspnet-request-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-request-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName) in NLog.dll:token 0x6001174+0x5e
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions) in NLog.dll:token 0x6000a41+0x0
+2021-06-06 16:02:11.0344 Error Error parsing layout aspnet-mvc-action will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-mvc-action'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName) in NLog.dll:token 0x6001174+0x5e
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions) in NLog.dll:token 0x6000a41+0x0
+2021-06-06 16:02:11.0344 Info Adding target FileTarget(Name=otherFile-web)
+2021-06-06 16:02:11.0565 Info Validating config: TargetNames=alldata, otherFile-web, ConfigItems=43, FilePath=D:\Project\DaHoaPhat\CMS.Website\bin\Debug\net6.0\NLog.config
+2021-06-06 16:02:11.0738 Info Configuration initialized.
+2021-06-06 16:02:11.0738 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.9.12899. Product version: 4.7.9+e8712e62842e2d74d60fdf37cf74d743750e5ca2. GlobalAssemblyCache: False
+2021-06-06 16:16:18.8997 Info Auto loading assembly file: D:\Project\DaHoaPhat\CMS.Website\bin\Debug\net6.0\NLog.Extensions.Logging.dll
+2021-06-06 16:16:18.8997 Info Loading assembly file: D:\Project\DaHoaPhat\CMS.Website\bin\Debug\net6.0\NLog.Extensions.Logging.dll
+2021-06-06 16:16:18.8997 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.2.1548. Product version: 1.7.2+4bd1909dde91279dbdea4d1c38ff6a09de78f531. GlobalAssemblyCache: False
+2021-06-06 16:16:18.8997 Info Auto loading assembly file: D:\Project\DaHoaPhat\CMS.Website\bin\Debug\net6.0\NLog.Extensions.Logging.dll succeeded!
+2021-06-06 16:16:18.9094 Info Message Template Auto Format enabled
+2021-06-06 16:16:18.9094 Info Loading assembly: NLog.Web.AspNetCore
+2021-06-06 16:16:18.9094 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Error loading extensions: NLog.Web.AspNetCore
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'NLog.Web.AspNetCore, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+File name: 'NLog.Web.AspNetCore, Culture=neutral, PublicKeyToken=null'
+   at System.Reflection.RuntimeAssembly.InternalLoad(ObjectHandleOnStack assemblyName, ObjectHandleOnStack requestingAssembly, StackCrawlMarkHandle stackMark, Boolean throwOnFileNotFound, ObjectHandleOnStack assemblyLoadContext, ObjectHandleOnStack retAssembly) in System.Private.CoreLib.dll:token 0x6004dbd+0x8
+   at System.Reflection.RuntimeAssembly.InternalLoad(AssemblyName assemblyName, RuntimeAssembly requestingAssembly, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, AssemblyLoadContext assemblyLoadContext) in System.Private.CoreLib.dll:token 0x6004dbc+0x16
+   at System.Reflection.Assembly.Load(String assemblyString) in System.Private.CoreLib.dll:token 0x6004bb1+0x0
+   at NLog.Internal.AssemblyHelpers.LoadFromName(String assemblyName) in NLog.dll:token 0x6000dde+0xb
+   at NLog.Config.LoggingConfigurationParser.ParseExtensionWithAssembly(String assemblyName, String prefix) in NLog.dll:token 0x600120c+0x0
+   --- End of inner exception stack trace ---
+2021-06-06 16:16:18.9609 Info Adding target FileTarget(Name=alldata)
+2021-06-06 16:16:18.9609 Error Error parsing layout aspnet-request-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-request-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName) in NLog.dll:token 0x6001174+0x5e
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions) in NLog.dll:token 0x6000a41+0x0
+2021-06-06 16:16:18.9609 Error Error parsing layout aspnet-mvc-action will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-mvc-action'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName) in NLog.dll:token 0x6001174+0x5e
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions) in NLog.dll:token 0x6000a41+0x0
+2021-06-06 16:16:18.9609 Info Adding target FileTarget(Name=otherFile-web)
+2021-06-06 16:16:18.9820 Info Validating config: TargetNames=alldata, otherFile-web, ConfigItems=43, FilePath=D:\Project\DaHoaPhat\CMS.Website\bin\Debug\net6.0\NLog.config
+2021-06-06 16:16:18.9939 Info Configuration initialized.
+2021-06-06 16:16:18.9939 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.9.12899. Product version: 4.7.9+e8712e62842e2d74d60fdf37cf74d743750e5ca2. GlobalAssemblyCache: False
+2021-06-06 16:17:16.0440 Info Auto loading assembly file: D:\Project\DaHoaPhat\CMS.Website\bin\Debug\net6.0\NLog.Extensions.Logging.dll
+2021-06-06 16:17:16.0440 Info Loading assembly file: D:\Project\DaHoaPhat\CMS.Website\bin\Debug\net6.0\NLog.Extensions.Logging.dll
+2021-06-06 16:17:16.0595 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.7.2.1548. Product version: 1.7.2+4bd1909dde91279dbdea4d1c38ff6a09de78f531. GlobalAssemblyCache: False
+2021-06-06 16:17:16.0595 Info Auto loading assembly file: D:\Project\DaHoaPhat\CMS.Website\bin\Debug\net6.0\NLog.Extensions.Logging.dll succeeded!
+2021-06-06 16:17:16.0595 Info Message Template Auto Format enabled
+2021-06-06 16:17:16.0671 Info Loading assembly: NLog.Web.AspNetCore
+2021-06-06 16:17:16.0671 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Error loading extensions: NLog.Web.AspNetCore
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'NLog.Web.AspNetCore, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+File name: 'NLog.Web.AspNetCore, Culture=neutral, PublicKeyToken=null'
+   at System.Reflection.RuntimeAssembly.InternalLoad(ObjectHandleOnStack assemblyName, ObjectHandleOnStack requestingAssembly, StackCrawlMarkHandle stackMark, Boolean throwOnFileNotFound, ObjectHandleOnStack assemblyLoadContext, ObjectHandleOnStack retAssembly) in System.Private.CoreLib.dll:token 0x6004dbd+0x8
+   at System.Reflection.RuntimeAssembly.InternalLoad(AssemblyName assemblyName, RuntimeAssembly requestingAssembly, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, AssemblyLoadContext assemblyLoadContext) in System.Private.CoreLib.dll:token 0x6004dbc+0x16
+   at System.Reflection.Assembly.Load(String assemblyString) in System.Private.CoreLib.dll:token 0x6004bb1+0x0
+   at NLog.Internal.AssemblyHelpers.LoadFromName(String assemblyName) in NLog.dll:token 0x6000dde+0xb
+   at NLog.Config.LoggingConfigurationParser.ParseExtensionWithAssembly(String assemblyName, String prefix) in NLog.dll:token 0x600120c+0x0
+   --- End of inner exception stack trace ---
+2021-06-06 16:17:16.1770 Info Adding target FileTarget(Name=alldata)
+2021-06-06 16:17:16.1770 Error Error parsing layout aspnet-request-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-request-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName) in NLog.dll:token 0x6001174+0x5e
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions) in NLog.dll:token 0x6000a41+0x0
+2021-06-06 16:17:16.1770 Error Error parsing layout aspnet-mvc-action will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-mvc-action'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String itemName) in NLog.dll:token 0x6001174+0x5e
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions) in NLog.dll:token 0x6000a41+0x0
+2021-06-06 16:17:16.1770 Info Adding target FileTarget(Name=otherFile-web)
+2021-06-06 16:17:16.2404 Info Validating config: TargetNames=alldata, otherFile-web, ConfigItems=43, FilePath=D:\Project\DaHoaPhat\CMS.Website\bin\Debug\net6.0\NLog.config
+2021-06-06 16:17:16.2570 Info Configuration initialized.
+2021-06-06 16:17:16.2570 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.9.12899. Product version: 4.7.9+e8712e62842e2d74d60fdf37cf74d743750e5ca2. GlobalAssemblyCache: False

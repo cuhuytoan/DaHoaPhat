@@ -42,7 +42,7 @@ namespace CMS.Data.ModelEntity
             _context = context;
         }
 
-        public virtual async Task<SpAccountSearchResult[]> SpAccountSearchAsync(string Keyword, Guid? RoleId, bool? Active, int? PageSize, int? CurrentPage, OutputParameter<int?> ItemCount, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        public virtual async Task<List<SpAccountSearchResult>> SpAccountSearchAsync(string Keyword, Guid? RoleId, bool? Active, int? PageSize, int? CurrentPage, OutputParameter<int?> ItemCount, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterItemCount = new SqlParameter
             {
@@ -101,7 +101,33 @@ namespace CMS.Data.ModelEntity
             return _;
         }
 
-        public virtual async Task<SpArticleCommentSearchResult[]> SpArticleCommentSearchAsync(string Keyword, int? ArticleId, bool? Active, string CreateBy, int? PageSize, int? CurrentPage, OutputParameter<int?> ItemCount, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        public virtual async Task<List<SpArticleBreadcrumbResult>> SpArticleBreadcrumbAsync(int? ArticleCategoryId, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "ArticleCategoryId",
+                    Value = ArticleCategoryId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<SpArticleBreadcrumbResult>("EXEC @returnValue = [dbo].[SpArticleBreadcrumb] @ArticleCategoryId", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<SpArticleCommentSearchResult>> SpArticleCommentSearchAsync(string Keyword, int? ArticleId, bool? Active, string CreateBy, int? PageSize, int? CurrentPage, OutputParameter<int?> ItemCount, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterItemCount = new SqlParameter
             {
@@ -167,7 +193,73 @@ namespace CMS.Data.ModelEntity
             return _;
         }
 
-        public virtual async Task<SpArticleGetByBlockIdResult[]> SpArticleGetByBlockIdAsync(int? ArticleBlockId, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        public virtual async Task<List<SpArticleCommentStaffSearchResult>> SpArticleCommentStaffSearchAsync(string Keyword, int? ArticleId, bool? Active, string CreateBy, int? PageSize, int? CurrentPage, OutputParameter<int?> ItemCount, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterItemCount = new SqlParameter
+            {
+                ParameterName = "ItemCount",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "Keyword",
+                    Size = 4000,
+                    Value = Keyword ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ArticleId",
+                    Value = ArticleId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Active",
+                    Value = Active ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Bit,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CreateBy",
+                    Size = 200,
+                    Value = CreateBy ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.VarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PageSize",
+                    Value = PageSize ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CurrentPage",
+                    Value = CurrentPage ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterItemCount,
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<SpArticleCommentStaffSearchResult>("EXEC @returnValue = [dbo].[SpArticleCommentStaffSearch] @Keyword, @ArticleId, @Active, @CreateBy, @PageSize, @CurrentPage, @ItemCount OUTPUT", sqlParameters, cancellationToken);
+
+            ItemCount.SetValue(parameterItemCount.Value);
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<SpArticleGetByBlockIdResult>> SpArticleGetByBlockIdAsync(int? ArticleBlockId, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter
             {
@@ -193,7 +285,7 @@ namespace CMS.Data.ModelEntity
             return _;
         }
 
-        public virtual async Task<SpArticleGetByCategoryIdResult[]> SpArticleGetByCategoryIdAsync(int? ArticleCategoryId, int? PageSize, int? CurrentPage, OutputParameter<int?> ItemCount, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        public virtual async Task<List<SpArticleGetByCategoryIdResult>> SpArticleGetByCategoryIdAsync(int? ArticleCategoryId, int? PageSize, int? CurrentPage, OutputParameter<int?> ItemCount, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterItemCount = new SqlParameter
             {
@@ -239,7 +331,7 @@ namespace CMS.Data.ModelEntity
             return _;
         }
 
-        public virtual async Task<SpArticleGetNewByCategoryIdResult[]> SpArticleGetNewByCategoryIdAsync(int? ArticleCategoryId, int? Number, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        public virtual async Task<List<SpArticleGetNewByCategoryIdResult>> SpArticleGetNewByCategoryIdAsync(int? ArticleCategoryId, int? Number, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter
             {
@@ -271,7 +363,7 @@ namespace CMS.Data.ModelEntity
             return _;
         }
 
-        public virtual async Task<SpArticleGetTopByCategoryIdResult[]> SpArticleGetTopByCategoryIdAsync(int? ArticleCategoryId, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        public virtual async Task<List<SpArticleGetTopByCategoryIdResult>> SpArticleGetTopByCategoryIdAsync(int? ArticleCategoryId, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter
             {
@@ -297,7 +389,7 @@ namespace CMS.Data.ModelEntity
             return _;
         }
 
-        public virtual async Task<SpArticleSearchResult[]> SpArticleSearchAsync(string Keyword, string Tags, int? ArticleCategoryId, int? ArticleStatusId, int? ProductBrandId, int? ArticleTypeId, int? ExceptionId, bool? ExceptionArticleTop, DateTime? FromDate, DateTime? ToDate, bool? Efficiency, bool? Active, Guid? CreateBy, int? PageSize, int? CurrentPage, OutputParameter<int?> ItemCount, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        public virtual async Task<List<SpArticleSearchResult>> SpArticleSearchAsync(string Keyword, int? ArticleCategoryId, int? ArticleStatusId, int? ProductBrandId, int? ArticleTypeId, int? ExceptionId, bool? ExceptionArticleTop, DateTime? FromDate, DateTime? ToDate, bool? Efficiency, bool? Active, string AssignBy, string CreateBy, int? PageSize, int? CurrentPage, OutputParameter<int?> ItemCount, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterItemCount = new SqlParameter
             {
@@ -319,13 +411,6 @@ namespace CMS.Data.ModelEntity
                     ParameterName = "Keyword",
                     Size = 4000,
                     Value = Keyword ?? Convert.DBNull,
-                    SqlDbType = System.Data.SqlDbType.NVarChar,
-                },
-                new SqlParameter
-                {
-                    ParameterName = "Tags",
-                    Size = 400,
-                    Value = Tags ?? Convert.DBNull,
                     SqlDbType = System.Data.SqlDbType.NVarChar,
                 },
                 new SqlParameter
@@ -390,9 +475,17 @@ namespace CMS.Data.ModelEntity
                 },
                 new SqlParameter
                 {
+                    ParameterName = "AssignBy",
+                    Size = 900,
+                    Value = AssignBy ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
                     ParameterName = "CreateBy",
+                    Size = 900,
                     Value = CreateBy ?? Convert.DBNull,
-                    SqlDbType = System.Data.SqlDbType.UniqueIdentifier,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
                 },
                 new SqlParameter
                 {
@@ -409,7 +502,7 @@ namespace CMS.Data.ModelEntity
                 parameterItemCount,
                 parameterreturnValue,
             };
-            var _ = await _context.SqlQueryAsync<SpArticleSearchResult>("EXEC @returnValue = [dbo].[SpArticleSearch] @Keyword, @Tags, @ArticleCategoryId, @ArticleStatusId, @ProductBrandId, @ArticleTypeId, @ExceptionId, @ExceptionArticleTop, @FromDate, @ToDate, @Efficiency, @Active, @CreateBy, @PageSize, @CurrentPage, @ItemCount OUTPUT", sqlParameters, cancellationToken);
+            var _ = await _context.SqlQueryAsync<SpArticleSearchResult>("EXEC @returnValue = [dbo].[SpArticleSearch] @Keyword, @ArticleCategoryId, @ArticleStatusId, @ProductBrandId, @ArticleTypeId, @ExceptionId, @ExceptionArticleTop, @FromDate, @ToDate, @Efficiency, @Active, @AssignBy, @CreateBy, @PageSize, @CurrentPage, @ItemCount OUTPUT", sqlParameters, cancellationToken);
 
             ItemCount.SetValue(parameterItemCount.Value);
             returnValue?.SetValue(parameterreturnValue.Value);
@@ -417,7 +510,139 @@ namespace CMS.Data.ModelEntity
             return _;
         }
 
-        public virtual async Task<SpSearchBreadCrumbByCateResult[]> SpSearchBreadCrumbByCateAsync(int? ArticleCategoryId, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        public virtual async Task<List<SpProductBrandSearchResult>> SpProductBrandSearchAsync(string Keyword, int? ProductBrandCategoryId, int? ProductBrandStatusId, int? ProductBrandTypeId, int? DepartmentManId, int? CountryId, int? LocationId, int? DistrictId, int? WardId, int? ExceptionId, DateTime? FromDate, DateTime? ToDate, bool? Efficiency, bool? Active, string CreateBy, int? PageSize, int? CurrentPage, OutputParameter<int?> ItemCount, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterItemCount = new SqlParameter
+            {
+                ParameterName = "ItemCount",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "Keyword",
+                    Size = 4000,
+                    Value = Keyword ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ProductBrandCategoryId",
+                    Value = ProductBrandCategoryId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ProductBrandStatusId",
+                    Value = ProductBrandStatusId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ProductBrandTypeId",
+                    Value = ProductBrandTypeId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "DepartmentManId",
+                    Value = DepartmentManId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CountryId",
+                    Value = CountryId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "LocationId",
+                    Value = LocationId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "DistrictId",
+                    Value = DistrictId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "WardId",
+                    Value = WardId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ExceptionId",
+                    Value = ExceptionId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FromDate",
+                    Value = FromDate ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ToDate",
+                    Value = ToDate ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Efficiency",
+                    Value = Efficiency ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Bit,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Active",
+                    Value = Active ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Bit,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CreateBy",
+                    Size = 900,
+                    Value = CreateBy ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PageSize",
+                    Value = PageSize ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CurrentPage",
+                    Value = CurrentPage ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterItemCount,
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<SpProductBrandSearchResult>("EXEC @returnValue = [dbo].[SpProductBrandSearch] @Keyword, @ProductBrandCategoryId, @ProductBrandStatusId, @ProductBrandTypeId, @DepartmentManId, @CountryId, @LocationId, @DistrictId, @WardId, @ExceptionId, @FromDate, @ToDate, @Efficiency, @Active, @CreateBy, @PageSize, @CurrentPage, @ItemCount OUTPUT", sqlParameters, cancellationToken);
+
+            ItemCount.SetValue(parameterItemCount.Value);
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<SpProductBreadcrumbResult>> SpProductBreadcrumbAsync(int? ProductCategoryId, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter
             {
@@ -430,20 +655,316 @@ namespace CMS.Data.ModelEntity
             {
                 new SqlParameter
                 {
-                    ParameterName = "ArticleCategoryId",
-                    Value = ArticleCategoryId ?? Convert.DBNull,
+                    ParameterName = "ProductCategoryId",
+                    Value = ProductCategoryId ?? Convert.DBNull,
                     SqlDbType = System.Data.SqlDbType.Int,
                 },
                 parameterreturnValue,
             };
-            var _ = await _context.SqlQueryAsync<SpSearchBreadCrumbByCateResult>("EXEC @returnValue = [dbo].[SpSearchBreadCrumbByCate] @ArticleCategoryId", sqlParameters, cancellationToken);
+            var _ = await _context.SqlQueryAsync<SpProductBreadcrumbResult>("EXEC @returnValue = [dbo].[SpProductBreadcrumb] @ProductCategoryId", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 
             return _;
         }
 
-        public virtual async Task<SpUserNotifySearchResult[]> SpUserNotifySearchAsync(int? UserNotifyTypeId, Guid? AspNetUsersId, bool? Readed, int? PageSize, int? CurrentPage, OutputParameter<int?> ItemCount, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        public virtual async Task<List<SpProductCommentSearchResult>> SpProductCommentSearchAsync(string Keyword, int? ProductId, bool? Active, string CreateBy, int? PageSize, int? CurrentPage, OutputParameter<int?> ItemCount, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterItemCount = new SqlParameter
+            {
+                ParameterName = "ItemCount",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "Keyword",
+                    Size = 4000,
+                    Value = Keyword ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ProductId",
+                    Value = ProductId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Active",
+                    Value = Active ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Bit,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CreateBy",
+                    Size = 200,
+                    Value = CreateBy ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.VarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PageSize",
+                    Value = PageSize ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CurrentPage",
+                    Value = CurrentPage ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterItemCount,
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<SpProductCommentSearchResult>("EXEC @returnValue = [dbo].[SpProductCommentSearch] @Keyword, @ProductId, @Active, @CreateBy, @PageSize, @CurrentPage, @ItemCount OUTPUT", sqlParameters, cancellationToken);
+
+            ItemCount.SetValue(parameterItemCount.Value);
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<SpProductCommentStaffSearchResult>> SpProductCommentStaffSearchAsync(string Keyword, int? ProductId, bool? Active, string CreateBy, int? PageSize, int? CurrentPage, OutputParameter<int?> ItemCount, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterItemCount = new SqlParameter
+            {
+                ParameterName = "ItemCount",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "Keyword",
+                    Size = 4000,
+                    Value = Keyword ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ProductId",
+                    Value = ProductId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Active",
+                    Value = Active ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Bit,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CreateBy",
+                    Size = 200,
+                    Value = CreateBy ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.VarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PageSize",
+                    Value = PageSize ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CurrentPage",
+                    Value = CurrentPage ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterItemCount,
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<SpProductCommentStaffSearchResult>("EXEC @returnValue = [dbo].[SpProductCommentStaffSearch] @Keyword, @ProductId, @Active, @CreateBy, @PageSize, @CurrentPage, @ItemCount OUTPUT", sqlParameters, cancellationToken);
+
+            ItemCount.SetValue(parameterItemCount.Value);
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<SpProductSearchResult>> SpProductSearchAsync(string Keyword, int? ProductCategoryId, int? ProductManufactureId, int? ProductStatusId, int? CountryId, int? LocationId, int? DepartmentManId, int? ProductBrandId, int? ProductTypeId, int? ExceptionId, bool? ExceptionProductTop, decimal? FromPrice, decimal? ToPrice, DateTime? FromDate, DateTime? ToDate, bool? Efficiency, bool? Active, string AssignBy, string CreateBy, string OrderBy, int? PageSize, int? CurrentPage, OutputParameter<int?> ItemCount, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterItemCount = new SqlParameter
+            {
+                ParameterName = "ItemCount",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "Keyword",
+                    Size = 4000,
+                    Value = Keyword ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ProductCategoryId",
+                    Value = ProductCategoryId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ProductManufactureId",
+                    Value = ProductManufactureId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ProductStatusId",
+                    Value = ProductStatusId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CountryId",
+                    Value = CountryId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "LocationId",
+                    Value = LocationId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "DepartmentManId",
+                    Value = DepartmentManId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ProductBrandId",
+                    Value = ProductBrandId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ProductTypeId",
+                    Value = ProductTypeId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ExceptionId",
+                    Value = ExceptionId ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ExceptionProductTop",
+                    Value = ExceptionProductTop ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Bit,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FromPrice",
+                    Value = FromPrice ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ToPrice",
+                    Value = ToPrice ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Money,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "FromDate",
+                    Value = FromDate ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "ToDate",
+                    Value = ToDate ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.DateTime,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Efficiency",
+                    Value = Efficiency ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Bit,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "Active",
+                    Value = Active ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Bit,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "AssignBy",
+                    Size = 900,
+                    Value = AssignBy ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CreateBy",
+                    Size = 900,
+                    Value = CreateBy ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.NVarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "OrderBy",
+                    Size = 200,
+                    Value = OrderBy ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.VarChar,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "PageSize",
+                    Value = PageSize ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                new SqlParameter
+                {
+                    ParameterName = "CurrentPage",
+                    Value = CurrentPage ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterItemCount,
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<SpProductSearchResult>("EXEC @returnValue = [dbo].[SpProductSearch] @Keyword, @ProductCategoryId, @ProductManufactureId, @ProductStatusId, @CountryId, @LocationId, @DepartmentManId, @ProductBrandId, @ProductTypeId, @ExceptionId, @ExceptionProductTop, @FromPrice, @ToPrice, @FromDate, @ToDate, @Efficiency, @Active, @AssignBy, @CreateBy, @OrderBy, @PageSize, @CurrentPage, @ItemCount OUTPUT", sqlParameters, cancellationToken);
+
+            ItemCount.SetValue(parameterItemCount.Value);
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<SpUserNotifySearchResult>> SpUserNotifySearchAsync(int? UserNotifyTypeId, Guid? AspNetUsersId, bool? Readed, int? PageSize, int? CurrentPage, OutputParameter<int?> ItemCount, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterItemCount = new SqlParameter
             {

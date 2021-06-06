@@ -18,16 +18,18 @@ using System.Threading.Tasks;
 
 namespace CMS.Website.Areas.Admin.Pages.Shared.Components
 {
-    public partial class ImageCropper 
+    public partial class ImageCropper
     {
         public string response { get; set; }
         protected bool ShowConfirmation { get; set; }
+        protected bool ShowAltText { get; set; }
         public string ImgData { get; set; }
+
         public async Task Show()
         {
-
-            await JSRuntime.InvokeVoidAsync("Crop.image", DotNetObjectReference.Create(this));
             ShowConfirmation = true;
+            await JSRuntime.InvokeVoidAsync("Crop.image", DotNetObjectReference.Create(this));
+
             StateHasChanged();
         }
 
@@ -37,9 +39,10 @@ namespace CMS.Website.Areas.Admin.Pages.Shared.Components
         protected async Task OnConfirmationChange(bool value)
         {
             ShowConfirmation = false;
-            ImgData = response !=null ? response.ToString() :"";
-            await ConfirmationCropChanged.InvokeAsync(value) ;
+            ImgData = response != null ? response.ToString() : "";
+            await ConfirmationCropChanged.InvokeAsync(value);
         }
+
         [JSInvokable]
         public void ResponseMethod(string data)
         {

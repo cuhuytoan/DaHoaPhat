@@ -14,6 +14,5 @@ namespace CMS.Data.ModelDTO
         public DateTime? CreateDate { get; set; }
         public string CreateBy { get; set; }
         public string AvatarUrl { get; set; }
-
     }
 }

@@ -12,20 +12,19 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+
 namespace CMS.Website.Areas.Admin.Pages.Shared
 {
-    public partial class AdminLayout 
+    public partial class AdminLayout
     {
-
-
         private HubConnection hubConnection;
         private GlobalModel globalModel { get; set; } = new GlobalModel();
+
         [CascadingParameter]
         private Task<AuthenticationState> authenticationStateTask { get; set; }
 
         protected override void OnInitialized()
         {
-          
         }
 
         protected override async Task OnInitializedAsync()
@@ -39,6 +38,7 @@ namespace CMS.Website.Areas.Admin.Pages.Shared
               {
                   options.Headers.Add("USERID", globalModel.userId);
               })
+              .WithAutomaticReconnect()
               .Build();
             await hubConnection.StartAsync();
             hubConnection.On<string, string, string, string, string>("ReceiveMessage", (toUserId, subject, content, url, imageUrl) =>
@@ -60,8 +60,8 @@ namespace CMS.Website.Areas.Admin.Pages.Shared
             });
 
             await InitData();
-
         }
+
         private async Task InitData()
         {
             var profiles = await Repository.AspNetUsers.AspNetUserProfilesGetByUserId(globalModel.userId);
@@ -74,13 +74,10 @@ namespace CMS.Website.Areas.Admin.Pages.Shared
             globalModel.totalUnread = result.TotalSize;
         }
 
-
-
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-
                 await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/Cubic/plugins/components/jquery/dist/jquery.min.js");
 
                 await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/Cubic/cubic-html/bootstrap/dist/js/bootstrap.min.js");
@@ -95,6 +92,7 @@ namespace CMS.Website.Areas.Admin.Pages.Shared
 
                 await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/Cubic/cubic-html/js/jasny-bootstrap.js");
 
+                await JSRuntime.InvokeAsync<IJSObjectReference>("import", "https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js");
                 //await JSRuntime.InvokeAsync<IJSObjectReference>("import", "https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js");
 
                 //await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/assets/js/customcht.js");
@@ -104,11 +102,7 @@ namespace CMS.Website.Areas.Admin.Pages.Shared
                 await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/assets/cropperjs/cropper.js");
 
                 await JSRuntime.InvokeAsync<IJSObjectReference>("import", "/assets/cropperjs/_scripts.js");
-
-
             }
-
         }
-       
     }
 }

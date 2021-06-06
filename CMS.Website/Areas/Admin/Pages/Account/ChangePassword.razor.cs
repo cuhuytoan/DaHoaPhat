@@ -74,7 +74,7 @@ namespace CMS.Website.Areas.Admin.Pages.Account
 
                     var result = await UserManager.ChangePasswordAsync(currentUser, changePwdModel.CurrentPassword, changePwdModel.Password);
                     await UserManager.UpdateAsync(currentUser);
-                    await SignInManager.RefreshSignInAsync(currentUser);
+                    //await SignInManager.RefreshSignInAsync(currentUser);
 
                     if (result.Succeeded)
                     {
@@ -91,7 +91,7 @@ namespace CMS.Website.Areas.Admin.Pages.Account
                 catch (Exception ex)
                 {
                     //ToastMessage
-                    toastService.ShowToast(ToastLevel.Error, $"Có lỗi trong quá trình cập nhật", "Lỗi");
+                    toastService.ShowToast(ToastLevel.Error, $"Có lỗi trong quá trình cập nhật {ex.ToString()}", "Lỗi");
                 }
 
             }
